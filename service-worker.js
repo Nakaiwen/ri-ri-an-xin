@@ -6,7 +6,7 @@
    - 改版時更新 CACHE_VERSION 即可讓舊快取自動淘汰
    ========================================================= */
 
-const CACHE_VERSION = 'v1.1.4';
+const CACHE_VERSION = 'v1.1.5';
 const APP_CACHE = 'ri-ri-an-xin-app-' + CACHE_VERSION;
 const FONT_CACHE = 'ri-ri-an-xin-fonts-' + CACHE_VERSION;
 
@@ -17,12 +17,12 @@ const APP_SHELL = [
   './style.css',
   './app.js',
   './manifest.webmanifest',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/icon-192-maskable.png',
-  './icons/icon-512-maskable.png',
-  './icons/apple-touch-icon.png',
-  './icons/favicon.png'
+  './icons/icon-192.png?v=2',
+  './icons/icon-512.png?v=2',
+  './icons/icon-192-maskable.png?v=2',
+  './icons/icon-512-maskable.png?v=2',
+  './icons/apple-touch-icon.png?v=2',
+  './icons/favicon.png?v=2'
 ];
 
 // ------------------ install: 預先快取 ------------------
