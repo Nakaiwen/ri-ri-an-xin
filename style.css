@@ -71,8 +71,8 @@
   --fs-xxl: calc(34px * var(--fs-scale));
 }
 
-body.fs-large { --fs-scale: 1.18; }
-body.fs-xlarge { --fs-scale: 1.38; }
+body.fs-large { --fs-scale: 1.25; }
+body.fs-xlarge { --fs-scale: 1.55; }
 
 html, body {
   margin: 0;
@@ -1318,27 +1318,79 @@ button {
 .font-size-group {
   display: flex;
   gap: 10px;
+  margin-bottom: 16px;
 }
 
 .font-size-btn {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   background: var(--card-bg-warm);
   border: 2px solid var(--border);
   border-radius: var(--radius-md);
-  padding: 16px 8px;
+  padding: 14px 8px 12px;
   color: var(--text);
   font-family: inherit;
   transition: all 0.2s;
+  min-height: 80px;
+}
+
+.font-size-btn-sample {
+  font-family: var(--font-kai);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text);
+}
+
+.font-size-btn-label {
+  font-size: calc(14px * var(--fs-scale));
+  color: var(--text-soft);
+  letter-spacing: 0.1em;
 }
 
 .font-size-btn.active {
   background: var(--primary-bg);
   border-color: var(--primary);
+}
+
+.font-size-btn.active .font-size-btn-sample {
+  color: var(--primary);
+}
+
+.font-size-btn.active .font-size-btn-label {
   color: var(--primary);
 }
 
 .font-size-btn:active {
   transform: scale(0.96);
+}
+
+/* 字體大小即時預覽 */
+.font-size-preview {
+  background: linear-gradient(135deg, #FFF5E8 0%, #FFE8D6 100%);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  border: 1px solid rgba(245, 201, 136, 0.4);
+}
+
+.font-size-preview-label {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--primary);
+  letter-spacing: 0.3em;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.font-size-preview-text {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.7;
+  letter-spacing: 0.05em;
 }
 
 /* =========================================================
@@ -1810,13 +1862,16 @@ button {
 
 .name-custom-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 8px;
   animation: fadeIn 0.3s ease;
 }
 
 .name-input {
-  flex: 1;
+  flex: 1 1 0;
+  min-width: 0;       /* 關鍵：讓 flex item 可以縮小到容器內，不被 placeholder 撐爆 */
+  width: 100%;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
@@ -1833,7 +1888,8 @@ button {
 }
 
 .name-custom-row .btn-primary {
-  padding: 12px 18px;
+  flex: 0 0 auto;
+  padding: 12px 22px;
   font-size: var(--fs-md);
   white-space: nowrap;
 }

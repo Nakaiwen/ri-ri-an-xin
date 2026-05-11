@@ -1276,8 +1276,13 @@
     document.getElementById('sayLineBtn').addEventListener('click', sendSayViaLine);
 
     // 字體大小
+    const FS_LABEL = { normal: '一般', large: '大', xlarge: '特大' };
     document.querySelectorAll('.font-size-btn').forEach(function (b) {
-      b.addEventListener('click', function () { applyFontSize(b.dataset.fs); });
+      b.addEventListener('click', function () {
+        const size = b.dataset.fs;
+        applyFontSize(size);
+        showToast('字體已調整為「' + FS_LABEL[size] + '」', 1800);
+      });
     });
 
     // 清除資料
@@ -1399,7 +1404,15 @@
   function init() {
     loadFontSize();
     wireEvents();
-    goTo('home');
+
+    // PWA shortcut 或外部連結傳入 #view 名稱時，直接導向該頁
+    const validViews = ['home', 'play', 'think', 'move', 'say', 'care', 'settings'];
+    const hash = (window.location.hash || '').replace('#', '');
+    if (hash && validViews.indexOf(hash) !== -1) {
+      goTo(hash);
+    } else {
+      goTo('home');
+    }
 
     // 每分鐘檢查一次問候是否該換（跨時段）
     setInterval(function () {
@@ -1419,3 +1432,18 @@
     init();
   }
 })();
+
+/* =========================================================
+   Service Worker 註冊
+   讓 App 可以離線開啟、加入主畫面後跟原生 App 一樣
+   ========================================================= */
+if ('serviceWorker' in navigator) {
+  // 等頁面 load 完才註冊，避免跟初始渲染搶資源
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('service-worker.js')
+      .catch(function (err) {
+        // 註冊失敗只在 console 紀錄，不打擾使用者
+        console.warn('Service Worker 註冊失敗：', err);
+      });
+  });
+}
