@@ -1,0 +1,1952 @@
+/* =========================================================
+   日日安心 — style.css
+   暖陶土 × 米白紙感 × 鼠尾草綠 的東方生活配色
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+  /* ---- 色彩 ---- */
+  --bg: #FBF6EC;
+  --bg-warm: #F6EDDE;
+  --card-bg: #FFFFFF;
+  --card-bg-warm: #FFFAF1;
+  --card-bg-tinted: #FDF5E8;
+
+  --primary: #C97553;          /* 暖陶土橘 */
+  --primary-dark: #A85B3D;
+  --primary-soft: #E8A584;
+  --primary-light: #FAE5D7;
+  --primary-bg: #FFF1E5;
+
+  --pink: #D89497;
+  --pink-soft: #F5DCDE;
+  --pink-bg: #FBEEF0;
+
+  --green: #7A9C70;
+  --green-soft: #B8CDB0;
+  --green-bg: #EBF2E5;
+
+  --gold: #C99650;
+  --gold-soft: #E8C77E;
+  --gold-bg: #F8EED4;
+
+  --text: #3E3025;
+  --text-soft: #7A6555;
+  --text-faint: #B5A292;
+  --border: #EDE1CC;
+  --border-soft: #F5EBD8;
+
+  --shadow-sm: 0 2px 8px rgba(180, 140, 100, 0.08);
+  --shadow-md: 0 4px 20px rgba(180, 140, 100, 0.12);
+  --shadow-lg: 0 8px 32px rgba(180, 140, 100, 0.15);
+  --shadow-warm: 0 6px 24px rgba(201, 117, 83, 0.15);
+
+  --radius-sm: 14px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+
+  /* ---- 字體 ----
+     標楷體優先用系統內建的：
+     - macOS / iOS：BiauKai（蘋果標楷體）
+     - Windows：DFKai-SB（標楷體）
+     - Android：HanyiKaiti / 楷體
+     都找不到時退回 Noto Serif TC（中宋體）— 字距清楚、長輩看得舒服。
+  */
+  --font-kai: "BiauKai", "DFKai-SB", "標楷體", "Kaiti TC", "Kaiti SC",
+              "Kaiti", "STKaiti", "HanyiKaiti", "AR PL UKai TW",
+              "AR PL UKai CN", "Noto Serif TC", serif;
+
+  /* ---- 字體尺寸（可調整） ---- */
+  --fs-scale: 1;
+  --fs-base: calc(17px * var(--fs-scale));
+  --fs-sm: calc(15px * var(--fs-scale));
+  --fs-md: calc(18px * var(--fs-scale));
+  --fs-lg: calc(22px * var(--fs-scale));
+  --fs-xl: calc(28px * var(--fs-scale));
+  --fs-xxl: calc(34px * var(--fs-scale));
+}
+
+body.fs-large { --fs-scale: 1.18; }
+body.fs-xlarge { --fs-scale: 1.38; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Noto Serif TC", "PingFang TC", "Microsoft JhengHei", serif;
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: 0.02em;
+  overscroll-behavior-y: contain;
+}
+
+/* 紙感背景紋理 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(232, 199, 126, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(216, 148, 151, 0.10) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(184, 205, 176, 0.08) 0%, transparent 50%);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.85 0 0 0 0 0.75 0 0 0 0 0.55 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* =========================================================
+   手機框 / App 主容器
+   ========================================================= */
+.phone-frame {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 480px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-warm) 100%);
+  position: relative;
+  padding-bottom: 88px;
+  box-shadow: 0 0 60px rgba(180, 140, 100, 0.15);
+}
+
+@media (min-width: 600px) {
+  .phone-frame {
+    padding: 24px 0;
+    background: linear-gradient(135deg, #EFE4D0 0%, #E8DBC4 100%);
+  }
+  .app {
+    border-radius: 32px;
+    overflow: hidden;
+    min-height: calc(100vh - 48px);
+  }
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(251, 246, 236, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #FFF8EE;
+  font-family: var(--font-kai);
+  font-weight: 700;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(201, 117, 83, 0.35);
+  line-height: 1;
+}
+
+.brand-title {
+  font-family: var(--font-kai);
+  font-size: calc(20px * var(--fs-scale));
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+}
+
+.brand-sub {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--text-faint);
+  letter-spacing: 0.15em;
+}
+
+.icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--card-bg-warm);
+  color: var(--text-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+/* =========================================================
+   Views (single-page navigation)
+   ========================================================= */
+.views {
+  position: relative;
+}
+
+.view {
+  display: none;
+  padding: 20px;
+  animation: fadeIn 0.4s ease;
+}
+
+.view.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+  padding: 8px 14px 8px 10px;
+  border-radius: 999px;
+  background: var(--card-bg-warm);
+  margin-bottom: 16px;
+  transition: all 0.2s;
+}
+
+.back-btn:active {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.page-title {
+  text-align: center;
+  margin: 8px 0 24px;
+}
+
+.page-title-cn {
+  font-family: var(--font-kai);
+  font-weight: 700;
+  font-size: var(--fs-xxl);
+  color: var(--text);
+  letter-spacing: 0.18em;
+  margin-bottom: 6px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+}
+
+.page-title-sub {
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+  letter-spacing: 0.05em;
+}
+
+/* =========================================================
+   Greeting Card (首頁問候)
+   ========================================================= */
+.greeting-card {
+  position: relative;
+  background: linear-gradient(135deg, #FFF5E8 0%, #FFE8D6 100%);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px 30px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-warm);
+  overflow: hidden;
+}
+
+.greeting-card::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -30px;
+  width: 160px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(245, 201, 136, 0.55) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.greeting-deco {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  opacity: 0.9;
+}
+
+.greeting-time {
+  position: relative;
+  font-size: var(--fs-sm);
+  color: var(--primary-dark);
+  letter-spacing: 0.2em;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.greeting-hello {
+  position: relative;
+  font-family: var(--font-kai);
+  font-weight: 700;
+  font-size: var(--fs-xl);
+  color: var(--text);
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.greeting-words {
+  position: relative;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+/* =========================================================
+   Blessing Card
+   ========================================================= */
+.blessing-card {
+  background: var(--card-bg-warm);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  border: 1px dashed var(--gold-soft);
+  text-align: center;
+}
+
+.blessing-label {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--gold);
+  letter-spacing: 0.4em;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.blessing-text {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+}
+
+/* =========================================================
+   Section Heading
+   ========================================================= */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 8px 0 16px;
+}
+
+.section-heading-text {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  color: var(--text);
+  letter-spacing: 0.15em;
+  white-space: nowrap;
+}
+
+.section-heading-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold-soft) 0%, transparent 100%);
+}
+
+/* =========================================================
+   Main 4 Buttons Grid
+   ========================================================= */
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.main-btn {
+  position: relative;
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 22px 16px 20px;
+  text-align: left;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+  overflow: hidden;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--border-soft);
+}
+
+.main-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.main-btn-play::after { background: linear-gradient(90deg, var(--primary-soft), var(--primary)); }
+.main-btn-think::after { background: linear-gradient(90deg, var(--green-soft), var(--green)); }
+.main-btn-move::after { background: linear-gradient(90deg, var(--gold-soft), var(--gold)); }
+.main-btn-say::after { background: linear-gradient(90deg, var(--pink-soft), var(--pink)); }
+
+.main-btn:active {
+  transform: scale(0.97);
+  box-shadow: var(--shadow-md);
+}
+
+.main-btn-emoji {
+  font-size: calc(34px * var(--fs-scale));
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.main-btn-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  letter-spacing: 0.15em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.main-btn-sub {
+  font-size: calc(13px * var(--fs-scale));
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+/* =========================================================
+   Garden Card
+   ========================================================= */
+.garden-card {
+  background: linear-gradient(135deg, #F4F8EE 0%, #E8F0DC 100%);
+  border-radius: var(--radius-md);
+  padding: 20px 22px 22px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(184, 205, 176, 0.5);
+  box-shadow: var(--shadow-sm);
+}
+
+.garden-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.garden-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+
+.garden-count {
+  font-size: var(--fs-sm);
+  color: var(--green);
+  font-weight: 500;
+}
+
+.garden-flowers {
+  font-size: calc(38px * var(--fs-scale));
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  min-height: calc(48px * var(--fs-scale));
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.garden-flowers .flower {
+  display: inline-block;
+  animation: bloom 0.6s ease backwards;
+}
+
+@keyframes bloom {
+  from { opacity: 0; transform: scale(0.3) rotate(-30deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+.garden-hint {
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin-top: 6px;
+}
+
+.garden-hint.hidden { display: none; }
+
+/* =========================================================
+   Care Card (首頁簡版)
+   ========================================================= */
+.care-card,
+.summary-card,
+.story-card,
+.action-card,
+.settings-card,
+.care-today-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+}
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.card-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  letter-spacing: 0.12em;
+  color: var(--text);
+}
+
+.card-sub {
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+  margin-bottom: 16px;
+}
+
+.care-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.care-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 14px;
+  background: var(--card-bg-warm);
+  border-radius: var(--radius-sm);
+  transition: all 0.3s;
+}
+
+.care-row.done {
+  background: var(--green-bg);
+}
+
+.care-icon {
+  font-size: calc(22px * var(--fs-scale));
+  line-height: 1;
+  flex-shrink: 0;
+  width: 36px;
+  text-align: center;
+}
+
+.care-name {
+  flex: 1;
+  font-size: var(--fs-md);
+  color: var(--text);
+}
+
+.care-row.done .care-name::after {
+  content: " ✓";
+  color: var(--green);
+  font-weight: 700;
+}
+
+.care-btn {
+  background: var(--primary);
+  color: #FFF8EE;
+  font-size: var(--fs-sm);
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-family: inherit;
+  white-space: nowrap;
+  letter-spacing: 0.1em;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(201, 117, 83, 0.25);
+}
+
+.care-btn:active {
+  transform: scale(0.95);
+  background: var(--primary-dark);
+}
+
+.care-row.done .care-btn {
+  background: var(--green);
+  box-shadow: 0 2px 6px rgba(122, 156, 112, 0.3);
+}
+
+/* =========================================================
+   Summary Card
+   ========================================================= */
+.summary-content {
+  margin-top: 14px;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.9;
+}
+
+.summary-content .summary-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+}
+
+.summary-content .summary-item::before {
+  content: "·";
+  color: var(--primary);
+  font-size: 1.4em;
+  font-weight: 700;
+}
+
+.summary-content .summary-empty {
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+
+/* =========================================================
+   Game (Play View)
+   ========================================================= */
+.game-select {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.game-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 20px 18px;
+  text-align: left;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+  transition: all 0.2s;
+}
+
+.game-card:active {
+  transform: scale(0.98);
+  box-shadow: var(--shadow-md);
+}
+
+.game-card-emoji {
+  font-size: calc(38px * var(--fs-scale));
+  line-height: 1;
+  width: 56px;
+  height: 56px;
+  background: var(--primary-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.game-card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.game-card-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  letter-spacing: 0.12em;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.game-card-desc {
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+}
+
+.game-card-arrow {
+  font-size: calc(28px * var(--fs-scale));
+  color: var(--text-faint);
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* Game playing area */
+.game-play {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 26px 22px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-soft);
+}
+
+.game-prompt {
+  font-size: var(--fs-sm);
+  color: var(--primary);
+  letter-spacing: 0.2em;
+  margin-bottom: 14px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.game-question {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-xl);
+  color: var(--text);
+  text-align: center;
+  letter-spacing: 0.18em;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  min-height: 60px;
+  padding: 8px 0;
+}
+
+.game-question .blank {
+  display: inline-block;
+  width: 1.2em;
+  border-bottom: 3px solid var(--primary);
+  margin: 0 0.1em;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.memory-items {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.memory-item {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: calc(28px * var(--fs-scale));
+  padding: 16px 22px;
+  background: var(--primary-bg);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  letter-spacing: 0.15em;
+  border: 2px dashed var(--primary-soft);
+}
+
+.game-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.option-btn {
+  width: 100%;
+  background: var(--card-bg-warm);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  font-size: var(--fs-lg);
+  color: var(--text);
+  letter-spacing: 0.15em;
+  font-family: var(--font-kai);
+  font-weight: 500;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.option-btn:active {
+  transform: scale(0.97);
+}
+
+.option-btn.correct {
+  background: var(--green-bg);
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.option-btn.wrong {
+  background: var(--pink-bg);
+  border-color: var(--pink);
+  color: var(--pink);
+}
+
+.option-btn.dim {
+  opacity: 0.45;
+}
+
+.option-btn:disabled {
+  pointer-events: none;
+}
+
+.game-feedback {
+  background: var(--green-bg);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  font-size: var(--fs-md);
+  color: var(--text);
+  text-align: center;
+  line-height: 1.7;
+  animation: fadeIn 0.4s ease;
+}
+
+.game-feedback.warm {
+  background: var(--primary-bg);
+}
+
+.game-feedback .blessing-line {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-kai);
+  font-weight: 500;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+  font-size: 0.95em;
+}
+
+.game-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.game-actions button {
+  flex: 1;
+  min-width: 120px;
+}
+
+/* =========================================================
+   Buttons (universal)
+   ========================================================= */
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+  font-family: inherit;
+  font-size: var(--fs-md);
+  padding: 14px 22px;
+  border-radius: var(--radius-md);
+  letter-spacing: 0.12em;
+  transition: all 0.2s;
+  text-align: center;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #FFF8EE;
+  box-shadow: 0 4px 12px rgba(201, 117, 83, 0.3);
+}
+
+.btn-primary:active {
+  background: var(--primary-dark);
+  transform: scale(0.98);
+}
+
+.btn-secondary {
+  background: var(--card-bg-warm);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:active {
+  background: var(--primary-light);
+  transform: scale(0.98);
+}
+
+.btn-danger {
+  background: var(--pink-bg);
+  color: var(--pink);
+  border: 1px solid var(--pink-soft);
+}
+
+.btn-danger:active {
+  background: var(--pink-soft);
+  color: var(--text);
+}
+
+/* =========================================================
+   Story (Think) View
+   ========================================================= */
+.story-card {
+  background: linear-gradient(135deg, #FFFAF1 0%, #F8EEDC 100%);
+  border: 1px solid var(--gold-soft);
+}
+
+.story-label {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--gold);
+  letter-spacing: 0.4em;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.story-prompt {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-xl);
+  color: var(--text);
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.story-input {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  font-family: inherit;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.7;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+  letter-spacing: 0.03em;
+}
+
+.story-input:focus {
+  border-color: var(--primary-soft);
+  background: #FFFBF5;
+}
+
+.story-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.story-actions button {
+  flex: 1;
+}
+
+.stories-history {
+  margin-top: 8px;
+}
+
+.stories-history-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  color: var(--text);
+  letter-spacing: 0.15em;
+  margin: 24px 0 12px;
+}
+
+.story-item {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+}
+
+.story-item-date {
+  font-size: calc(12px * var(--fs-scale));
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.story-item-prompt {
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+  margin-bottom: 8px;
+  font-style: normal;
+}
+
+.story-item-content {
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  letter-spacing: 0.02em;
+}
+
+/* =========================================================
+   Action (Move) View
+   ========================================================= */
+.action-card {
+  background: linear-gradient(135deg, #FFF8E8 0%, #FCEFD1 100%);
+  border: 1px solid var(--gold-soft);
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.action-emoji {
+  font-size: calc(56px * var(--fs-scale));
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.action-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-xl);
+  color: var(--text);
+  letter-spacing: 0.15em;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+
+.action-desc {
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 24px;
+  padding: 0 4px;
+}
+
+.action-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-actions button {
+  flex: 1;
+}
+
+.action-done {
+  background: linear-gradient(135deg, #EBF2E5 0%, #DAE6C8 100%);
+  border-color: var(--green-soft);
+  padding: 36px 24px;
+}
+
+.action-done .action-emoji {
+  animation: bloom 0.6s ease;
+}
+
+/* =========================================================
+   Say (Family Message) View
+   ========================================================= */
+.say-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.say-btn {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  text-align: left;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.2s;
+}
+
+.say-btn:active {
+  transform: scale(0.98);
+  background: var(--primary-light);
+}
+
+.say-btn-emoji {
+  font-size: calc(24px * var(--fs-scale));
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.say-btn-text {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  color: var(--text);
+  letter-spacing: 0.12em;
+}
+
+.say-result {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 26px 22px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-soft);
+}
+
+.say-result-label {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--primary);
+  letter-spacing: 0.4em;
+  margin-bottom: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.say-result-text {
+  background: var(--primary-bg);
+  border-radius: var(--radius-md);
+  padding: 22px 20px;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.9;
+  margin-bottom: 20px;
+  letter-spacing: 0.04em;
+  border-left: 3px solid var(--primary-soft);
+}
+
+.say-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.say-actions-row {
+  display: flex;
+  gap: 10px;
+}
+
+.say-actions-row button {
+  flex: 1;
+}
+
+/* Line 傳送按鈕（Line 品牌綠） */
+.btn-line {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #06C755;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: var(--fs-md);
+  padding: 16px 22px;
+  border-radius: var(--radius-md);
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  box-shadow: 0 4px 14px rgba(6, 199, 85, 0.28);
+  transition: all 0.2s;
+}
+
+.btn-line:active {
+  background: #05A847;
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(6, 199, 85, 0.35);
+}
+
+.btn-line svg {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   Care Page View
+   ========================================================= */
+.care-page-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+
+.care-page-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+  transition: all 0.3s;
+}
+
+.care-page-card.done {
+  background: linear-gradient(135deg, var(--green-bg) 0%, #DCE8CB 100%);
+  border-color: var(--green-soft);
+}
+
+.care-page-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.care-page-icon {
+  font-size: calc(28px * var(--fs-scale));
+  line-height: 1;
+}
+
+.care-page-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  color: var(--text);
+  letter-spacing: 0.12em;
+  flex: 1;
+}
+
+.care-page-count {
+  font-size: var(--fs-sm);
+  color: var(--green);
+  font-weight: 500;
+}
+
+.care-page-desc {
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.care-page-btn {
+  background: var(--primary);
+  color: #FFF8EE;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-size: var(--fs-md);
+  letter-spacing: 0.12em;
+  box-shadow: 0 2px 8px rgba(201, 117, 83, 0.25);
+  transition: all 0.2s;
+}
+
+.care-page-btn:active {
+  transform: scale(0.96);
+  background: var(--primary-dark);
+}
+
+.care-page-card.done .care-page-btn {
+  background: var(--green);
+  box-shadow: 0 2px 8px rgba(122, 156, 112, 0.3);
+}
+
+.care-today-list {
+  margin-top: 14px;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.9;
+}
+
+.care-today-empty {
+  color: var(--text-soft);
+}
+
+.care-today-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+}
+
+.care-today-time {
+  color: var(--text-faint);
+  font-size: var(--fs-sm);
+  font-family: "Noto Serif TC", serif;
+}
+
+/* =========================================================
+   Settings View
+   ========================================================= */
+.settings-section-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-lg);
+  color: var(--text);
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+}
+
+.settings-desc {
+  font-size: var(--fs-md);
+  color: var(--text-soft);
+  line-height: 1.8;
+  margin: 0 0 16px;
+}
+
+.settings-about {
+  text-align: center;
+  background: var(--card-bg-tinted);
+  border-style: dashed;
+}
+
+.font-size-group {
+  display: flex;
+  gap: 10px;
+}
+
+.font-size-btn {
+  flex: 1;
+  background: var(--card-bg-warm);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 8px;
+  color: var(--text);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.font-size-btn.active {
+  background: var(--primary-bg);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.font-size-btn:active {
+  transform: scale(0.96);
+}
+
+/* =========================================================
+   Bottom Nav
+   ========================================================= */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 50;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background: rgba(255, 250, 241, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--border);
+  padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+  box-shadow: 0 -4px 20px rgba(180, 140, 100, 0.08);
+}
+
+@media (min-width: 600px) {
+  .bottom-nav {
+    position: absolute;
+    border-radius: 0 0 32px 32px;
+  }
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border-radius: 12px;
+  color: var(--text-faint);
+  transition: all 0.2s;
+}
+
+.nav-btn.active {
+  color: var(--primary);
+}
+
+.nav-icon {
+  font-size: calc(22px * var(--fs-scale));
+  line-height: 1;
+}
+
+.nav-label {
+  font-size: calc(12px * var(--fs-scale));
+  letter-spacing: 0.08em;
+}
+
+.nav-btn:active {
+  background: var(--primary-light);
+  transform: scale(0.95);
+}
+
+/* =========================================================
+   Toast
+   ========================================================= */
+.toast {
+  position: fixed;
+  bottom: calc(96px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(62, 48, 37, 0.94);
+  color: #FFF8EE;
+  padding: 14px 22px;
+  border-radius: 999px;
+  font-size: var(--fs-md);
+  letter-spacing: 0.1em;
+  box-shadow: 0 8px 24px rgba(62, 48, 37, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.35s ease;
+  z-index: 100;
+  max-width: 80%;
+  text-align: center;
+  white-space: pre-line;
+  line-height: 1.6;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* =========================================================
+   Modal
+   ========================================================= */
+.modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(62, 48, 37, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease;
+}
+
+.modal {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.modal-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-xl);
+  color: var(--text);
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.modal-text {
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.7;
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.modal-actions button {
+  flex: 1;
+}
+
+/* =========================================================
+   V1.1 — 家人留言卡（首頁）
+   ========================================================= */
+.family-note-card {
+  position: relative;
+  background:
+    linear-gradient(135deg, #FFF9EE 0%, #FBEBC6 100%);
+  border-radius: var(--radius-md);
+  padding: 22px 24px 24px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(232, 199, 126, 0.55);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.family-note-card::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  background: radial-gradient(circle, rgba(216, 148, 151, 0.4) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.family-note-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 22px;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--pink) 0%, var(--gold) 100%);
+  opacity: 0.4;
+}
+
+.family-note-label {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--pink);
+  letter-spacing: 0.4em;
+  margin-bottom: 12px;
+  font-weight: 500;
+  padding-left: 8px;
+  position: relative;
+}
+
+.family-note-text {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.85;
+  letter-spacing: 0.06em;
+  padding-left: 8px;
+  white-space: pre-wrap;
+  position: relative;
+}
+
+/* =========================================================
+   V1.1 — 今日心情卡
+   ========================================================= */
+.mood-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+}
+
+.mood-head {
+  margin-bottom: 14px;
+}
+
+.mood-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.mood-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 6px 12px;
+  background: var(--card-bg-warm);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+  font-family: inherit;
+  color: var(--text);
+}
+
+.mood-btn:active {
+  transform: scale(0.96);
+}
+
+.mood-btn.selected {
+  background: var(--primary-bg);
+  border-color: var(--primary-soft);
+}
+
+.mood-emoji {
+  font-size: calc(28px * var(--fs-scale));
+  line-height: 1;
+}
+
+.mood-label {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: calc(15px * var(--fs-scale));
+  letter-spacing: 0.08em;
+}
+
+.mood-response {
+  margin-top: 14px;
+  padding: 14px 18px;
+  background: var(--primary-bg);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.75;
+  text-align: center;
+  animation: fadeIn 0.4s ease;
+  border-left: 3px solid var(--primary-soft);
+}
+
+/* =========================================================
+   V1.1 — 今日小陪伴 (三選一)
+   ========================================================= */
+.trio-card {
+  background: linear-gradient(135deg, #F4F8EE 0%, #EDF3DD 100%);
+  border-radius: var(--radius-md);
+  padding: 20px 22px 22px;
+  margin-bottom: 24px;
+  border: 1px solid rgba(184, 205, 176, 0.45);
+  box-shadow: var(--shadow-sm);
+}
+
+.trio-head {
+  margin-bottom: 14px;
+}
+
+.trio-title {
+  font-family: var(--font-kai);
+  font-weight: 600;
+  font-size: var(--fs-lg);
+  color: var(--text);
+  letter-spacing: 0.2em;
+  margin-bottom: 4px;
+}
+
+.trio-sub {
+  font-size: var(--fs-sm);
+  color: var(--green);
+  letter-spacing: 0.04em;
+}
+
+.trio-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.trio-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 6px 14px;
+  background: #FFFEF9;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+  font-family: inherit;
+  color: var(--text);
+  box-shadow: 0 1px 4px rgba(180, 140, 100, 0.06);
+}
+
+.trio-btn:active {
+  transform: scale(0.96);
+  background: var(--green-bg);
+  border-color: var(--green-soft);
+}
+
+.trio-btn-emoji {
+  font-size: calc(26px * var(--fs-scale));
+  line-height: 1;
+}
+
+.trio-btn-text {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: calc(16px * var(--fs-scale));
+  letter-spacing: 0.1em;
+}
+
+/* =========================================================
+   V1.1 — 找一找遊戲
+   ========================================================= */
+.find-prompt-card {
+  background: linear-gradient(135deg, #FFF4E5 0%, #FFE5C9 100%);
+  border-radius: var(--radius-md);
+  padding: 28px 22px;
+  margin-bottom: 20px;
+  text-align: center;
+  border: 1px solid rgba(232, 165, 132, 0.4);
+}
+
+.find-prompt-icon {
+  font-size: calc(46px * var(--fs-scale));
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.find-prompt-text {
+  font-family: var(--font-kai);
+  font-weight: 600;
+  font-size: var(--fs-xl);
+  color: var(--text);
+  letter-spacing: 0.12em;
+  line-height: 1.6;
+}
+
+.find-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.find-actions .btn-primary,
+.find-actions .btn-secondary {
+  width: 100%;
+}
+
+/* =========================================================
+   V1.1 — 故事分類晶片
+   ========================================================= */
+.category-row {
+  margin-top: 14px;
+}
+
+.category-label {
+  font-size: calc(12px * var(--fs-scale));
+  color: var(--text-soft);
+  letter-spacing: 0.15em;
+  margin-bottom: 10px;
+}
+
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.category-chip {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: calc(14px * var(--fs-scale));
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+  transition: all 0.2s;
+}
+
+.category-chip:active {
+  transform: scale(0.95);
+}
+
+.category-chip.selected {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #FFF8EE;
+  box-shadow: 0 2px 6px rgba(201, 117, 83, 0.25);
+}
+
+.story-item-category {
+  display: inline-block;
+  background: var(--primary-bg);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--font-kai);
+  font-size: calc(12px * var(--fs-scale));
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* =========================================================
+   V1.1 — 設定：稱呼自訂
+   ========================================================= */
+.name-group {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.name-btn {
+  padding: 12px 6px;
+  background: var(--card-bg-warm);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: calc(16px * var(--fs-scale));
+  letter-spacing: 0.1em;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+.name-btn:active {
+  transform: scale(0.96);
+}
+
+.name-btn.active {
+  background: var(--primary-bg);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.name-custom-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+.name-input {
+  flex: 1;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: var(--fs-md);
+  color: var(--text);
+  outline: none;
+  letter-spacing: 0.03em;
+}
+
+.name-input:focus {
+  border-color: var(--primary-soft);
+}
+
+.name-custom-row .btn-primary {
+  padding: 12px 18px;
+  font-size: var(--fs-md);
+  white-space: nowrap;
+}
+
+/* =========================================================
+   V1.1 — 設定：家人留言管理
+   ========================================================= */
+.family-notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.family-note-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px 16px;
+  background: var(--card-bg-warm);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--pink-soft);
+}
+
+.family-note-item-text {
+  flex: 1;
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.family-note-item-delete {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--text-faint);
+  font-size: 20px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.family-note-item-delete:active {
+  background: var(--pink-bg);
+  color: var(--pink);
+  transform: scale(0.92);
+}
+
+.family-notes-empty {
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-faint);
+  padding: 16px 0;
+  line-height: 1.7;
+}
+
+.family-notes-add {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.family-notes-input {
+  width: 100%;
+  background: var(--card-bg-warm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.6;
+  resize: none;
+  outline: none;
+  letter-spacing: 0.03em;
+}
+
+.family-notes-input:focus {
+  border-color: var(--gold-soft);
+  background: #FFFBF5;
+}
+
+.family-notes-add .btn-primary {
+  align-self: flex-end;
+  padding: 10px 22px;
+  font-size: var(--fs-md);
+}
+
+/* =========================================================
+   V1.1 — 摘要新增心情行樣式（沿用既有 .summary-item）
+   ========================================================= */
+.summary-item .summary-mood-emoji {
+  font-size: 1.1em;
+  margin-right: 2px;
+}
+
+/* =========================================================
+   V1.1 — 結尾
+   ========================================================= */
+
+
+.bottom-spacer {
+  height: 40px;
+}
+
+[hidden] {
+  display: none !important;
+}

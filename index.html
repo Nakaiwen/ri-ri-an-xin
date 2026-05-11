@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#FBF6EC">
+  <title>日日安心 — 給媽媽的每日陪伴小樂園</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="app" id="app">
+
+      <!-- ============ Header ============ -->
+      <header class="app-header">
+        <div class="brand" id="brandHome" role="button" tabindex="0" aria-label="回首頁">
+          <div class="brand-mark">安</div>
+          <div class="brand-text">
+            <div class="brand-title">日日安心</div>
+            <div class="brand-sub">每日陪伴小樂園</div>
+          </div>
+        </div>
+        <button class="icon-btn" id="settingsBtn" aria-label="設定">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+        </button>
+      </header>
+
+      <main class="views" id="views">
+
+        <!-- ============ View: Home ============ -->
+        <section class="view view-home active" id="view-home" data-view="home">
+
+          <div class="greeting-card" id="greetingCard">
+            <div class="greeting-deco" aria-hidden="true">
+              <svg viewBox="0 0 60 60" width="60" height="60"><circle cx="30" cy="30" r="14" fill="#F5C988"/><circle cx="30" cy="30" r="14" fill="none" stroke="#E8A05A" stroke-width="1.2" stroke-dasharray="2 3" opacity="0.6"/></svg>
+            </div>
+            <div class="greeting-time" id="greetingTime">今天</div>
+            <div class="greeting-hello" id="greetingHello">媽媽，早安</div>
+            <div class="greeting-words" id="greetingWords">今天也平平安安。</div>
+          </div>
+
+          <div class="blessing-card">
+            <div class="blessing-label">今 · 日 · 祝 · 福</div>
+            <div class="blessing-text" id="blessingText"></div>
+          </div>
+
+          <!-- 家人給你的話 -->
+          <div class="family-note-card">
+            <div class="family-note-label">家 · 人 · 給 · 你 · 的 · 話</div>
+            <div class="family-note-text" id="familyNoteText">有人惦記著你，今天也不孤單。</div>
+          </div>
+
+          <!-- 今日心情 -->
+          <div class="mood-card">
+            <div class="mood-head">
+              <div class="card-title">今天心情怎麼樣？</div>
+              <div class="card-sub">只是一個小問候，選一個就好。</div>
+            </div>
+            <div class="mood-options" id="moodOptions">
+              <button class="mood-btn" data-mood="good"><span class="mood-emoji">🌞</span><span class="mood-label">很好</span></button>
+              <button class="mood-btn" data-mood="okay"><span class="mood-emoji">🌿</span><span class="mood-label">還可以</span></button>
+              <button class="mood-btn" data-mood="tired"><span class="mood-emoji">🍵</span><span class="mood-label">有點累</span></button>
+              <button class="mood-btn" data-mood="down"><span class="mood-emoji">☁️</span><span class="mood-label">有點悶</span></button>
+              <button class="mood-btn" data-mood="sleepless"><span class="mood-emoji">🌙</span><span class="mood-label">睡不好</span></button>
+              <button class="mood-btn" data-mood="lonely"><span class="mood-emoji">💬</span><span class="mood-label">想聊天</span></button>
+            </div>
+            <div class="mood-response" id="moodResponse" hidden></div>
+          </div>
+
+          <!-- 今日小陪伴 -->
+          <div class="trio-card">
+            <div class="trio-head">
+              <div class="trio-title">今 · 日 · 小 · 陪 · 伴</div>
+              <div class="trio-sub">選一個就好，不用全部做。</div>
+            </div>
+            <div class="trio-options">
+              <button class="trio-btn" data-go="play">
+                <span class="trio-btn-emoji">🌼</span>
+                <span class="trio-btn-text">玩一下</span>
+              </button>
+              <button class="trio-btn" data-go="move">
+                <span class="trio-btn-emoji">🌤</span>
+                <span class="trio-btn-text">動一下</span>
+              </button>
+              <button class="trio-btn" data-go="say">
+                <span class="trio-btn-emoji">💌</span>
+                <span class="trio-btn-text">說一句</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="section-heading">
+            <span class="section-heading-text">你今天想做什麼</span>
+            <span class="section-heading-line"></span>
+          </div>
+
+          <div class="main-grid">
+            <button class="main-btn main-btn-play" data-go="play">
+              <div class="main-btn-emoji">🌼</div>
+              <div class="main-btn-title">玩一下</div>
+              <div class="main-btn-sub">小遊戲，輕鬆動動腦</div>
+            </button>
+            <button class="main-btn main-btn-think" data-go="think">
+              <div class="main-btn-emoji">🍃</div>
+              <div class="main-btn-title">想一想</div>
+              <div class="main-btn-sub">回憶一件生活小事</div>
+            </button>
+            <button class="main-btn main-btn-move" data-go="move">
+              <div class="main-btn-emoji">🌤</div>
+              <div class="main-btn-title">動一動</div>
+              <div class="main-btn-sub">三分鐘小行動</div>
+            </button>
+            <button class="main-btn main-btn-say" data-go="say">
+              <div class="main-btn-emoji">💌</div>
+              <div class="main-btn-title">說一句</div>
+              <div class="main-btn-sub">傳一句平安給家人</div>
+            </button>
+          </div>
+
+          <div class="garden-card">
+            <div class="garden-header">
+              <div class="garden-title">今日平安花園</div>
+              <div class="garden-count" id="gardenCount">今天開了 0 朵</div>
+            </div>
+            <div class="garden-flowers" id="gardenFlowers"></div>
+            <div class="garden-hint" id="gardenHint">今天靜靜的也很好。<br>有空時，再回來看看就好。</div>
+          </div>
+
+          <div class="care-card">
+            <div class="card-title-row">
+              <div class="card-title">今天也照顧自己一下</div>
+            </div>
+            <div class="card-sub">不用急，想起來時再做也可以。</div>
+
+            <div class="care-list" id="homeCareList">
+              <div class="care-row" data-care-type="water" data-care-label="喝水">
+                <div class="care-icon">💧</div>
+                <div class="care-name">喝水</div>
+                <button class="care-btn">我做了</button>
+              </div>
+              <div class="care-row" data-care-type="medicine" data-care-label="吃藥">
+                <div class="care-icon">💊</div>
+                <div class="care-name">吃藥</div>
+                <button class="care-btn">我做了</button>
+              </div>
+              <div class="care-row" data-care-type="bloodPressure" data-care-label="量血壓">
+                <div class="care-icon">❤️</div>
+                <div class="care-name">量血壓</div>
+                <button class="care-btn">我做了</button>
+              </div>
+              <div class="care-row" data-care-type="walk" data-care-label="散步">
+                <div class="care-icon">🚶</div>
+                <div class="care-name">散步</div>
+                <button class="care-btn">我做了</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-card">
+            <div class="card-title">今天的小小紀錄</div>
+            <div class="summary-content" id="summaryContent"></div>
+          </div>
+
+          <div class="bottom-spacer"></div>
+        </section>
+
+        <!-- ============ View: Play ============ -->
+        <section class="view view-play" id="view-play" data-view="play">
+          <button class="back-btn" data-go="home">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>回首頁</span>
+          </button>
+
+          <div class="page-title">
+            <div class="page-title-cn">玩 一 下</div>
+            <div class="page-title-sub">輕鬆動動腦，沒有對錯，慢慢來就好</div>
+          </div>
+
+          <!-- Game selection -->
+          <div class="game-select" id="gameSelect">
+            <button class="game-card" data-game="idiom">
+              <div class="game-card-emoji">📜</div>
+              <div class="game-card-info">
+                <div class="game-card-title">成語補字</div>
+                <div class="game-card-desc">補上一個字，猜一句熟悉的話</div>
+              </div>
+              <div class="game-card-arrow">›</div>
+            </button>
+            <button class="game-card" data-game="riddle">
+              <div class="game-card-emoji">🍃</div>
+              <div class="game-card-info">
+                <div class="game-card-title">今日小謎語</div>
+                <div class="game-card-desc">一個小謎語，猜猜看是什麼</div>
+              </div>
+              <div class="game-card-arrow">›</div>
+            </button>
+            <button class="game-card" data-game="memory">
+              <div class="game-card-emoji">🌸</div>
+              <div class="game-card-info">
+                <div class="game-card-title">記憶小花園</div>
+                <div class="game-card-desc">看幾樣東西，再想一想</div>
+              </div>
+              <div class="game-card-arrow">›</div>
+            </button>
+            <button class="game-card" data-game="find">
+              <div class="game-card-emoji">🔍</div>
+              <div class="game-card-info">
+                <div class="game-card-title">找一找</div>
+                <div class="game-card-desc">在家裡或窗外，找一個東西</div>
+              </div>
+              <div class="game-card-arrow">›</div>
+            </button>
+          </div>
+
+          <!-- Game playing area -->
+          <div class="game-play" id="gamePlay" hidden>
+            <div class="game-prompt" id="gamePrompt"></div>
+            <div class="game-question" id="gameQuestion"></div>
+            <div class="game-options" id="gameOptions"></div>
+            <div class="game-feedback" id="gameFeedback" hidden></div>
+            <div class="game-actions" id="gameActions"></div>
+          </div>
+
+          <div class="bottom-spacer"></div>
+        </section>
+
+        <!-- ============ View: Think (Story) ============ -->
+        <section class="view view-think" id="view-think" data-view="think">
+          <button class="back-btn" data-go="home">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>回首頁</span>
+          </button>
+
+          <div class="page-title">
+            <div class="page-title-cn">想 一 想</div>
+            <div class="page-title-sub">每天一個小問題，記得就寫，沒記得也沒關係</div>
+          </div>
+
+          <div class="story-card">
+            <div class="story-label">今 日 · 想 一 想</div>
+            <div class="story-prompt" id="storyPrompt"></div>
+            <textarea class="story-input" id="storyInput" placeholder="想寫一句也可以，不寫也沒關係。" rows="5"></textarea>
+
+            <div class="category-row">
+              <div class="category-label">這段回憶屬於</div>
+              <div class="category-chips" id="categoryChips">
+                <!-- filled by JS -->
+              </div>
+            </div>
+
+            <div class="story-actions">
+              <button class="btn-secondary" id="storySkipBtn">換一個問題</button>
+              <button class="btn-primary" id="storySaveBtn">留下這段回憶</button>
+            </div>
+          </div>
+
+          <div class="stories-history" id="storiesHistory">
+            <!-- past stories -->
+          </div>
+
+          <div class="bottom-spacer"></div>
+        </section>
+
+        <!-- ============ View: Move (Life Action) ============ -->
+        <section class="view view-move" id="view-move" data-view="move">
+          <button class="back-btn" data-go="home">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>回首頁</span>
+          </button>
+
+          <div class="page-title">
+            <div class="page-title-cn">動 一 動</div>
+            <div class="page-title-sub">三分鐘內可以完成的小行動</div>
+          </div>
+
+          <div class="action-card" id="actionCard">
+            <!-- filled by JS -->
+          </div>
+
+          <div class="bottom-spacer"></div>
+        </section>
+
+        <!-- ============ View: Say (Family Message) ============ -->
+        <section class="view view-say" id="view-say" data-view="say">
+          <button class="back-btn" data-go="home">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>回首頁</span>
+          </button>
+
+          <div class="page-title">
+            <div class="page-title-cn">說 一 句</div>
+            <div class="page-title-sub">選一句話，複製給家人</div>
+          </div>
+
+          <div class="say-list" id="sayList">
+            <!-- buttons -->
+          </div>
+
+          <div class="say-result" id="sayResult" hidden>
+            <div class="say-result-label">這是你要傳的話</div>
+            <div class="say-result-text" id="sayResultText"></div>
+            <div class="say-actions">
+              <button class="btn-line" id="sayLineBtn">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                <span>用 Line 傳給家人</span>
+              </button>
+              <div class="say-actions-row">
+                <button class="btn-secondary" id="sayBackBtn">選別句</button>
+                <button class="btn-secondary" id="sayCopyBtn">複製文字</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bottom-spacer"></div>
+        </section>
+
+        <!-- ============ View: Care ============ -->
+        <section class="view view-care" id="view-care" data-view="care">
+          <button class="back-btn" data-go="home">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>回首頁</span>
+          </button>
+
+          <div class="page-title">
+            <div class="page-title-cn">照 顧 自 己</div>
+            <div class="page-title-sub">不用一次做完，慢慢來</div>
+          </div>
+
+          <div class="care-page-list" id="carePageList">
+            <!-- filled by JS -->
+          </div>
+
+          <div class="care-today-card">
+            <div class="card-title">今日紀錄</div>
+            <div id="careTodayList" class="care-today-list"></div>
+          </div>
+
+          <div class="bottom-spacer"></div>
+        </section>
+
+        <!-- ============ View: Settings ============ -->
+        <section class="view view-settings" id="view-settings" data-view="settings">
+          <button class="back-btn" data-go="home">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>回首頁</span>
+          </button>
+
+          <div class="page-title">
+            <div class="page-title-cn">設 定</div>
+            <div class="page-title-sub">調整成自己舒服的樣子</div>
+          </div>
+
+          <!-- 稱呼自訂 -->
+          <div class="settings-card">
+            <div class="settings-section-title">怎麼稱呼你</div>
+            <p class="settings-desc">會出現在每天的問候裡，例如「媽媽，早安」。</p>
+            <div class="name-group" id="nameGroup">
+              <button class="name-btn" data-name-preset="媽媽">媽媽</button>
+              <button class="name-btn" data-name-preset="爸爸">爸爸</button>
+              <button class="name-btn" data-name-preset="阿嬤">阿嬤</button>
+              <button class="name-btn" data-name-preset="阿公">阿公</button>
+              <button class="name-btn name-btn-custom" data-name-preset="custom">自訂</button>
+            </div>
+            <div class="name-custom-row" id="nameCustomRow" hidden>
+              <input class="name-input" id="nameInput" type="text" maxlength="10" placeholder="例如：媽咪、外婆、小琳">
+              <button class="btn-primary" id="nameSaveBtn">記住</button>
+            </div>
+          </div>
+
+          <!-- 家人留言板 -->
+          <div class="settings-card">
+            <div class="settings-section-title">家人寫給你的話</div>
+            <p class="settings-desc">寫下家人想對你說的話，每天首頁會輪流出現一句。<br>家人可以幫忙打字，或請家人請你代打都可以。</p>
+
+            <div class="family-notes-list" id="familyNotesList">
+              <!-- filled by JS -->
+            </div>
+
+            <div class="family-notes-add">
+              <textarea class="family-notes-input" id="familyNoteInput" rows="3" maxlength="200" placeholder="例如：媽，記得喝水。"></textarea>
+              <button class="btn-primary" id="familyNoteAddBtn">加進來</button>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-section-title">字體大小</div>
+            <div class="font-size-group" id="fontSizeGroup">
+              <button class="font-size-btn" data-fs="normal">
+                <span style="font-size: 17px">一般</span>
+              </button>
+              <button class="font-size-btn" data-fs="large">
+                <span style="font-size: 20px">大</span>
+              </button>
+              <button class="font-size-btn" data-fs="xlarge">
+                <span style="font-size: 24px">特大</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="settings-card">
+            <div class="settings-section-title">這台手機的紀錄</div>
+            <p class="settings-desc">所有紀錄都在你的手機裡，不會傳到網路上。</p>
+            <button class="btn-danger" id="clearDataBtn">清除本機紀錄</button>
+          </div>
+
+          <div class="settings-card settings-about">
+            <div class="settings-section-title">關於</div>
+            <p class="settings-desc">
+              《日日安心》是一個給家人的小陪伴。<br>
+              不是醫療工具，也不是任務清單。<br>
+              是每天打開時，<br>會讓心裡比較暖的一個小地方。
+            </p>
+          </div>
+
+          <div class="bottom-spacer"></div>
+        </section>
+
+      </main>
+
+      <!-- ============ Bottom Nav ============ -->
+      <nav class="bottom-nav">
+        <button class="nav-btn active" data-go="home">
+          <div class="nav-icon">⌂</div>
+          <div class="nav-label">首頁</div>
+        </button>
+        <button class="nav-btn" data-go="play">
+          <div class="nav-icon">✿</div>
+          <div class="nav-label">玩一下</div>
+        </button>
+        <button class="nav-btn" data-go="think">
+          <div class="nav-icon">❀</div>
+          <div class="nav-label">想一想</div>
+        </button>
+        <button class="nav-btn" data-go="say">
+          <div class="nav-icon">✉</div>
+          <div class="nav-label">說一句</div>
+        </button>
+        <button class="nav-btn" data-go="care">
+          <div class="nav-icon">❤</div>
+          <div class="nav-label">照顧</div>
+        </button>
+      </nav>
+
+      <!-- ============ Toast ============ -->
+      <div class="toast" id="toast"></div>
+
+      <!-- ============ Confirm Modal ============ -->
+      <div class="modal-mask" id="modalMask" hidden>
+        <div class="modal">
+          <div class="modal-title" id="modalTitle"></div>
+          <div class="modal-text" id="modalText"></div>
+          <div class="modal-actions">
+            <button class="btn-secondary" id="modalCancel">不用了</button>
+            <button class="btn-danger" id="modalConfirm">確定</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
