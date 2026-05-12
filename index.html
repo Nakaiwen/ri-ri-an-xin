@@ -60,15 +60,43 @@
             <div class="greeting-words" id="greetingWords">今天也平平安安。</div>
           </div>
 
-          <div class="blessing-card">
-            <div class="blessing-label">今 · 日 · 祝 · 福</div>
-            <div class="blessing-text" id="blessingText"></div>
+          <!-- 給自己的一句話 -->
+          <div class="family-note-card">
+            <div class="family-note-label">給 · 自 · 己 · 的 · 一 · 句 · 話</div>
+            <div class="family-note-text" id="familyNoteText">今天也照顧自己一下。</div>
           </div>
 
-          <!-- 家人給你的話 -->
-          <div class="family-note-card">
-            <div class="family-note-label">家 · 人 · 給 · 你 · 的 · 話</div>
-            <div class="family-note-text" id="familyNoteText">有人惦記著你，今天也不孤單。</div>
+          <!-- V1.2: 今天的訪客 -->
+          <div class="visitor-card" id="visitorCard">
+            <div class="visitor-label">今 · 天 · 的 · 訪 · 客</div>
+
+            <div class="visitor-image-wrap">
+              <img class="visitor-image" id="visitorImage" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <div class="visitor-emoji-fallback" id="visitorEmojiFallback">🐾</div>
+            </div>
+
+            <div class="visitor-title" id="visitorTitle"></div>
+
+            <!-- V1.3: 回訪訪客的小標記（只有回訪時才顯示） -->
+            <div class="visitor-return-meta" id="visitorReturnMeta" hidden></div>
+
+            <div class="visitor-greeting" id="visitorGreeting"></div>
+
+            <div class="visitor-invitation">
+              <div class="visitor-invitation-label">小邀請</div>
+              <div class="visitor-invitation-text" id="visitorInvitation"></div>
+            </div>
+
+            <div class="visitor-actions">
+              <button class="btn-primary" id="visitorCollectBtn">
+                <span class="btn-icon">🌸</span>
+                <span class="visitor-collect-text">收藏今天的來訪</span>
+              </button>
+            </div>
+
+            <button class="visitor-album-link" data-go="album">
+              看看收藏冊 →
+            </button>
           </div>
 
           <!-- 今日心情 -->
@@ -86,28 +114,6 @@
               <button class="mood-btn" data-mood="lonely"><span class="mood-emoji">💬</span><span class="mood-label">想聊天</span></button>
             </div>
             <div class="mood-response" id="moodResponse" hidden></div>
-          </div>
-
-          <!-- 今日小陪伴 -->
-          <div class="trio-card">
-            <div class="trio-head">
-              <div class="trio-title">今 · 日 · 小 · 陪 · 伴</div>
-              <div class="trio-sub">選一個就好，不用全部做。</div>
-            </div>
-            <div class="trio-options">
-              <button class="trio-btn" data-go="play">
-                <span class="trio-btn-emoji">🌼</span>
-                <span class="trio-btn-text">玩一下</span>
-              </button>
-              <button class="trio-btn" data-go="move">
-                <span class="trio-btn-emoji">🌤</span>
-                <span class="trio-btn-text">動一下</span>
-              </button>
-              <button class="trio-btn" data-go="say">
-                <span class="trio-btn-emoji">💌</span>
-                <span class="trio-btn-text">說一句</span>
-              </button>
-            </div>
           </div>
 
           <div class="section-heading">
@@ -257,6 +263,14 @@
             <div class="page-title-sub">每天一個小問題，記得就寫，沒記得也沒關係</div>
           </div>
 
+          <!-- V1.3: 回憶回放 -->
+          <div class="recall-card" id="recallCard" hidden>
+            <div class="recall-label" id="recallLabel">以 · 前 · 的 · 這 · 一 · 段</div>
+            <div class="recall-prompt" id="recallPrompt"></div>
+            <div class="recall-content" id="recallContent"></div>
+            <div class="recall-meta" id="recallMeta"></div>
+          </div>
+
           <div class="story-card">
             <div class="story-label">今 日 · 想 一 想</div>
             <div class="story-prompt" id="storyPrompt"></div>
@@ -361,6 +375,25 @@
           <div class="bottom-spacer"></div>
         </section>
 
+        <!-- ============ V1.2: View: Album (來訪收藏冊) ============ -->
+        <section class="view view-album" id="view-album" data-view="album">
+          <button class="back-btn" data-go="home">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span>回首頁</span>
+          </button>
+
+          <div class="page-title">
+            <div class="page-title-cn">來 訪 收 藏 冊</div>
+            <div class="page-title-sub">這些日子來看過你的小訪客</div>
+          </div>
+
+          <div class="album-list" id="albumList">
+            <!-- filled by JS -->
+          </div>
+
+          <div class="bottom-spacer"></div>
+        </section>
+
         <!-- ============ View: Settings ============ -->
         <section class="view view-settings" id="view-settings" data-view="settings">
           <button class="back-btn" data-go="home">
@@ -390,18 +423,18 @@
             </div>
           </div>
 
-          <!-- 家人留言板 -->
+          <!-- 給自己的話 -->
           <div class="settings-card">
-            <div class="settings-section-title">家人寫給你的話</div>
-            <p class="settings-desc">寫下家人想對你說的話，每天首頁會輪流出現一句。<br>家人可以幫忙打字，或請家人請你代打都可以。</p>
+            <div class="settings-section-title">給自己的一句話</div>
+            <p class="settings-desc">寫下想提醒自己的話，每天首頁會輪流出現一句。<br>可以是叮嚀、鼓勵，或是想記得的一件事。</p>
 
             <div class="family-notes-list" id="familyNotesList">
               <!-- filled by JS -->
             </div>
 
             <div class="family-notes-add">
-              <textarea class="family-notes-input" id="familyNoteInput" rows="3" maxlength="200" placeholder="例如：媽，記得喝水。"></textarea>
-              <button class="btn-primary" id="familyNoteAddBtn">加進來</button>
+              <textarea class="family-notes-input" id="familyNoteInput" rows="3" maxlength="200" placeholder="例如：記得喝水、慢慢來、今天也辛苦了。"></textarea>
+              <button class="btn-primary" id="familyNoteAddBtn">記下來</button>
             </div>
           </div>
 

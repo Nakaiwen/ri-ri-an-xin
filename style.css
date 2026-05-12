@@ -349,35 +349,6 @@ button {
 }
 
 /* =========================================================
-   Blessing Card
-   ========================================================= */
-.blessing-card {
-  background: var(--card-bg-warm);
-  border-radius: var(--radius-md);
-  padding: 18px 22px;
-  margin-bottom: 24px;
-  border: 1px dashed var(--gold-soft);
-  text-align: center;
-}
-
-.blessing-label {
-  font-size: calc(11px * var(--fs-scale));
-  color: var(--gold);
-  letter-spacing: 0.4em;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-.blessing-text {
-  font-family: var(--font-kai);
-  font-weight: 500;
-  font-size: var(--fs-md);
-  color: var(--text);
-  line-height: 1.6;
-  letter-spacing: 0.08em;
-}
-
-/* =========================================================
    Section Heading
    ========================================================= */
 .section-heading {
@@ -1559,24 +1530,12 @@ button {
   border-radius: 50%;
 }
 
-.family-note-card::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 22px;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--pink) 0%, var(--gold) 100%);
-  opacity: 0.4;
-}
-
 .family-note-label {
   font-size: calc(11px * var(--fs-scale));
   color: var(--pink);
   letter-spacing: 0.4em;
   margin-bottom: 12px;
   font-weight: 500;
-  padding-left: 8px;
   position: relative;
 }
 
@@ -1587,7 +1546,6 @@ button {
   color: var(--text);
   line-height: 1.85;
   letter-spacing: 0.06em;
-  padding-left: 8px;
   white-space: pre-wrap;
   position: relative;
 }
@@ -1660,76 +1618,6 @@ button {
   text-align: center;
   animation: fadeIn 0.4s ease;
   border-left: 3px solid var(--primary-soft);
-}
-
-/* =========================================================
-   V1.1 — 今日小陪伴 (三選一)
-   ========================================================= */
-.trio-card {
-  background: linear-gradient(135deg, #F4F8EE 0%, #EDF3DD 100%);
-  border-radius: var(--radius-md);
-  padding: 20px 22px 22px;
-  margin-bottom: 24px;
-  border: 1px solid rgba(184, 205, 176, 0.45);
-  box-shadow: var(--shadow-sm);
-}
-
-.trio-head {
-  margin-bottom: 14px;
-}
-
-.trio-title {
-  font-family: var(--font-kai);
-  font-weight: 600;
-  font-size: var(--fs-lg);
-  color: var(--text);
-  letter-spacing: 0.2em;
-  margin-bottom: 4px;
-}
-
-.trio-sub {
-  font-size: var(--fs-sm);
-  color: var(--green);
-  letter-spacing: 0.04em;
-}
-
-.trio-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.trio-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 16px 6px 14px;
-  background: #FFFEF9;
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-sm);
-  transition: all 0.2s;
-  font-family: inherit;
-  color: var(--text);
-  box-shadow: 0 1px 4px rgba(180, 140, 100, 0.06);
-}
-
-.trio-btn:active {
-  transform: scale(0.96);
-  background: var(--green-bg);
-  border-color: var(--green-soft);
-}
-
-.trio-btn-emoji {
-  font-size: calc(26px * var(--fs-scale));
-  line-height: 1;
-}
-
-.trio-btn-text {
-  font-family: var(--font-kai);
-  font-weight: 500;
-  font-size: calc(16px * var(--fs-scale));
-  letter-spacing: 0.1em;
 }
 
 /* =========================================================
@@ -1998,6 +1886,381 @@ button {
    V1.1 — 結尾
    ========================================================= */
 
+
+/* =========================================================
+   V1.2 — 訪客卡（首頁）
+   ========================================================= */
+.visitor-card {
+  position: relative;
+  background:
+    linear-gradient(180deg, #FFFAF1 0%, #FFF1DF 100%);
+  border-radius: var(--radius-lg);
+  padding: 24px 22px 22px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(245, 201, 136, 0.5);
+  box-shadow: var(--shadow-warm);
+  overflow: hidden;
+}
+
+/* 明信片角落小裝飾 */
+.visitor-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle at top right, rgba(232, 165, 132, 0.28), transparent 70%);
+  pointer-events: none;
+}
+
+.visitor-label {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--primary);
+  letter-spacing: 0.4em;
+  margin-bottom: 16px;
+  font-weight: 500;
+  text-align: center;
+  position: relative;
+}
+
+.visitor-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #FFF5E5 0%, #FAE2C7 100%);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 18px;
+  border: 1px solid rgba(232, 199, 126, 0.4);
+  box-shadow: inset 0 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+.visitor-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.visitor-emoji-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(96px * var(--fs-scale));
+  line-height: 1;
+}
+
+.visitor-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.visitor-greeting {
+  position: relative;
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.85;
+  letter-spacing: 0.05em;
+  padding: 16px 18px 16px 24px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--primary-soft);
+  margin-bottom: 16px;
+  white-space: pre-line;
+}
+
+.visitor-invitation {
+  background: var(--green-bg);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 18px;
+  border: 1px dashed rgba(122, 156, 112, 0.4);
+}
+
+.visitor-invitation-label {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--green);
+  letter-spacing: 0.3em;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.visitor-invitation-text {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+}
+
+.visitor-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.visitor-actions button {
+  width: 100%;
+}
+
+.btn-icon {
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+.visitor-collect-text {
+  letter-spacing: 0.12em;
+}
+
+.visitor-card.collected .visitor-collect-text::before {
+  content: "✓ ";
+}
+
+.visitor-album-link {
+  width: 100%;
+  text-align: center;
+  background: transparent;
+  color: var(--text-soft);
+  font-size: var(--fs-sm);
+  padding: 8px;
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+}
+
+.visitor-album-link:active {
+  color: var(--primary);
+}
+
+/* =========================================================
+   V1.2 — 收藏冊頁面
+   ========================================================= */
+.album-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.album-empty {
+  text-align: center;
+  padding: 48px 24px;
+  font-size: var(--fs-md);
+  color: var(--text-soft);
+  line-height: 1.9;
+  background: var(--card-bg-warm);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border);
+}
+
+.album-empty-emoji {
+  font-size: calc(56px * var(--fs-scale));
+  line-height: 1;
+  margin-bottom: 14px;
+  opacity: 0.6;
+}
+
+.album-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-soft);
+}
+
+.album-card-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #FFF5E5 0%, #FAE2C7 100%);
+  overflow: hidden;
+}
+
+.album-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.album-card-emoji-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(72px * var(--fs-scale));
+  line-height: 1;
+}
+
+.album-card-content {
+  padding: 18px 20px 20px;
+}
+
+.album-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.album-card-name {
+  font-family: var(--font-kai);
+  font-weight: 700;
+  font-size: var(--fs-lg);
+  color: var(--text);
+  letter-spacing: 0.15em;
+}
+
+.album-card-date {
+  font-size: calc(12px * var(--fs-scale));
+  color: var(--text-faint);
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.album-card-tag {
+  display: inline-block;
+  background: var(--primary-bg);
+  color: var(--primary);
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: calc(12px * var(--fs-scale));
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.album-card-greeting {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+  margin-bottom: 12px;
+}
+
+.album-card-invitation {
+  background: var(--green-bg);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: var(--fs-sm);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.album-card-invitation-label {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--green);
+  letter-spacing: 0.2em;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+
+/* =========================================================
+   V1.3 — 回憶回放卡（想一想頁）
+   ========================================================= */
+.recall-card {
+  position: relative;
+  background: linear-gradient(135deg, #FFFAF1 0%, #FAEFD8 100%);
+  border-radius: var(--radius-md);
+  padding: 20px 22px 22px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(232, 199, 126, 0.5);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+/* 角落淡淡的書頁折角 */
+.recall-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(225deg, rgba(216, 168, 110, 0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.recall-label {
+  font-size: calc(11px * var(--fs-scale));
+  color: var(--gold);
+  letter-spacing: 0.4em;
+  margin-bottom: 14px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.recall-prompt {
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+
+.recall-content {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  line-height: 1.85;
+  letter-spacing: 0.05em;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--gold-soft);
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+}
+
+.recall-meta {
+  font-size: calc(13px * var(--fs-scale));
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+  text-align: right;
+}
+
+/* =========================================================
+   V1.3 — 訪客回訪標記
+   ========================================================= */
+.visitor-return-badge {
+  display: inline-block;
+  background: var(--gold-bg);
+  color: var(--gold);
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: calc(12px * var(--fs-scale));
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 10px;
+}
+
+.visitor-return-meta {
+  font-size: calc(13px * var(--fs-scale));
+  color: var(--text-faint);
+  letter-spacing: 0.06em;
+  text-align: center;
+  margin-top: -6px;
+  margin-bottom: 14px;
+}
 
 .bottom-spacer {
   height: 40px;

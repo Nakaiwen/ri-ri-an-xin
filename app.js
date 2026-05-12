@@ -198,6 +198,114 @@
   const NAME_PRESETS = ['媽媽', '爸爸', '阿嬤', '阿公'];
   const DEFAULT_NAME = '媽媽';
 
+  // --- V1.2 訪客資料 ---
+  // 每位訪客都帶一個 fallbackEmoji，當圖片載入失敗時顯示
+  const VISITORS = [
+    {
+      id: 'kiwi',
+      name: '奇異鳥',
+      image: 'images/visitors/kiwi.jpg',
+      fallbackEmoji: '🥝',
+      title: '今天有一隻正前往紐西蘭的奇異鳥經過您家。',
+      greeting: '我走得不快，但我知道慢慢走也會到。今天您也可以慢慢來。',
+      invitation: '今天要不要慢慢走到窗邊，看一眼外面的天色？',
+      tag: '慢慢來'
+    },
+    {
+      id: 'turtle',
+      name: '海龜',
+      image: 'images/visitors/turtle.jpg',
+      fallbackEmoji: '🐢',
+      title: '今天有一隻剛游過遠方海面的海龜經過您家。',
+      greeting: '海浪一波一波慢慢來，日子也可以慢慢過。願您今天心裡安穩。',
+      invitation: '今天可以喝幾口水，像海浪一樣慢慢照顧自己。',
+      tag: '安穩'
+    },
+    {
+      id: 'sparrow',
+      name: '麻雀',
+      image: 'images/visitors/sparrow.jpg',
+      fallbackEmoji: '🐦',
+      title: '今天有一隻停在屋簷邊的麻雀來向您問好。',
+      greeting: '我在早晨的風裡停了一下，想跟您說：今天也有小小的好事在等著您。',
+      invitation: '今天要不要聽聽窗外的聲音，看看生活裡的小熱鬧？',
+      tag: '小小喜悅'
+    },
+    {
+      id: 'butterfly',
+      name: '蝴蝶',
+      image: 'images/visitors/butterfly.jpg',
+      fallbackEmoji: '🦋',
+      title: '今天有一隻從花園飛來的蝴蝶經過您身邊。',
+      greeting: '我帶來一點花香和微風。願您今天看見一點漂亮的事。',
+      invitation: '今天可以找一樣家裡讓您覺得漂亮的東西，慢慢看一看。',
+      tag: '看見美好'
+    },
+    {
+      id: 'owl_nordic',
+      name: '貓頭鷹',
+      image: 'images/visitors/owl_nordic.jpg',
+      fallbackEmoji: '🦉',
+      title: '今天有一隻從北歐森林夜色中飛來的貓頭鷹經過您家。',
+      greeting: '夜晚很安靜，我想把一點安穩留給您。今天不需要急，靜靜地過也很好。',
+      invitation: '今晚可以坐下來休息一下，聽聽安靜的聲音，讓心慢慢安穩下來。',
+      tag: '夜晚陪伴'
+    },
+    {
+      id: 'cat_traveler',
+      name: '貓咪旅人',
+      image: 'images/visitors/cat_traveler.jpg',
+      fallbackEmoji: '🐱',
+      title: '今天有一隻曬過太陽的貓咪旅人經過您家。',
+      greeting: '我剛剛在陽光下瞇了一下眼睛。想提醒您，舒服地休息一下也很好。',
+      invitation: '今天要不要找個舒服的位置坐一會兒，讓身體放鬆一下？',
+      tag: '放鬆'
+    },
+    {
+      id: 'penguin',
+      name: '企鵝',
+      image: 'images/visitors/penguin.jpg',
+      fallbackEmoji: '🐧',
+      title: '今天有一隻從遠方冰海來的企鵝經過您身邊。',
+      greeting: '我走路有點搖搖晃晃，但有同伴就不孤單。今天也有人惦記著您。',
+      invitation: '今天可以傳一句平安給家人，讓彼此都安心一點。',
+      tag: '不孤單'
+    },
+    {
+      id: 'deer',
+      name: '小鹿',
+      image: 'images/visitors/deer.jpg',
+      fallbackEmoji: '🦌',
+      title: '今天有一隻從森林裡慢慢走來的小鹿經過您家。',
+      greeting: '森林裡的路很安靜，我慢慢走來，只想跟您說一聲：願您今天平安。',
+      invitation: '今天可以慢慢走幾步，或到窗邊看看外面的綠意。',
+      tag: '溫柔'
+    },
+    {
+      id: 'duck',
+      name: '鴨子',
+      image: 'images/visitors/duck.jpg',
+      fallbackEmoji: '🦆',
+      title: '今天有一隻從湖邊搖搖擺擺走來的鴨子經過您家。',
+      greeting: '我一路晃呀晃地走來，想跟您說：今天不用急，慢慢過也很好。就算只是輕輕鬆鬆地過一天，也很值得。',
+      invitation: '今天可以慢慢走幾步，或看看窗外，讓心情像水面一樣放鬆一點。',
+      tag: '輕鬆一下'
+    },
+    {
+      id: 'panda',
+      name: '熊貓',
+      image: 'images/visitors/panda.jpg',
+      fallbackEmoji: '🐼',
+      title: '今天有一隻從山林裡慢慢散步來的熊貓經過您家。',
+      greeting: '我今天走得不快，也坐下來休息了一會兒。想跟您說，照顧自己、慢慢休息，也是一件很好的事。',
+      invitation: '今天要不要找個舒服的位置坐一下，喝幾口水，讓自己輕鬆一點？',
+      tag: '休息一下'
+    }
+  ];
+
+  const VISITOR_BY_ID = VISITORS.reduce(function (a, v) { a[v.id] = v; return a; }, {});
+
+
   // --- 家人訊息 ---
   const FAMILY_MESSAGES = [
     { emoji: '😊', label: '我今天很好', text: '我今天很好，請你放心。願你今天也平安。' },
@@ -233,7 +341,12 @@
     // V1.1
     mood: 'ri_ri_an_xin_mood_records',
     personName: 'ri_ri_an_xin_person_name',
-    familyNotes: 'ri_ri_an_xin_family_notes'
+    familyNotes: 'ri_ri_an_xin_family_notes',
+    // V1.2 拜訪系統
+    todayVisitor: 'ri_ri_an_xin_today_visitor',
+    visitorCollection: 'ri_ri_an_xin_visitor_collection',
+    // V1.3 回憶回放 + 訪客回訪
+    todayRecall: 'ri_ri_an_xin_today_recall'  // 當日已挑選的回憶 id
   };
 
   function loadList(key) {
@@ -314,6 +427,111 @@
     } catch (e) {}
   }
 
+  // ============================================================
+  // V1.2: 拜訪系統資料層
+  // ============================================================
+
+  // 取得今天的訪客（每天固定一位）
+  function getTodayVisitor() {
+    const today = todayKey();
+    let stored = null;
+    try {
+      const raw = localStorage.getItem(KEYS.todayVisitor);
+      if (raw) stored = JSON.parse(raw);
+    } catch (e) {}
+
+    // 若有今日的訪客紀錄，且訪客 id 仍然存在於 VISITORS 中，直接使用
+    if (stored && stored.date === today && VISITOR_BY_ID[stored.visitorId]) {
+      return {
+        visitor: VISITOR_BY_ID[stored.visitorId],
+        isReturn: !!stored.isReturn,
+        lastSeenISO: stored.lastSeenISO || null
+      };
+    }
+
+    // V1.3: 25% 機率挑「以前收藏過、超過 14 天沒見」的舊訪客回訪
+    let picked = null;
+    let isReturn = false;
+    let lastSeenISO = null;
+
+    const collection = loadList(KEYS.visitorCollection);
+    if (collection.length > 0 && Math.random() < 0.25) {
+      // 每位訪客取最近一次的收藏日期
+      const lastSeenMap = {};
+      collection.forEach(function (c) {
+        if (!lastSeenMap[c.visitorId] || c.createdAt > lastSeenMap[c.visitorId]) {
+          lastSeenMap[c.visitorId] = c.createdAt;
+        }
+      });
+      // 篩出「超過 14 天沒見」且訪客仍存在
+      const eligibleIds = Object.keys(lastSeenMap).filter(function (vid) {
+        return VISITOR_BY_ID[vid] && daysSince(lastSeenMap[vid]) >= 14;
+      });
+      // 排除昨天那位（避免疊加）
+      const filtered = stored && stored.visitorId
+        ? eligibleIds.filter(function (vid) { return vid !== stored.visitorId; })
+        : eligibleIds;
+      if (filtered.length > 0) {
+        const chosenId = filtered[Math.floor(Math.random() * filtered.length)];
+        picked = VISITOR_BY_ID[chosenId];
+        isReturn = true;
+        lastSeenISO = lastSeenMap[chosenId];
+      }
+    }
+
+    // 一般流程：從 10 隻裡隨機挑（避開昨天那位）
+    if (!picked) {
+      let pool = VISITORS;
+      if (stored && stored.visitorId && VISITORS.length > 1) {
+        pool = VISITORS.filter(function (v) { return v.id !== stored.visitorId; });
+      }
+      picked = pool[Math.floor(Math.random() * pool.length)];
+    }
+
+    try {
+      localStorage.setItem(KEYS.todayVisitor, JSON.stringify({
+        date: today,
+        visitorId: picked.id,
+        isReturn: isReturn,
+        lastSeenISO: lastSeenISO
+      }));
+    } catch (e) {}
+
+    return { visitor: picked, isReturn: isReturn, lastSeenISO: lastSeenISO };
+  }
+
+  // 今天是否已收藏此訪客？
+  function isTodayVisitorCollected(visitorId) {
+    const today = todayKey();
+    const list = loadList(KEYS.visitorCollection);
+    return list.some(function (c) {
+      return c.collectedDate === today && c.visitorId === visitorId;
+    });
+  }
+
+  // 收藏訪客
+  function collectVisitor(visitor) {
+    if (isTodayVisitorCollected(visitor.id)) return false;
+    const list = loadList(KEYS.visitorCollection);
+    const now = new Date();
+    list.push({
+      id: 'collection_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+      visitorId: visitor.id,
+      visitorName: visitor.name,
+      image: visitor.image,
+      fallbackEmoji: visitor.fallbackEmoji,
+      title: visitor.title,
+      greeting: visitor.greeting,
+      invitation: visitor.invitation,
+      tag: visitor.tag,
+      collectedDate: todayKey(),
+      createdAt: now.toISOString()
+    });
+    saveList(KEYS.visitorCollection, list);
+    return true;
+  }
+
+
   function addCareRecord(type) {
     const list = loadList(KEYS.care);
     list.push({
@@ -342,6 +560,10 @@
     localStorage.removeItem(KEYS.activity);
     // V1.1: 紀錄類也清掉，但稱呼、家人留言、字體設定保留
     localStorage.removeItem(KEYS.mood);
+    // V1.2: 今日訪客快取清掉（清完會重抽一位），但收藏冊保留（這是珍貴的回憶）
+    localStorage.removeItem(KEYS.todayVisitor);
+    // V1.3: 今日回憶回放快取（既然 stories 已清，這個也要清）
+    localStorage.removeItem(KEYS.todayRecall);
   }
 
   // ============================================================
@@ -384,6 +606,29 @@
     if (h < 13) return '中午 ' + h + ':' + m;
     if (h < 18) return '下午 ' + (h - 12) + ':' + m;
     return '晚上 ' + (h - 12) + ':' + m;
+  }
+
+  // V1.3: 算 ISO 日期距今幾天（以日為單位，不含時分秒）
+  function daysSince(iso) {
+    const then = new Date(iso);
+    const todayMid = new Date();
+    todayMid.setHours(0, 0, 0, 0);
+    const thenMid = new Date(then.getFullYear(), then.getMonth(), then.getDate());
+    return Math.floor((todayMid - thenMid) / (24 * 60 * 60 * 1000));
+  }
+
+  // V1.3: 把「幾天前」轉成溫柔的中文描述
+  function timeAgoLabel(iso) {
+    const d = daysSince(iso);
+    if (d <= 0) return '今天';
+    if (d === 1) return '昨天';
+    if (d < 7) return d + ' 天前';
+    if (d < 14) return '上週';
+    if (d < 30) return Math.floor(d / 7) + ' 週前';
+    if (d < 60) return '上個月';
+    if (d < 365) return Math.floor(d / 30) + ' 個月前';
+    const y = Math.floor(d / 365);
+    return y === 1 ? '一年前' : y + ' 年前';
   }
 
   // 給「今日想一想」題目用：根據日期取一個穩定的問題
@@ -455,6 +700,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
       // 仍重新渲染一次，避免遊戲頁殘留狀態
     }
+
     currentView = view;
 
     document.querySelectorAll('.view').forEach(function (el) {
@@ -472,6 +718,7 @@
     else if (view === 'move') renderMove();
     else if (view === 'say') renderSay();
     else if (view === 'care') renderCare();
+    else if (view === 'album') renderAlbum();
     else if (view === 'settings') renderSettings();
   }
 
@@ -495,12 +742,11 @@
     document.getElementById('greetingHello').textContent = g.hello.replace('{name}', name);
     document.getElementById('greetingWords').textContent = g.words;
 
-    // 祝福（依日期穩定）
-    const blessing = BLESSINGS[dailySeedIndex(BLESSINGS.length, 1)];
-    document.getElementById('blessingText').textContent = blessing;
-
     // V1.1: 家人留言（每日穩定挑一則）
     renderFamilyNoteOnHome();
+
+    // V1.2: 今天的訪客
+    renderTodayVisitor();
 
     // V1.1: 今日心情
     renderMoodSection();
@@ -520,12 +766,133 @@
     const el = document.getElementById('familyNoteText');
     const notes = loadList(KEYS.familyNotes);
     if (notes.length === 0) {
-      el.textContent = '有人惦記著你，今天也不孤單。';
+      el.textContent = '今天也照顧自己一下。';
       return;
     }
     const note = notes[dailySeedIndex(notes.length, 3)];
     el.textContent = note.content;
   }
+
+  // V1.2: 今天的訪客
+  let currentVisitor = null;
+
+  function renderTodayVisitor() {
+    const info = getTodayVisitor();
+    const visitor = info.visitor;
+    currentVisitor = visitor;
+
+    document.getElementById('visitorTitle').textContent = visitor.title;
+    document.getElementById('visitorInvitation').textContent = visitor.invitation;
+
+    // V1.3: 回訪標記
+    const returnMeta = document.getElementById('visitorReturnMeta');
+    if (info.isReturn && info.lastSeenISO) {
+      const ago = timeAgoLabel(info.lastSeenISO);
+      returnMeta.textContent = '— ' + ago + '見過一面，今天又經過了';
+      returnMeta.hidden = false;
+      // greeting 前加一句 prefix
+      document.getElementById('visitorGreeting').textContent =
+        '我又經過這裡了。' + visitor.greeting;
+    } else {
+      returnMeta.hidden = true;
+      returnMeta.textContent = '';
+      document.getElementById('visitorGreeting').textContent = visitor.greeting;
+    }
+
+    // 圖片載入：先嘗試圖片，若 onerror 觸發會切換到 emoji fallback
+    const img = document.getElementById('visitorImage');
+    const fallback = document.getElementById('visitorEmojiFallback');
+    fallback.textContent = visitor.fallbackEmoji || '🐾';
+    img.style.display = '';        // 重置（前一位訪客可能已隱藏）
+    fallback.style.display = 'none';
+    img.alt = visitor.name;
+    img.src = visitor.image;
+
+    // 收藏狀態
+    const card = document.getElementById('visitorCard');
+    const btn = document.getElementById('visitorCollectBtn');
+    const btnText = btn.querySelector('.visitor-collect-text');
+    if (isTodayVisitorCollected(visitor.id)) {
+      card.classList.add('collected');
+      btnText.textContent = '已收藏今天的來訪';
+    } else {
+      card.classList.remove('collected');
+      btnText.textContent = '收藏今天的來訪';
+    }
+  }
+
+  function onVisitorCollect() {
+    if (!currentVisitor) return;
+    if (isTodayVisitorCollected(currentVisitor.id)) {
+      showToast('今天的來訪已經收藏過囉。', 2200);
+      return;
+    }
+    const ok = collectVisitor(currentVisitor);
+    if (!ok) return;
+
+    // 寫入 activity record（type: visitor）
+    addActivity('visitor', '收藏' + currentVisitor.name + '的來訪');
+
+    showToast('已收藏今天的來訪。\n這份問候會留在您的收藏冊裡。', 2800);
+    renderTodayVisitor();
+    // 平安花園也要更新（visitor 一天最多算一朵，邏輯在 countTodayFlowers 處理）
+  }
+
+  // V1.2: 收藏冊頁面
+  function renderAlbum() {
+    const list = loadList(KEYS.visitorCollection).slice().reverse();
+    const el = document.getElementById('albumList');
+    if (list.length === 0) {
+      el.innerHTML =
+        '<div class="album-empty">' +
+          '<div class="album-empty-emoji">🌿</div>' +
+          '收藏冊還是空的。<br>' +
+          '之後遇見喜歡的小訪客，<br>可以把牠留下來。' +
+        '</div>';
+      return;
+    }
+    el.innerHTML = list.map(function (c) {
+      const dateLabel = formatAlbumDate(c.collectedDate);
+      const emoji = c.fallbackEmoji || '🐾';
+      // 使用 image + emoji fallback 結構
+      return '<div class="album-card">' +
+        '<div class="album-card-image-wrap">' +
+          '<img class="album-card-image" src="' + escapeAttr(c.image) + '" alt="' + escapeAttr(c.visitorName) + '" ' +
+               'onerror="this.style.display=' + "'none'" + ';this.nextElementSibling.style.display=' + "'flex'" + ';">' +
+          '<div class="album-card-emoji-fallback" style="display:none">' + escapeHtml(emoji) + '</div>' +
+        '</div>' +
+        '<div class="album-card-content">' +
+          '<div class="album-card-head">' +
+            '<div class="album-card-name">' + escapeHtml(c.visitorName) + '</div>' +
+            '<div class="album-card-date">' + escapeHtml(dateLabel) + '</div>' +
+          '</div>' +
+          (c.tag ? '<div class="album-card-tag">' + escapeHtml(c.tag) + '</div>' : '') +
+          '<div class="album-card-greeting">' + escapeHtml(c.greeting) + '</div>' +
+          (c.invitation
+            ? '<div class="album-card-invitation">' +
+                '<div class="album-card-invitation-label">小邀請</div>' +
+                escapeHtml(c.invitation) +
+              '</div>'
+            : '') +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function escapeAttr(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function formatAlbumDate(yyyymmdd) {
+    // collectedDate 格式: "YYYY-MM-DD"
+    if (!yyyymmdd) return '';
+    const parts = yyyymmdd.split('-');
+    if (parts.length !== 3) return yyyymmdd;
+    return parts[0] + '/' + parts[1] + '/' + parts[2];
+  }
+
 
   // V1.1: 今日心情
   function renderMoodSection() {
@@ -570,20 +937,27 @@
       countEl.textContent = '今天開了 ' + count + ' 朵';
       hintEl.innerHTML = count >= 3
         ? '今天有好好陪自己。'
-        : '剩下的慢慢來。';
+        : '今天的花園開花了。';
       hintEl.classList.remove('hidden');
     }
   }
 
-  // 計算今日「平安花」朵數：所有今日的活動 + 照顧 + 故事 + 心情(V1.1)
+  // 計算今日「平安花」朵數：所有今日的活動 + 照顧 + 故事 + 心情(V1.1) + 訪客(V1.2)
+  // 規則：心情、訪客 都是「一天最多算 1 朵」（避免重複按造成花園爆滿）
   function countTodayFlowers() {
     const acts = loadList(KEYS.activity).filter(function (a) { return isToday(a.createdAt); });
     const cares = loadList(KEYS.care).filter(function (a) { return isToday(a.createdAt); });
     const stories = loadList(KEYS.stories).filter(function (a) { return isToday(a.createdAt); });
     const moods = loadList(KEYS.mood).filter(function (a) { return isToday(a.createdAt); });
-    // 心情可以重複按，只算「今天有沒有記」一朵，避免一直按花園爆滿
+
+    // 把 visitor 活動拆出來：一天最多算 1 朵
+    const visitorActs = acts.filter(function (a) { return a.type === 'visitor'; });
+    const otherActs = acts.filter(function (a) { return a.type !== 'visitor'; });
+
     const moodFlower = moods.length > 0 ? 1 : 0;
-    return acts.length + cares.length + stories.length + moodFlower;
+    const visitorFlower = visitorActs.length > 0 ? 1 : 0;
+
+    return otherActs.length + cares.length + stories.length + moodFlower + visitorFlower;
   }
 
   function renderHomeCareStatus() {
@@ -614,6 +988,10 @@
     const games = acts.filter(function (a) { return a.type === 'game'; }).length;
     const lifeActs = acts.filter(function (a) { return a.type === 'lifeAction'; }).length;
     const messages = acts.filter(function (a) { return a.type === 'familyMessage'; }).length;
+    // V1.2: 收藏訪客的次數
+    const visitorCollects = acts.filter(function (a) {
+      return a.type === 'visitor' && a.label.indexOf('收藏') === 0;
+    }).length;
 
     const el = document.getElementById('summaryContent');
     const lines = [];
@@ -625,6 +1003,7 @@
       const emoji = m ? '<span class="summary-mood-emoji">' + m.emoji + '</span>' : '';
       lines.push(emoji + '今天心情：' + escapeHtml(latest.label));
     }
+    if (visitorCollects > 0) lines.push('收藏了今天的小訪客');
     if (games > 0) lines.push('今天玩了 ' + games + ' 次小遊戲');
     if (lifeActs > 0) lines.push('完成了 ' + lifeActs + ' 個生活小行動');
     if (cares.length > 0) lines.push('照顧自己 ' + cares.length + ' 次');
@@ -878,7 +1257,100 @@
     document.getElementById('storyPrompt').textContent = currentStoryPrompt.text;
     document.getElementById('storyInput').value = '';
     renderCategoryChips();
+    renderRecallCard();   // V1.3: 回憶回放
     renderStoriesHistory();
+  }
+
+  // V1.3: 挑選並顯示回憶回放卡
+  function renderRecallCard() {
+    const card = document.getElementById('recallCard');
+    const story = pickRecallStory();
+    if (!story) {
+      card.hidden = true;
+      return;
+    }
+    card.hidden = false;
+
+    // 用「幾天/週/月前」的自然語言搭配「你那時候寫過⋯⋯」
+    const ago = timeAgoLabel(story.createdAt);
+    const intro = ago === '今天' ? '今天稍早您寫過：'
+                : ago === '昨天' ? '昨天您寫過：'
+                : ago + '的這一段，您寫過：';
+
+    document.getElementById('recallLabel').textContent = '以 · 前 · 的 · 這 · 一 · 段';
+    document.getElementById('recallPrompt').textContent = intro;
+    document.getElementById('recallContent').textContent = story.content;
+
+    // 顯示當時的問題（如果有的話）作為小標
+    let meta = '— ' + formatDateLabel(story.createdAt);
+    if (story.prompt) {
+      meta += ' · ' + story.prompt;
+    }
+    document.getElementById('recallMeta').textContent = meta;
+  }
+
+  // V1.3: 挑回憶。每天首次進想一想時挑一則，當天不換。
+  //
+  // 優先序：
+  //   1. 有「整週／整月／整年」紀念日意義（誤差 ±1 天內）的回憶
+  //   2. 超過 14 天沒被回放過的隨機一則
+  //   3. 都沒符合條件 → 不顯示
+  function pickRecallStory() {
+    const stories = loadList(KEYS.stories);
+    if (stories.length === 0) return null;
+
+    const today = todayKey();
+
+    // 檢查是否今天已挑過
+    let cached = null;
+    try {
+      const raw = localStorage.getItem(KEYS.todayRecall);
+      if (raw) cached = JSON.parse(raw);
+    } catch (e) {}
+
+    if (cached && cached.date === today) {
+      // 從已有 stories 裡找對應的
+      const found = stories.find(function (s) { return s.id === cached.storyId; });
+      if (found) return found;
+      // 若找不到（被刪除），落回正常挑選流程
+    }
+
+    // 排除「今天才寫」的回憶，那不算回憶
+    const candidates = stories.filter(function (s) {
+      return daysSince(s.createdAt) >= 1;
+    });
+    if (candidates.length === 0) return null;
+
+    // 優先：找紀念日（恰好 7、30、365 天的倍數，±1 天內）
+    const anniversaries = candidates.filter(function (s) {
+      const d = daysSince(s.createdAt);
+      return (
+        (d >= 6 && d <= 8) ||      // 一週
+        (d >= 29 && d <= 31) ||    // 一個月
+        (d >= 59 && d <= 61) ||    // 兩個月
+        (d >= 89 && d <= 91) ||    // 三個月
+        (d >= 179 && d <= 181) ||  // 半年
+        (d >= 364 && d <= 366)     // 一年
+      );
+    });
+
+    let picked;
+    if (anniversaries.length > 0) {
+      picked = anniversaries[Math.floor(Math.random() * anniversaries.length)];
+    } else {
+      // 從候選裡隨機挑一則
+      picked = candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    // 記下今天挑了誰
+    try {
+      localStorage.setItem(KEYS.todayRecall, JSON.stringify({
+        date: today,
+        storyId: picked.id
+      }));
+    } catch (e) {}
+
+    return picked;
   }
 
   function pickAnotherStoryPrompt() {
@@ -1211,7 +1683,7 @@
     const list = document.getElementById('familyNotesList');
     const notes = loadList(KEYS.familyNotes);
     if (notes.length === 0) {
-      list.innerHTML = '<div class="family-notes-empty">還沒有家人寫的話。<br>請家人寫一句，會出現在首頁。</div>';
+      list.innerHTML = '<div class="family-notes-empty">還沒有寫下任何一句話。<br>寫一句給自己，會出現在首頁。</div>';
       return;
     }
     list.innerHTML = notes.slice().reverse().map(function (n) {
@@ -1274,6 +1746,9 @@
     document.getElementById('sayBackBtn').addEventListener('click', renderSay);
     document.getElementById('sayCopyBtn').addEventListener('click', copySayMessage);
     document.getElementById('sayLineBtn').addEventListener('click', sendSayViaLine);
+
+    // V1.2: 訪客卡按鈕
+    document.getElementById('visitorCollectBtn').addEventListener('click', onVisitorCollect);
 
     // 字體大小
     const FS_LABEL = { normal: '一般', large: '大', xlarge: '特大' };
@@ -1376,7 +1851,7 @@
       }
       addFamilyNote(v);
       input.value = '';
-      showToast('加好了，會出現在首頁。', 2200);
+      showToast('記下來了，會出現在首頁。', 2200);
       renderFamilyNotesList();
     });
 
@@ -1406,7 +1881,7 @@
     wireEvents();
 
     // PWA shortcut 或外部連結傳入 #view 名稱時，直接導向該頁
-    const validViews = ['home', 'play', 'think', 'move', 'say', 'care', 'settings'];
+    const validViews = ['home', 'play', 'think', 'move', 'say', 'care', 'album', 'settings'];
     const hash = (window.location.hash || '').replace('#', '');
     if (hash && validViews.indexOf(hash) !== -1) {
       goTo(hash);
