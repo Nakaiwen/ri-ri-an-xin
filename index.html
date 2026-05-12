@@ -156,30 +156,18 @@
           <div class="care-card">
             <div class="card-title-row">
               <div class="card-title">今天也照顧自己一下</div>
+              <button class="card-edit-btn" id="careEditBtn" aria-label="編輯項目">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 20h9"/>
+                  <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                </svg>
+                <span>編輯</span>
+              </button>
             </div>
             <div class="card-sub">不用急，想起來時再做也可以。</div>
 
             <div class="care-list" id="homeCareList">
-              <div class="care-row" data-care-type="water" data-care-label="喝水">
-                <div class="care-icon">💧</div>
-                <div class="care-name">喝水</div>
-                <button class="care-btn">我做了</button>
-              </div>
-              <div class="care-row" data-care-type="medicine" data-care-label="吃藥">
-                <div class="care-icon">💊</div>
-                <div class="care-name">吃藥</div>
-                <button class="care-btn">我做了</button>
-              </div>
-              <div class="care-row" data-care-type="bloodPressure" data-care-label="量血壓">
-                <div class="care-icon">❤️</div>
-                <div class="care-name">量血壓</div>
-                <button class="care-btn">我做了</button>
-              </div>
-              <div class="care-row" data-care-type="walk" data-care-label="散步">
-                <div class="care-icon">🚶</div>
-                <div class="care-name">散步</div>
-                <button class="care-btn">我做了</button>
-              </div>
+              <!-- 由 JS 依使用者選擇動態填入 -->
             </div>
           </div>
 
@@ -520,6 +508,25 @@
           <div class="modal-actions">
             <button class="btn-secondary" id="modalCancel">不用了</button>
             <button class="btn-danger" id="modalConfirm">確定</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ V1.4: Care Edit Modal ============ -->
+      <div class="modal-mask" id="careEditMask" hidden>
+        <div class="modal modal-wide">
+          <div class="modal-title">想照顧自己的什麼</div>
+          <div class="modal-text">
+            選最多 <span id="careEditMaxCount">5</span> 項，會出現在首頁。<br>
+            其他項目仍可以從「照顧」分頁打開。
+          </div>
+          <div class="care-edit-list" id="careEditList">
+            <!-- filled by JS -->
+          </div>
+          <div class="care-edit-count" id="careEditCount">已選 0 / 5</div>
+          <div class="modal-actions">
+            <button class="btn-secondary" id="careEditCancel">不要了</button>
+            <button class="btn-primary" id="careEditSave">記住這幾項</button>
           </div>
         </div>
       </div>

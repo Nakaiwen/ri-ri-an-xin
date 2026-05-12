@@ -322,10 +322,22 @@
     { type: 'medicine', label: '吃藥', icon: '💊', desc: '如果到了吃藥時間，記得配溫開水。\n如果已經吃了，可以按一下記錄。', btn: '我吃好了' },
     { type: 'bloodPressure', label: '量血壓', icon: '❤️', desc: '如果今天方便，可以量一下血壓，知道身體的狀態。', btn: '我量了' },
     { type: 'walk', label: '散步', icon: '🚶', desc: '如果天氣和身體都可以，慢慢走幾步也很好。', btn: '我走了' },
-    { type: 'rest', label: '休息', icon: '🛌', desc: '身體有點累的時候，休息也是很重要的事。', btn: '我休息了' }
+    { type: 'rest', label: '休息', icon: '🛌', desc: '身體有點累的時候，休息也是很重要的事。', btn: '我休息了' },
+    // V1.4 新增四項可選
+    { type: 'reading', label: '輕量閱讀', icon: '📖', desc: '看幾頁書、翻一翻報紙，讓心思緩一緩。', btn: '我看了' },
+    { type: 'breathing', label: '呼吸練習', icon: '🌬️', desc: '慢慢吸氣、慢慢吐氣，幾次就好。\n讓身體跟著放鬆下來。', btn: '我做了' },
+    { type: 'supplement', label: '營養品補充', icon: '🧴', desc: '如果有在吃營養品，記得照平常的份量。', btn: '我吃了' },
+    { type: 'nutrition', label: '營養進食', icon: '🍱', desc: '好好吃一頓飯，是對身體最溫柔的事。', btn: '我吃了' }
   ];
 
+  // V1.4: 預設五項（首次使用，或還沒設定過自己的選擇時用這個）
+  const DEFAULT_CARE_SELECTION = ['water', 'medicine', 'bloodPressure', 'walk', 'nutrition'];
+
+  // V1.4: 一次最多選 5 項顯示在首頁
+  const MAX_CARE_SELECTION = 5;
+
   const CARE_LABEL_BY_TYPE = CARE_ITEMS.reduce((acc, c) => { acc[c.type] = c.label; return acc; }, {});
+  const CARE_BY_TYPE = CARE_ITEMS.reduce((acc, c) => { acc[c.type] = c; return acc; }, {});
 
   const FLOWERS = ['🌷'];
 
@@ -346,7 +358,9 @@
     todayVisitor: 'ri_ri_an_xin_today_visitor',
     visitorCollection: 'ri_ri_an_xin_visitor_collection',
     // V1.3 回憶回放 + 訪客回訪
-    todayRecall: 'ri_ri_an_xin_today_recall'  // 當日已挑選的回憶 id
+    todayRecall: 'ri_ri_an_xin_today_recall',  // 當日已挑選的回憶 id
+    // V1.4 照顧自己項目選擇
+    careSelection: 'ri_ri_an_xin_care_selection'
   };
 
   function loadList(key) {
@@ -541,6 +555,37 @@
       createdAt: new Date().toISOString()
     });
     saveList(KEYS.care, list);
+  }
+
+  // V1.4: 取得使用者目前選擇的照顧項目（最多 5 個 type 字串組成的陣列）
+  function getCareSelection() {
+    try {
+      const raw = localStorage.getItem(KEYS.careSelection);
+      if (!raw) return DEFAULT_CARE_SELECTION.slice();
+      const arr = JSON.parse(raw);
+      if (!Array.isArray(arr) || arr.length === 0) return DEFAULT_CARE_SELECTION.slice();
+      // 過濾掉不存在的 type（萬一資料結構改了仍能容錯）
+      const valid = arr.filter(function (t) { return CARE_BY_TYPE[t]; });
+      return valid.length > 0 ? valid.slice(0, MAX_CARE_SELECTION) : DEFAULT_CARE_SELECTION.slice();
+    } catch (e) {
+      return DEFAULT_CARE_SELECTION.slice();
+    }
+  }
+
+  function setCareSelection(types) {
+    // 去重 + 限制最多 5 個 + 只保留合法 type
+    const seen = {};
+    const filtered = [];
+    for (let i = 0; i < types.length && filtered.length < MAX_CARE_SELECTION; i++) {
+      const t = types[i];
+      if (!seen[t] && CARE_BY_TYPE[t]) {
+        seen[t] = true;
+        filtered.push(t);
+      }
+    }
+    try {
+      localStorage.setItem(KEYS.careSelection, JSON.stringify(filtered));
+    } catch (e) {}
   }
 
   function addActivity(type, label) {
@@ -961,22 +1006,105 @@
   }
 
   function renderHomeCareStatus() {
+    const selection = getCareSelection();
     const todayCares = loadList(KEYS.care).filter(function (c) { return isToday(c.createdAt); });
     const doneTypes = {};
     todayCares.forEach(function (c) { doneTypes[c.type] = true; });
 
-    document.querySelectorAll('#homeCareList .care-row').forEach(function (row) {
-      const t = row.dataset.careType;
-      const btn = row.querySelector('.care-btn');
-      if (doneTypes[t]) {
-        row.classList.add('done');
-        btn.textContent = '已記錄';
-      } else {
-        row.classList.remove('done');
-        btn.textContent = '我做了';
-      }
-    });
+    const list = document.getElementById('homeCareList');
+    list.innerHTML = selection.map(function (type) {
+      const item = CARE_BY_TYPE[type];
+      if (!item) return '';
+      const done = !!doneTypes[type];
+      return '<div class="care-row' + (done ? ' done' : '') + '" ' +
+                'data-care-type="' + type + '" ' +
+                'data-care-label="' + escapeAttr(item.label) + '">' +
+        '<div class="care-icon">' + item.icon + '</div>' +
+        '<div class="care-name">' + escapeHtml(item.label) + '</div>' +
+        '<button class="care-btn">' + (done ? '已記錄' : '我做了') + '</button>' +
+      '</div>';
+    }).join('');
   }
+
+  // ============================================================
+  // V1.4: 編輯照顧項目對話框
+  // ============================================================
+
+  // 編輯時的暫存陣列（按下「記住」才寫入 localStorage）
+  let careEditDraft = [];
+
+  function openCareEdit() {
+    careEditDraft = getCareSelection().slice();
+    document.getElementById('careEditMaxCount').textContent = String(MAX_CARE_SELECTION);
+    renderCareEditList();
+    updateCareEditCount();
+    document.getElementById('careEditMask').hidden = false;
+  }
+
+  function closeCareEdit() {
+    document.getElementById('careEditMask').hidden = true;
+    careEditDraft = [];
+  }
+
+  function renderCareEditList() {
+    const list = document.getElementById('careEditList');
+    const isFull = careEditDraft.length >= MAX_CARE_SELECTION;
+
+    list.innerHTML = CARE_ITEMS.map(function (item) {
+      const selected = careEditDraft.indexOf(item.type) !== -1;
+      // 未選且已達上限 → 視覺上 disabled，但仍可點（讓使用者知道為何不能再加）
+      const disabled = !selected && isFull;
+      const cls = 'care-edit-item' + (selected ? ' selected' : '') + (disabled ? ' disabled' : '');
+      return '<button type="button" class="' + cls + '" data-care-type="' + item.type + '">' +
+        '<span class="care-edit-icon">' + item.icon + '</span>' +
+        '<span class="care-edit-name">' + escapeHtml(item.label) + '</span>' +
+        '<span class="care-edit-check">✓</span>' +
+      '</button>';
+    }).join('');
+
+    // 委派一次點擊
+    list.onclick = function (e) {
+      const btn = e.target.closest('.care-edit-item');
+      if (!btn) return;
+      const type = btn.dataset.careType;
+      toggleCareEditItem(type);
+    };
+  }
+
+  function toggleCareEditItem(type) {
+    const idx = careEditDraft.indexOf(type);
+    if (idx !== -1) {
+      // 取消選擇
+      careEditDraft.splice(idx, 1);
+    } else {
+      // 新增選擇
+      if (careEditDraft.length >= MAX_CARE_SELECTION) {
+        showToast('最多選 ' + MAX_CARE_SELECTION + ' 項喔。\n要先取消一項才能加新的。', 2400);
+        return;
+      }
+      careEditDraft.push(type);
+    }
+    renderCareEditList();
+    updateCareEditCount();
+  }
+
+  function updateCareEditCount() {
+    const el = document.getElementById('careEditCount');
+    el.textContent = '已選 ' + careEditDraft.length + ' / ' + MAX_CARE_SELECTION;
+    el.classList.toggle('full', careEditDraft.length >= MAX_CARE_SELECTION);
+  }
+
+  function saveCareEdit() {
+    if (careEditDraft.length === 0) {
+      showToast('至少選一項吧。', 1800);
+      return;
+    }
+    setCareSelection(careEditDraft);
+    closeCareEdit();
+    showToast('改好了。', 1600);
+    renderHomeCareStatus();
+  }
+
 
   function renderSummary() {
     const today = todayKey();
@@ -1717,20 +1845,29 @@
     // 設定按鈕
     document.getElementById('settingsBtn').addEventListener('click', function () { goTo('settings'); });
 
-    // 首頁照顧按鈕
-    document.querySelectorAll('#homeCareList .care-row').forEach(function (row) {
-      const btn = row.querySelector('.care-btn');
-      btn.addEventListener('click', function () {
-        if (row.classList.contains('done')) {
-          // 已記錄今天，仍允許再加一次
-          addCareRecord(row.dataset.careType);
-          showToast('又記了一次，很好。', 2200);
-        } else {
-          addCareRecord(row.dataset.careType);
-          showToast('已經記下來了。\n今天有照顧自己，很好。', 2400);
-        }
-        renderHome();
-      });
+    // 首頁照顧按鈕（事件委派，因為清單是動態渲染的）
+    document.getElementById('homeCareList').addEventListener('click', function (e) {
+      const btn = e.target.closest('.care-btn');
+      if (!btn) return;
+      const row = btn.closest('.care-row');
+      if (!row) return;
+      if (row.classList.contains('done')) {
+        // 已記錄今天，仍允許再加一次
+        addCareRecord(row.dataset.careType);
+        showToast('又記了一次，很好。', 2200);
+      } else {
+        addCareRecord(row.dataset.careType);
+        showToast('已經記下來了。\n今天有照顧自己，很好。', 2400);
+      }
+      renderHome();
+    });
+
+    // V1.4: 編輯按鈕
+    document.getElementById('careEditBtn').addEventListener('click', openCareEdit);
+    document.getElementById('careEditCancel').addEventListener('click', closeCareEdit);
+    document.getElementById('careEditSave').addEventListener('click', saveCareEdit);
+    document.getElementById('careEditMask').addEventListener('click', function (e) {
+      if (e.target === e.currentTarget) closeCareEdit();
     });
 
     // 遊戲卡片

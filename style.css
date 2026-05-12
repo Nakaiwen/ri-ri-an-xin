@@ -2262,6 +2262,139 @@ button {
   margin-bottom: 14px;
 }
 
+/* =========================================================
+   V1.4 — 照顧項目編輯按鈕（首頁卡片右上）
+   ========================================================= */
+.card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.card-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: calc(13px * var(--fs-scale));
+  color: var(--text-soft);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--card-bg-warm);
+  letter-spacing: 0.08em;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.card-edit-btn:active {
+  background: var(--primary-bg);
+  color: var(--primary);
+  transform: scale(0.95);
+}
+
+.card-edit-btn svg {
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   V1.4 — 編輯項目對話框
+   ========================================================= */
+.modal-wide {
+  max-width: 420px;
+  padding: 26px 22px 22px;
+}
+
+.care-edit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+  max-height: 48vh;
+  overflow-y: auto;
+  padding: 4px 2px;
+  /* 內陰影提示有可滾動內容 */
+  -webkit-overflow-scrolling: touch;
+}
+
+.care-edit-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--card-bg-warm);
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.care-edit-item:active {
+  transform: scale(0.98);
+}
+
+.care-edit-item.selected {
+  background: var(--primary-bg);
+  border-color: var(--primary-soft);
+}
+
+.care-edit-item.disabled {
+  opacity: 0.42;
+}
+
+.care-edit-icon {
+  font-size: calc(22px * var(--fs-scale));
+  line-height: 1;
+  width: 32px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.care-edit-name {
+  flex: 1;
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-md);
+  color: var(--text);
+  letter-spacing: 0.08em;
+}
+
+.care-edit-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  font-size: 14px;
+  font-weight: 700;
+  color: transparent;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.care-edit-item.selected .care-edit-check {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #FFF8EE;
+}
+
+.care-edit-count {
+  font-size: var(--fs-sm);
+  color: var(--text-soft);
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 0.08em;
+}
+
+.care-edit-count.full {
+  color: var(--primary);
+  font-weight: 500;
+}
+
 .bottom-spacer {
   height: 40px;
 }
