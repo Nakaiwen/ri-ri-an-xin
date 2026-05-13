@@ -205,6 +205,7 @@
       id: 'kiwi',
       name: '奇異鳥',
       image: 'images/visitors/kiwi.jpg',
+      imageBase: 'images/visitors/kiwi',
       fallbackEmoji: '🥝',
       title: '今天有一隻正前往紐西蘭的奇異鳥經過您家。',
       greeting: '我走得不快，但我知道慢慢走也會到。今天您也可以慢慢來。',
@@ -215,6 +216,7 @@
       id: 'turtle',
       name: '海龜',
       image: 'images/visitors/turtle.jpg',
+      imageBase: 'images/visitors/turtle',
       fallbackEmoji: '🐢',
       title: '今天有一隻剛游過遠方海面的海龜經過您家。',
       greeting: '海浪一波一波慢慢來，日子也可以慢慢過。願您今天心裡安穩。',
@@ -225,6 +227,7 @@
       id: 'sparrow',
       name: '麻雀',
       image: 'images/visitors/sparrow.jpg',
+      imageBase: 'images/visitors/sparrow',
       fallbackEmoji: '🐦',
       title: '今天有一隻停在屋簷邊的麻雀來向您問好。',
       greeting: '我在早晨的風裡停了一下，想跟您說：今天也有小小的好事在等著您。',
@@ -235,6 +238,7 @@
       id: 'butterfly',
       name: '蝴蝶',
       image: 'images/visitors/butterfly.jpg',
+      imageBase: 'images/visitors/butterfly',
       fallbackEmoji: '🦋',
       title: '今天有一隻從花園飛來的蝴蝶經過您身邊。',
       greeting: '我帶來一點花香和微風。願您今天看見一點漂亮的事。',
@@ -245,6 +249,7 @@
       id: 'owl_nordic',
       name: '貓頭鷹',
       image: 'images/visitors/owl_nordic.jpg',
+      imageBase: 'images/visitors/owl_nordic',
       fallbackEmoji: '🦉',
       title: '今天有一隻從北歐森林夜色中飛來的貓頭鷹經過您家。',
       greeting: '夜晚很安靜，我想把一點安穩留給您。今天不需要急，靜靜地過也很好。',
@@ -255,6 +260,7 @@
       id: 'cat_traveler',
       name: '貓咪旅人',
       image: 'images/visitors/cat_traveler.jpg',
+      imageBase: 'images/visitors/cat_traveler',
       fallbackEmoji: '🐱',
       title: '今天有一隻曬過太陽的貓咪旅人經過您家。',
       greeting: '我剛剛在陽光下瞇了一下眼睛。想提醒您，舒服地休息一下也很好。',
@@ -265,6 +271,7 @@
       id: 'penguin',
       name: '企鵝',
       image: 'images/visitors/penguin.jpg',
+      imageBase: 'images/visitors/penguin',
       fallbackEmoji: '🐧',
       title: '今天有一隻從遠方冰海來的企鵝經過您身邊。',
       greeting: '我走路有點搖搖晃晃，但有同伴就不孤單。今天也有人惦記著您。',
@@ -275,6 +282,7 @@
       id: 'deer',
       name: '小鹿',
       image: 'images/visitors/deer.jpg',
+      imageBase: 'images/visitors/deer',
       fallbackEmoji: '🦌',
       title: '今天有一隻從森林裡慢慢走來的小鹿經過您家。',
       greeting: '森林裡的路很安靜，我慢慢走來，只想跟您說一聲：願您今天平安。',
@@ -285,6 +293,7 @@
       id: 'duck',
       name: '鴨子',
       image: 'images/visitors/duck.jpg',
+      imageBase: 'images/visitors/duck',
       fallbackEmoji: '🦆',
       title: '今天有一隻從湖邊搖搖擺擺走來的鴨子經過您家。',
       greeting: '我一路晃呀晃地走來，想跟您說：今天不用急，慢慢過也很好。就算只是輕輕鬆鬆地過一天，也很值得。',
@@ -295,6 +304,7 @@
       id: 'panda',
       name: '熊貓',
       image: 'images/visitors/panda.jpg',
+      imageBase: 'images/visitors/panda',
       fallbackEmoji: '🐼',
       title: '今天有一隻從山林裡慢慢散步來的熊貓經過您家。',
       greeting: '我今天走得不快，也坐下來休息了一會兒。想跟您說，照顧自己、慢慢休息，也是一件很好的事。',
@@ -336,6 +346,20 @@
   // V1.4: 一次最多選 5 項顯示在首頁
   const MAX_CARE_SELECTION = 5;
 
+  // V1.6: 最多自訂幾項照顧項目
+  const MAX_CUSTOM_CARE = 5;
+
+  // V1.6: 自訂項目可以挑的 icon
+  const CUSTOM_CARE_EMOJIS = [
+    '🌿','🌸','🍵','🧘','🪷','💆','🎵','📿',
+    '🧩','✍️','🌅','🌙','🐾','🪴','🍎','🥛',
+    '☀️','💧','❤️','✨'
+  ];
+
+  // V1.6: 自訂項目的預設文案（描述和按鈕字）
+  const CUSTOM_CARE_DESC = '記得做的時候，可以按一下記錄。';
+  const CUSTOM_CARE_BTN = '我做了';
+
   const CARE_LABEL_BY_TYPE = CARE_ITEMS.reduce((acc, c) => { acc[c.type] = c.label; return acc; }, {});
   const CARE_BY_TYPE = CARE_ITEMS.reduce((acc, c) => { acc[c.type] = c; return acc; }, {});
 
@@ -360,7 +384,9 @@
     // V1.3 回憶回放 + 訪客回訪
     todayRecall: 'ri_ri_an_xin_today_recall',  // 當日已挑選的回憶 id
     // V1.4 照顧自己項目選擇
-    careSelection: 'ri_ri_an_xin_care_selection'
+    careSelection: 'ri_ri_an_xin_care_selection',
+    // V1.6 自訂照顧項目
+    customCare: 'ri_ri_an_xin_custom_care'
   };
 
   function loadList(key) {
@@ -445,7 +471,13 @@
   // V1.2: 拜訪系統資料層
   // ============================================================
 
-  // 取得今天的訪客（每天固定一位）
+  // V1.6: 判斷現在是白天還是晚上（5:00–18:00 算白天）
+  function currentDaypart() {
+    const h = new Date().getHours();
+    return (h >= 5 && h < 18) ? 'day' : 'night';
+  }
+
+  // 取得今天的訪客（每天固定一位 + 第一次抽到當下的時段）
   function getTodayVisitor() {
     const today = todayKey();
     let stored = null;
@@ -459,7 +491,9 @@
       return {
         visitor: VISITOR_BY_ID[stored.visitorId],
         isReturn: !!stored.isReturn,
-        lastSeenISO: stored.lastSeenISO || null
+        lastSeenISO: stored.lastSeenISO || null,
+        // V1.6: 沿用「第一次抽到時的時段」，整天不換
+        daypart: stored.daypart || currentDaypart()
       };
     }
 
@@ -502,16 +536,20 @@
       picked = pool[Math.floor(Math.random() * pool.length)];
     }
 
+    // V1.6: 紀錄第一次抽到的時段
+    const daypart = currentDaypart();
+
     try {
       localStorage.setItem(KEYS.todayVisitor, JSON.stringify({
         date: today,
         visitorId: picked.id,
         isReturn: isReturn,
-        lastSeenISO: lastSeenISO
+        lastSeenISO: lastSeenISO,
+        daypart: daypart
       }));
     } catch (e) {}
 
-    return { visitor: picked, isReturn: isReturn, lastSeenISO: lastSeenISO };
+    return { visitor: picked, isReturn: isReturn, lastSeenISO: lastSeenISO, daypart: daypart };
   }
 
   // 今天是否已收藏此訪客？
@@ -524,7 +562,7 @@
   }
 
   // 收藏訪客
-  function collectVisitor(visitor) {
+  function collectVisitor(visitor, daypart) {
     if (isTodayVisitorCollected(visitor.id)) return false;
     const list = loadList(KEYS.visitorCollection);
     const now = new Date();
@@ -533,11 +571,13 @@
       visitorId: visitor.id,
       visitorName: visitor.name,
       image: visitor.image,
+      imageBase: visitor.imageBase,
       fallbackEmoji: visitor.fallbackEmoji,
       title: visitor.title,
       greeting: visitor.greeting,
       invitation: visitor.invitation,
       tag: visitor.tag,
+      daypart: daypart || currentDaypart(),  // V1.6
       collectedDate: todayKey(),
       createdAt: now.toISOString()
     });
@@ -548,10 +588,11 @@
 
   function addCareRecord(type) {
     const list = loadList(KEYS.care);
+    const item = resolveCareItem(type);
     list.push({
       id: 'care_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
       type: type,
-      label: CARE_LABEL_BY_TYPE[type] || type,
+      label: (item && item.label) || type,
       createdAt: new Date().toISOString()
     });
     saveList(KEYS.care, list);
@@ -564,8 +605,9 @@
       if (!raw) return DEFAULT_CARE_SELECTION.slice();
       const arr = JSON.parse(raw);
       if (!Array.isArray(arr) || arr.length === 0) return DEFAULT_CARE_SELECTION.slice();
-      // 過濾掉不存在的 type（萬一資料結構改了仍能容錯）
-      const valid = arr.filter(function (t) { return CARE_BY_TYPE[t]; });
+      // 過濾掉不存在的 type；V1.6 同時接受內建與自訂 type
+      const customMap = getCustomCareMap();
+      const valid = arr.filter(function (t) { return CARE_BY_TYPE[t] || customMap[t]; });
       return valid.length > 0 ? valid.slice(0, MAX_CARE_SELECTION) : DEFAULT_CARE_SELECTION.slice();
     } catch (e) {
       return DEFAULT_CARE_SELECTION.slice();
@@ -573,12 +615,14 @@
   }
 
   function setCareSelection(types) {
-    // 去重 + 限制最多 5 個 + 只保留合法 type
+    // 去重 + 限制最多 5 個 + 只保留合法 type（內建或自訂都算）
+    const customMap = getCustomCareMap();
     const seen = {};
     const filtered = [];
     for (let i = 0; i < types.length && filtered.length < MAX_CARE_SELECTION; i++) {
       const t = types[i];
-      if (!seen[t] && CARE_BY_TYPE[t]) {
+      if (seen[t]) continue;
+      if (CARE_BY_TYPE[t] || customMap[t]) {
         seen[t] = true;
         filtered.push(t);
       }
@@ -586,6 +630,74 @@
     try {
       localStorage.setItem(KEYS.careSelection, JSON.stringify(filtered));
     } catch (e) {}
+  }
+
+  // V1.6: 取得所有自訂照顧項目（陣列）
+  function getCustomCareItems() {
+    const list = loadList(KEYS.customCare);
+    return Array.isArray(list) ? list : [];
+  }
+
+  // V1.6: 取得自訂項目 type → 項目物件 的對照
+  function getCustomCareMap() {
+    const map = {};
+    getCustomCareItems().forEach(function (it) { map[it.type] = it; });
+    return map;
+  }
+
+  // V1.6: 取得「全部項目」（內建 + 自訂），用於編輯對話框顯示
+  function getAllCareItems() {
+    return CARE_ITEMS.concat(getCustomCareItems());
+  }
+
+  // V1.6: 從 type 字串拿到完整的項目物件（先找內建、再找自訂）
+  function resolveCareItem(type) {
+    if (CARE_BY_TYPE[type]) return CARE_BY_TYPE[type];
+    const map = getCustomCareMap();
+    return map[type] || null;
+  }
+
+  // V1.6: 新增一個自訂項目
+  // 回傳 { ok, message?, item? }
+  function addCustomCare(label, icon) {
+    label = (label || '').trim();
+    if (!label) return { ok: false, message: '請填一個名稱。' };
+    if (label.length > 8) return { ok: false, message: '名稱請在 8 個字以內。' };
+    icon = icon || CUSTOM_CARE_EMOJIS[0];
+
+    const list = getCustomCareItems();
+    if (list.length >= MAX_CUSTOM_CARE) {
+      return { ok: false, message: '最多自訂 ' + MAX_CUSTOM_CARE + ' 項。\n要先刪一項才能再加。' };
+    }
+    // 避免跟內建 / 既有自訂 label 撞名
+    const allLabels = CARE_ITEMS.map(function (i) { return i.label; })
+                      .concat(list.map(function (i) { return i.label; }));
+    if (allLabels.indexOf(label) !== -1) {
+      return { ok: false, message: '已經有一項叫「' + label + '」了。' };
+    }
+
+    // 用時間戳生成唯一 type id
+    const item = {
+      type: 'custom_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+      label: label,
+      icon: icon,
+      desc: CUSTOM_CARE_DESC,
+      btn: CUSTOM_CARE_BTN,
+      isCustom: true,
+      createdAt: new Date().toISOString()
+    };
+    list.push(item);
+    saveList(KEYS.customCare, list);
+    return { ok: true, item: item };
+  }
+
+  // V1.6: 刪除一個自訂項目（同時從首頁選擇清單裡移除）
+  function deleteCustomCare(type) {
+    const list = getCustomCareItems().filter(function (i) { return i.type !== type; });
+    saveList(KEYS.customCare, list);
+    // 同步清掉 careSelection 裡的這個 type
+    const sel = getCareSelection().filter(function (t) { return t !== type; });
+    setCareSelection(sel);
   }
 
   function addActivity(type, label) {
@@ -609,7 +721,134 @@
     localStorage.removeItem(KEYS.todayVisitor);
     // V1.3: 今日回憶回放快取（既然 stories 已清，這個也要清）
     localStorage.removeItem(KEYS.todayRecall);
+    // 設定類（稱呼、字體、家人留言、照顧選擇、自訂照顧項目、收藏冊）不清
   }
+
+  // ============================================================
+  // V1.5: 匯出 / 匯入設定（讓使用者跨裝置、跨 Safari/PWA 移轉資料）
+  // ============================================================
+
+  // 哪些 key 要被匯出（只匯「設定與長期累積的內容」，不匯今日快取／當天活動）
+  const EXPORTABLE_KEYS = [
+    'personName',      // 稱呼
+    'fontSize',        // 字體大小
+    'familyNotes',     // 給自己的一句話
+    'careSelection',   // 照顧自己項目選擇
+    'customCare',      // V1.6: 自訂照顧項目
+    'visitorCollection', // 來訪收藏冊
+    'stories'          // 想一想回憶
+  ];
+
+  const EXPORT_FORMAT_VERSION = 1;
+
+  // 把 localStorage 裡的設定打包成一段 base64 字串
+  function exportData() {
+    const payload = {
+      v: EXPORT_FORMAT_VERSION,
+      app: 'ri_ri_an_xin',
+      at: new Date().toISOString(),
+      data: {}
+    };
+    EXPORTABLE_KEYS.forEach(function (k) {
+      const fullKey = KEYS[k];
+      if (!fullKey) return;
+      try {
+        const raw = localStorage.getItem(fullKey);
+        if (raw !== null) payload.data[k] = raw;
+      } catch (e) {}
+    });
+
+    const json = JSON.stringify(payload);
+    // 用 TextEncoder 處理 unicode（btoa 直接吃中文會壞）
+    // 標準做法：JSON → UTF-8 bytes → base64 字串
+    try {
+      const bytes = new TextEncoder().encode(json);
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // 解析設定碼但不寫入；回傳 { ok, message, payload?, summary? }
+  function parseImportCode(code) {
+    if (!code || typeof code !== 'string') {
+      return { ok: false, message: '請貼上一段設定碼。' };
+    }
+    const cleaned = code.replace(/\s+/g, '');
+    if (!cleaned) {
+      return { ok: false, message: '請貼上一段設定碼。' };
+    }
+
+    let json;
+    try {
+      // base64 → binary string → UTF-8 bytes → JSON
+      const binary = atob(cleaned);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) {
+        bytes[i] = binary.charCodeAt(i);
+      }
+      json = new TextDecoder().decode(bytes);
+    } catch (e) {
+      return { ok: false, message: '這段設定碼看起來不對，請再檢查一下。' };
+    }
+
+    let payload;
+    try {
+      payload = JSON.parse(json);
+    } catch (e) {
+      return { ok: false, message: '這段設定碼看起來不對，請再檢查一下。' };
+    }
+
+    if (!payload || payload.app !== 'ri_ri_an_xin' || !payload.data) {
+      return { ok: false, message: '這段設定碼不是《日日安心》的設定。' };
+    }
+    if (typeof payload.v !== 'number' || payload.v > EXPORT_FORMAT_VERSION) {
+      return { ok: false, message: '這段設定碼版本較新，這台手機還讀不了。' };
+    }
+
+    // 預先計算摘要（給使用者看「即將載入什麼」）
+    const summary = {
+      personName: false,
+      fontSize: false,
+      familyNotes: 0,
+      careSelection: 0,
+      customCare: 0,
+      visitorCollection: 0,
+      stories: 0
+    };
+    EXPORTABLE_KEYS.forEach(function (k) {
+      const value = payload.data[k];
+      if (typeof value !== 'string') return;
+      if (k === 'personName') summary.personName = !!value.trim();
+      else if (k === 'fontSize') summary.fontSize = !!value.trim();
+      else {
+        try {
+          const arr = JSON.parse(value);
+          if (Array.isArray(arr)) summary[k] = arr.length;
+        } catch (e) {}
+      }
+    });
+
+    return { ok: true, payload: payload, summary: summary };
+  }
+
+  // 真正寫入 localStorage（拿 parseImportCode 的 payload）
+  function applyImportPayload(payload) {
+    EXPORTABLE_KEYS.forEach(function (k) {
+      const fullKey = KEYS[k];
+      if (!fullKey) return;
+      const value = payload.data[k];
+      if (typeof value !== 'string') return;
+      try {
+        localStorage.setItem(fullKey, value);
+      } catch (e) {}
+    });
+  }
+
 
   // ============================================================
   // 三、日期工具
@@ -820,11 +1059,13 @@
 
   // V1.2: 今天的訪客
   let currentVisitor = null;
+  let currentVisitorDaypart = null;
 
   function renderTodayVisitor() {
     const info = getTodayVisitor();
     const visitor = info.visitor;
     currentVisitor = visitor;
+    currentVisitorDaypart = info.daypart;
 
     document.getElementById('visitorTitle').textContent = visitor.title;
     document.getElementById('visitorInvitation').textContent = visitor.invitation;
@@ -844,14 +1085,38 @@
       document.getElementById('visitorGreeting').textContent = visitor.greeting;
     }
 
-    // 圖片載入：先嘗試圖片，若 onerror 觸發會切換到 emoji fallback
+    // V1.6: 圖片載入採三段式回退
+    //   1. 嘗試 day/night 版本（例如 kiwi_day.jpg）
+    //   2. 失敗 → 嘗試通用版本（kiwi.jpg）
+    //   3. 都失敗 → 顯示 emoji
     const img = document.getElementById('visitorImage');
     const fallback = document.getElementById('visitorEmojiFallback');
     fallback.textContent = visitor.fallbackEmoji || '🐾';
-    img.style.display = '';        // 重置（前一位訪客可能已隱藏）
-    fallback.style.display = 'none';
     img.alt = visitor.name;
-    img.src = visitor.image;
+
+    // 把先前可能掛載的事件先清掉，避免上一位訪客的 handler 殘留
+    img.onerror = null;
+    img.onload = null;
+    img.style.display = '';
+    fallback.style.display = 'none';
+
+    const daypartImage = (visitor.imageBase || '') + '_' + info.daypart + '.jpg';
+    const genericImage = visitor.image;
+
+    let stage = 'daypart';
+    img.onerror = function () {
+      if (stage === 'daypart' && genericImage && genericImage !== daypartImage) {
+        // 第一階段失敗 → 試通用版
+        stage = 'generic';
+        img.src = genericImage;
+      } else {
+        // 都失敗 → 顯示 emoji
+        img.style.display = 'none';
+        fallback.style.display = 'flex';
+      }
+    };
+
+    img.src = daypartImage;
 
     // 收藏狀態
     const card = document.getElementById('visitorCard');
@@ -872,7 +1137,7 @@
       showToast('今天的來訪已經收藏過囉。', 2200);
       return;
     }
-    const ok = collectVisitor(currentVisitor);
+    const ok = collectVisitor(currentVisitor, currentVisitorDaypart);
     if (!ok) return;
 
     // 寫入 activity record（type: visitor）
@@ -896,14 +1161,24 @@
         '</div>';
       return;
     }
-    el.innerHTML = list.map(function (c) {
+    el.innerHTML = list.map(function (c, idx) {
       const dateLabel = formatAlbumDate(c.collectedDate);
       const emoji = c.fallbackEmoji || '🐾';
-      // 使用 image + emoji fallback 結構
+
+      // V1.6: 優先用 daypart 圖（如果當時有記錄），失敗就回退
+      const daypart = c.daypart || 'day';
+      const base = c.imageBase ||
+        (c.image ? c.image.replace(/\.jpg$/i, '').replace(/\.png$/i, '') : '');
+      const primary = base ? base + '_' + daypart + '.jpg' : (c.image || '');
+      const generic = c.image || '';
+
       return '<div class="album-card">' +
         '<div class="album-card-image-wrap">' +
-          '<img class="album-card-image" src="' + escapeAttr(c.image) + '" alt="' + escapeAttr(c.visitorName) + '" ' +
-               'onerror="this.style.display=' + "'none'" + ';this.nextElementSibling.style.display=' + "'flex'" + ';">' +
+          '<img class="album-card-image" ' +
+               'data-primary="' + escapeAttr(primary) + '" ' +
+               'data-generic="' + escapeAttr(generic) + '" ' +
+               'src="' + escapeAttr(primary) + '" ' +
+               'alt="' + escapeAttr(c.visitorName) + '">' +
           '<div class="album-card-emoji-fallback" style="display:none">' + escapeHtml(emoji) + '</div>' +
         '</div>' +
         '<div class="album-card-content">' +
@@ -922,6 +1197,23 @@
         '</div>' +
       '</div>';
     }).join('');
+
+    // 綁定圖片 fallback：daypart 版失敗 → 通用版 → emoji
+    el.querySelectorAll('.album-card-image').forEach(function (img) {
+      img.onerror = function () {
+        const generic = img.dataset.generic;
+        const current = img.getAttribute('src');
+        if (generic && current !== generic) {
+          // 階段二：試通用版
+          img.src = generic;
+        } else {
+          // 都失敗 → emoji
+          img.style.display = 'none';
+          const sibling = img.nextElementSibling;
+          if (sibling) sibling.style.display = 'flex';
+        }
+      };
+    });
   }
 
   function escapeAttr(s) {
@@ -973,16 +1265,25 @@
       hintEl.innerHTML = '今天靜靜的也很好。<br>有空時，再回來看看就好。';
       hintEl.classList.remove('hidden');
     } else {
-      const shown = Math.min(count, 5);
+      // 一排最多放 8 朵；超過 8 朵就顯示 8 朵 + 文字傳達「花開滿了」
+      const MAX_FLOWERS = 8;
+      const shown = Math.min(count, MAX_FLOWERS);
       let html = '';
       for (let i = 0; i < shown; i++) {
         html += '<span class="flower" style="animation-delay:' + (i * 80) + 'ms;">' + FLOWERS[i % FLOWERS.length] + '</span>';
       }
       flowersEl.innerHTML = html;
-      countEl.textContent = '今天開了 ' + count + ' 朵';
-      hintEl.innerHTML = count >= 3
-        ? '今天有好好陪自己。'
-        : '今天的花園開花了。';
+
+      if (count > MAX_FLOWERS) {
+        // 超過上限：花保持滿開，文字改說「滿開」
+        countEl.textContent = '今天花開滿了';
+        hintEl.innerHTML = '今天好充實，謝謝您這麼用心陪自己。';
+      } else {
+        countEl.textContent = '今天開了 ' + count + ' 朵';
+        hintEl.innerHTML = count >= 3
+          ? '今天有好好陪自己。'
+          : '今天的花園開花了。';
+      }
       hintEl.classList.remove('hidden');
     }
   }
@@ -1013,13 +1314,15 @@
 
     const list = document.getElementById('homeCareList');
     list.innerHTML = selection.map(function (type) {
-      const item = CARE_BY_TYPE[type];
+      const item = resolveCareItem(type);
       if (!item) return '';
       const done = !!doneTypes[type];
+      // 用 escapeHtml 處理 icon（自訂項目的 icon 是使用者選的，理論上是純 emoji；
+      // 但為了防呆，仍 escape 一下避免奇怪輸入）
       return '<div class="care-row' + (done ? ' done' : '') + '" ' +
-                'data-care-type="' + type + '" ' +
+                'data-care-type="' + escapeAttr(type) + '" ' +
                 'data-care-label="' + escapeAttr(item.label) + '">' +
-        '<div class="care-icon">' + item.icon + '</div>' +
+        '<div class="care-icon">' + escapeHtml(item.icon) + '</div>' +
         '<div class="care-name">' + escapeHtml(item.label) + '</div>' +
         '<button class="care-btn">' + (done ? '已記錄' : '我做了') + '</button>' +
       '</div>';
@@ -1049,25 +1352,61 @@
   function renderCareEditList() {
     const list = document.getElementById('careEditList');
     const isFull = careEditDraft.length >= MAX_CARE_SELECTION;
+    const allItems = getAllCareItems();
 
-    list.innerHTML = CARE_ITEMS.map(function (item) {
+    const itemsHtml = allItems.map(function (item) {
       const selected = careEditDraft.indexOf(item.type) !== -1;
-      // 未選且已達上限 → 視覺上 disabled，但仍可點（讓使用者知道為何不能再加）
       const disabled = !selected && isFull;
-      const cls = 'care-edit-item' + (selected ? ' selected' : '') + (disabled ? ' disabled' : '');
-      return '<button type="button" class="' + cls + '" data-care-type="' + item.type + '">' +
-        '<span class="care-edit-icon">' + item.icon + '</span>' +
-        '<span class="care-edit-name">' + escapeHtml(item.label) + '</span>' +
-        '<span class="care-edit-check">✓</span>' +
-      '</button>';
+      const cls = 'care-edit-item' +
+                  (selected ? ' selected' : '') +
+                  (disabled ? ' disabled' : '') +
+                  (item.isCustom ? ' is-custom' : '');
+      const deleteBtn = item.isCustom
+        ? '<button type="button" class="care-edit-delete" data-delete-type="' + escapeAttr(item.type) + '" aria-label="刪除自訂項目">' +
+            '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+              '<path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>' +
+            '</svg>' +
+          '</button>'
+        : '';
+      return '<div class="' + cls + '" data-care-type="' + escapeAttr(item.type) + '">' +
+        '<button type="button" class="care-edit-item-main">' +
+          '<span class="care-edit-icon">' + escapeHtml(item.icon) + '</span>' +
+          '<span class="care-edit-name">' + escapeHtml(item.label) + '</span>' +
+          '<span class="care-edit-check">✓</span>' +
+        '</button>' +
+        deleteBtn +
+      '</div>';
     }).join('');
 
-    // 委派一次點擊
+    // 「新增自訂項目」按鈕（達上限時隱藏）
+    const customCount = getCustomCareItems().length;
+    const addBtn = customCount >= MAX_CUSTOM_CARE
+      ? ''
+      : '<button type="button" class="care-edit-add-custom" id="careEditAddCustomBtn">' +
+          '<span>＋</span>' +
+          '<span>新增自訂項目</span>' +
+        '</button>';
+
+    list.innerHTML = itemsHtml + addBtn;
+
+    // 委派處理：點主體切換選擇、點垃圾桶刪除、點新增進入自訂介面
     list.onclick = function (e) {
-      const btn = e.target.closest('.care-edit-item');
-      if (!btn) return;
-      const type = btn.dataset.careType;
-      toggleCareEditItem(type);
+      const addBtnEl = e.target.closest('#careEditAddCustomBtn');
+      if (addBtnEl) { openCustomCareForm(); return; }
+
+      const delBtn = e.target.closest('.care-edit-delete');
+      if (delBtn) {
+        e.stopPropagation();
+        const t = delBtn.dataset.deleteType;
+        confirmDeleteCustomCare(t);
+        return;
+      }
+
+      const main = e.target.closest('.care-edit-item-main');
+      if (main) {
+        const row = main.closest('.care-edit-item');
+        if (row) toggleCareEditItem(row.dataset.careType);
+      }
     };
   }
 
@@ -1104,6 +1443,232 @@
     showToast('改好了。', 1600);
     renderHomeCareStatus();
   }
+
+  // ============================================================
+  // V1.6: 新增自訂照顧項目 — 表單對話框
+  // ============================================================
+
+  // 暫存目前挑的 emoji
+  let customCareEmojiDraft = CUSTOM_CARE_EMOJIS[0];
+
+  function openCustomCareForm() {
+    if (getCustomCareItems().length >= MAX_CUSTOM_CARE) {
+      showToast('最多自訂 ' + MAX_CUSTOM_CARE + ' 項。', 2200);
+      return;
+    }
+    document.getElementById('customCareNameInput').value = '';
+    customCareEmojiDraft = CUSTOM_CARE_EMOJIS[0];
+    renderCustomCareEmojiGrid();
+    document.getElementById('customCareMask').hidden = false;
+    // 自動 focus 名稱欄位
+    setTimeout(function () {
+      document.getElementById('customCareNameInput').focus();
+    }, 200);
+  }
+
+  function closeCustomCareForm() {
+    document.getElementById('customCareMask').hidden = true;
+  }
+
+  function renderCustomCareEmojiGrid() {
+    const grid = document.getElementById('customCareEmojiGrid');
+    grid.innerHTML = CUSTOM_CARE_EMOJIS.map(function (e) {
+      const cls = 'custom-care-emoji-btn' + (e === customCareEmojiDraft ? ' selected' : '');
+      return '<button type="button" class="' + cls + '" data-emoji="' + escapeAttr(e) + '">' +
+        escapeHtml(e) +
+      '</button>';
+    }).join('');
+
+    grid.onclick = function (ev) {
+      const btn = ev.target.closest('.custom-care-emoji-btn');
+      if (!btn) return;
+      customCareEmojiDraft = btn.dataset.emoji;
+      renderCustomCareEmojiGrid();
+    };
+  }
+
+  function saveCustomCareForm() {
+    const label = document.getElementById('customCareNameInput').value;
+    const result = addCustomCare(label, customCareEmojiDraft);
+    if (!result.ok) {
+      showToast(result.message, 2400);
+      return;
+    }
+    closeCustomCareForm();
+    showToast('加好了。', 1400);
+    // 重新渲染編輯清單（讓新項目立刻出現可以勾選）
+    renderCareEditList();
+  }
+
+  function confirmDeleteCustomCare(type) {
+    const item = getCustomCareMap()[type];
+    if (!item) return;
+    showConfirm(
+      '要刪掉「' + item.label + '」嗎',
+      '刪掉後就不會在清單裡，\n但過去的紀錄都還在。',
+      function () {
+        deleteCustomCare(type);
+        // careEditDraft 也要同步（雖然 setCareSelection 內部會清，但這裡是 draft，還沒寫入）
+        const idx = careEditDraft.indexOf(type);
+        if (idx !== -1) careEditDraft.splice(idx, 1);
+        renderCareEditList();
+        updateCareEditCount();
+        showToast('刪掉了。', 1400);
+      }
+    );
+  }
+
+
+  // ============================================================
+  // V1.5: 匯出 / 匯入設定 — UI 控制
+  // ============================================================
+
+  function openExportModal() {
+    const code = exportData();
+    if (!code) {
+      showToast('產生設定碼時遇到問題，請再試一次。', 2400);
+      return;
+    }
+    const ta = document.getElementById('exportCode');
+    ta.value = code;
+
+    // 顯示摘要：這次匯出包含什麼
+    renderExportSummary();
+
+    // 偵測 Web Share API 支援度
+    const shareBtn = document.getElementById('exportShareBtn');
+    if (navigator.share) {
+      shareBtn.hidden = false;
+    } else {
+      shareBtn.hidden = true;
+    }
+
+    document.getElementById('exportMask').hidden = false;
+  }
+
+  function renderExportSummary() {
+    const el = document.getElementById('exportSummary');
+    const lines = [];
+    const name = (function () {
+      try { return localStorage.getItem(KEYS.personName); } catch (e) { return null; }
+    })();
+    if (name && name.trim()) {
+      lines.push('<div class="backup-summary-line"><span class="label">稱呼</span><span class="value">' + escapeHtml(name) + '</span></div>');
+    }
+    const notes = loadList(KEYS.familyNotes);
+    if (notes.length > 0) {
+      lines.push('<div class="backup-summary-line"><span class="label">給自己的話</span><span class="value">' + notes.length + ' 句</span></div>');
+    }
+    const stories = loadList(KEYS.stories);
+    if (stories.length > 0) {
+      lines.push('<div class="backup-summary-line"><span class="label">想一想的回憶</span><span class="value">' + stories.length + ' 段</span></div>');
+    }
+    const collection = loadList(KEYS.visitorCollection);
+    if (collection.length > 0) {
+      lines.push('<div class="backup-summary-line"><span class="label">來訪收藏冊</span><span class="value">' + collection.length + ' 張</span></div>');
+    }
+    const customs = getCustomCareItems();
+    if (customs.length > 0) {
+      lines.push('<div class="backup-summary-line"><span class="label">自訂照顧項目</span><span class="value">' + customs.length + ' 項</span></div>');
+    }
+
+    if (lines.length === 0) {
+      el.innerHTML = '<div style="text-align:center;color:var(--text-faint);">這份設定碼還沒有什麼內容，<br>之後再產生也可以。</div>';
+    } else {
+      el.innerHTML = lines.join('');
+    }
+  }
+
+  function closeExportModal() {
+    document.getElementById('exportMask').hidden = true;
+  }
+
+  function copyExportCode() {
+    const ta = document.getElementById('exportCode');
+    const text = ta.value;
+    if (!text) return;
+
+    function ok() { showToast('設定碼已經複製。\n貼到 Line、記事本，或寄給自己都行。', 3000); }
+    function fallback() {
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      try {
+        document.execCommand('copy');
+        ok();
+      } catch (e) {
+        showToast('長按下面的文字也可以複製。', 2800);
+      }
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(ok).catch(fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  function shareExportCode() {
+    const text = document.getElementById('exportCode').value;
+    if (!text || !navigator.share) return;
+    navigator.share({
+      title: '日日安心 — 設定碼',
+      text: '我的《日日安心》設定碼（換手機時可用）：\n\n' + text
+    }).catch(function () { /* 使用者取消分享，不打擾 */ });
+  }
+
+  function openImportModal() {
+    document.getElementById('importCode').value = '';
+    document.getElementById('importMask').hidden = false;
+    // 自動 focus 輸入框，方便長按貼上
+    setTimeout(function () {
+      document.getElementById('importCode').focus();
+    }, 200);
+  }
+
+  function closeImportModal() {
+    document.getElementById('importMask').hidden = true;
+  }
+
+  function confirmImport() {
+    const code = document.getElementById('importCode').value;
+    if (!code.trim()) {
+      showToast('請先貼上設定碼。', 1800);
+      return;
+    }
+
+    // 先解析驗證（不會寫入）
+    const peek = parseImportCode(code);
+    if (!peek.ok) {
+      showToast(peek.message, 3000);
+      return;
+    }
+
+    // 顯示二次確認
+    const summary = peek.summary;
+    let summaryText = '即將覆蓋成：\n';
+    if (summary.personName) summaryText += '· 稱呼\n';
+    if (summary.familyNotes > 0) summaryText += '· 給自己的話 ' + summary.familyNotes + ' 句\n';
+    if (summary.stories > 0) summaryText += '· 回憶 ' + summary.stories + ' 段\n';
+    if (summary.visitorCollection > 0) summaryText += '· 收藏冊 ' + summary.visitorCollection + ' 張\n';
+    if (summary.customCare > 0) summaryText += '· 自訂照顧項目 ' + summary.customCare + ' 項\n';
+    summaryText += '\n這台手機現在的設定會被覆蓋掉。';
+
+    showConfirm(
+      '要載入這份設定嗎',
+      summaryText.trim(),
+      function () {
+        // 確認後才真正寫入 localStorage
+        applyImportPayload(peek.payload);
+        closeImportModal();
+        showToast('設定已經載入了。', 2400);
+        // 重新套用字體大小（要讓畫面立刻反映）
+        loadFontSize();
+        // 回首頁重新渲染所有內容
+        goTo('home');
+      }
+    );
+  }
+
 
 
   function renderSummary() {
@@ -1710,17 +2275,17 @@
     });
 
     list.innerHTML = '';
-    CARE_ITEMS.forEach(function (item) {
+    getAllCareItems().forEach(function (item) {
       const card = document.createElement('div');
       card.className = 'care-page-card' + (countByType[item.type] ? ' done' : '');
       card.innerHTML =
         '<div class="care-page-head">' +
-          '<div class="care-page-icon">' + item.icon + '</div>' +
-          '<div class="care-page-title">' + item.label + '</div>' +
+          '<div class="care-page-icon">' + escapeHtml(item.icon) + '</div>' +
+          '<div class="care-page-title">' + escapeHtml(item.label) + '</div>' +
           (countByType[item.type] ? '<div class="care-page-count">今天 ' + countByType[item.type] + ' 次</div>' : '') +
         '</div>' +
-        '<div class="care-page-desc">' + item.desc.replace(/\n/g, '<br>') + '</div>' +
-        '<button class="care-page-btn">' + item.btn + '</button>';
+        '<div class="care-page-desc">' + escapeHtml(item.desc).replace(/\n/g, '<br>') + '</div>' +
+        '<button class="care-page-btn">' + escapeHtml(item.btn) + '</button>';
 
       card.querySelector('.care-page-btn').addEventListener('click', function () {
         addCareRecord(item.type);
@@ -1868,6 +2433,49 @@
     document.getElementById('careEditSave').addEventListener('click', saveCareEdit);
     document.getElementById('careEditMask').addEventListener('click', function (e) {
       if (e.target === e.currentTarget) closeCareEdit();
+    });
+
+    // V1.6: 自訂項目表單
+    document.getElementById('customCareCancelBtn').addEventListener('click', closeCustomCareForm);
+    document.getElementById('customCareSaveBtn').addEventListener('click', saveCustomCareForm);
+    document.getElementById('customCareMask').addEventListener('click', function (e) {
+      if (e.target === e.currentTarget) closeCustomCareForm();
+    });
+    // Enter 直接送出
+    document.getElementById('customCareNameInput').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        saveCustomCareForm();
+      }
+    });
+
+    // V1.5: 匯出 / 匯入設定
+    document.getElementById('backupExportBtn').addEventListener('click', openExportModal);
+    document.getElementById('backupImportBtn').addEventListener('click', openImportModal);
+    document.getElementById('exportCopyBtn').addEventListener('click', copyExportCode);
+    document.getElementById('exportShareBtn').addEventListener('click', shareExportCode);
+    document.getElementById('exportCloseBtn').addEventListener('click', closeExportModal);
+    document.getElementById('importCancelBtn').addEventListener('click', closeImportModal);
+    document.getElementById('importLoadBtn').addEventListener('click', confirmImport);
+    document.getElementById('exportMask').addEventListener('click', function (e) {
+      if (e.target === e.currentTarget) closeExportModal();
+    });
+    document.getElementById('importMask').addEventListener('click', function (e) {
+      if (e.target === e.currentTarget) closeImportModal();
+    });
+
+    // V1.6: 自訂照顧項目表單
+    document.getElementById('customCareCancelBtn').addEventListener('click', closeCustomCareForm);
+    document.getElementById('customCareSaveBtn').addEventListener('click', saveCustomCareForm);
+    document.getElementById('customCareMask').addEventListener('click', function (e) {
+      if (e.target === e.currentTarget) closeCustomCareForm();
+    });
+    // Enter 鍵也可以送出
+    document.getElementById('customCareNameInput').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        saveCustomCareForm();
+      }
     });
 
     // 遊戲卡片

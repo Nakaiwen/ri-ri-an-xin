@@ -71,7 +71,7 @@
             <div class="visitor-label">今 · 天 · 的 · 訪 · 客</div>
 
             <div class="visitor-image-wrap">
-              <img class="visitor-image" id="visitorImage" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+              <img class="visitor-image" id="visitorImage" alt="">
               <div class="visitor-emoji-fallback" id="visitorEmojiFallback">🐾</div>
             </div>
 
@@ -453,6 +453,20 @@
             </div>
           </div>
 
+          <!-- V1.5: 換手機 / 備份設定 -->
+          <div class="settings-card">
+            <div class="settings-section-title">換手機 · 備份設定</div>
+            <p class="settings-desc">
+              把現在的設定變成一段「設定碼」，存起來、傳給自己。<br>
+              之後換手機，或從別的瀏覽器打開，貼上代碼就能還原。
+            </p>
+
+            <div class="backup-actions">
+              <button class="btn-secondary" id="backupExportBtn">產生設定碼</button>
+              <button class="btn-secondary" id="backupImportBtn">輸入設定碼</button>
+            </div>
+          </div>
+
           <div class="settings-card">
             <div class="settings-section-title">這台手機的紀錄</div>
             <p class="settings-desc">所有紀錄都在你的手機裡，不會傳到網路上。</p>
@@ -527,6 +541,61 @@
           <div class="modal-actions">
             <button class="btn-secondary" id="careEditCancel">不要了</button>
             <button class="btn-primary" id="careEditSave">記住這幾項</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ V1.5: Export Modal ============ -->
+      <div class="modal-mask" id="exportMask" hidden>
+        <div class="modal modal-wide">
+          <div class="modal-title">設定碼</div>
+          <div class="modal-text">
+            這是你的設定碼。<br>
+            按「複製」儲存起來，未來換手機時貼上就能還原。
+          </div>
+          <textarea class="backup-code" id="exportCode" readonly rows="5"></textarea>
+          <div class="backup-summary" id="exportSummary"></div>
+          <div class="modal-actions modal-actions-stack">
+            <button class="btn-primary" id="exportCopyBtn">複製設定碼</button>
+            <button class="btn-secondary" id="exportShareBtn" hidden>用其他 App 傳出去</button>
+            <button class="btn-secondary" id="exportCloseBtn">關閉</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ V1.5: Import Modal ============ -->
+      <div class="modal-mask" id="importMask" hidden>
+        <div class="modal modal-wide">
+          <div class="modal-title">貼上設定碼</div>
+          <div class="modal-text">
+            貼上你之前產生的設定碼，按「載入」會把這台手機的設定<br>
+            <strong>覆蓋成設定碼裡的內容</strong>。
+          </div>
+          <textarea class="backup-code" id="importCode" rows="5" placeholder="把設定碼貼在這裡..."></textarea>
+          <div class="modal-actions">
+            <button class="btn-secondary" id="importCancelBtn">不要了</button>
+            <button class="btn-primary" id="importLoadBtn">載入</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ V1.6: Custom Care Form Modal ============ -->
+      <div class="modal-mask" id="customCareMask" hidden>
+        <div class="modal modal-wide">
+          <div class="modal-title">新增自訂項目</div>
+          <div class="modal-text">填一個名稱，挑一個圖案，就會出現在清單裡。</div>
+
+          <label class="custom-care-label" for="customCareNameInput">名稱（最多 8 字）</label>
+          <input class="custom-care-input" id="customCareNameInput" type="text" maxlength="8" placeholder="例如：練氣功">
+
+          <label class="custom-care-label">挑一個圖案</label>
+          <div class="custom-care-emoji-grid" id="customCareEmojiGrid">
+            <!-- filled by JS -->
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn-secondary" id="customCareCancelBtn">不要了</button>
+            <button class="btn-primary" id="customCareSaveBtn">加進來</button>
           </div>
         </div>
       </div>
