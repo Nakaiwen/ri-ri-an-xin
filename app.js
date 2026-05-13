@@ -310,6 +310,72 @@
       greeting: '我今天走得不快，也坐下來休息了一會兒。想跟您說，照顧自己、慢慢休息，也是一件很好的事。',
       invitation: '今天要不要找個舒服的位置坐一下，喝幾口水，讓自己輕鬆一點？',
       tag: '休息一下'
+    },
+    {
+      id: 'pigeon_postman',
+      name: '鴿子郵差',
+      image: 'images/visitors/pigeon_postman.jpg',
+      imageBase: 'images/visitors/pigeon_postman',
+      fallbackEmoji: '🕊️',
+      title: '今天有一隻裝扮成郵差的鴿子，在送信途中經過您家。',
+      greeting: '我今天一路飛呀飛、送了好多封信，經過這裡時，也想順便送您一份問候。願您今天平平安安，心裡暖暖的。',
+      invitation: '今天可以看看窗外，或留一句話給想念的人，讓心情像收到信一樣輕輕亮起來。',
+      tag: '捎來問候'
+    },
+    {
+      id: 'tuxedo_cat_ny',
+      name: '紐約賓士貓',
+      image: 'images/visitors/tuxedo_cat_ny.jpg',
+      imageBase: 'images/visitors/tuxedo_cat_ny',
+      fallbackEmoji: '🐈',
+      title: '今天有一隻從紐約旅行來的賓士貓，背著背包，俏皮地經過您家。',
+      greeting: '我從熱鬧的城市一路旅行過來，想在這裡停一下，向您打個招呼。今天就算只是一點點好心情，也很值得珍惜。',
+      invitation: '今天可以做一件讓自己開心的小事，像喝口茶、看看窗外，或想一個讓你微笑的人。',
+      tag: '俏皮問好'
+    },
+    {
+      id: 'shiba_brothers_kyoto',
+      name: '柴犬兄弟',
+      image: 'images/visitors/shiba_brothers_kyoto.jpg',
+      imageBase: 'images/visitors/shiba_brothers_kyoto',
+      fallbackEmoji: '🐕',
+      title: '今天有一對從日本京都旅行來的柴犬兄弟，經過您家來向您問好。',
+      greeting: '我們從京都的街道一路散步過來，經過這裡時，想一起向您說一聲平安。今天慢慢地過，也是一種很好的旅行節奏。',
+      invitation: '今天可以慢慢走幾步，看看身邊的小風景，或想想一件讓你覺得安心的小事。',
+      tag: '一起來問好'
+    },
+    {
+      id: 'french_marmot',
+      name: '法國土撥鼠',
+      image: 'images/visitors/french_marmot.jpg',
+      imageBase: 'images/visitors/french_marmot',
+      fallbackEmoji: '🐹',
+      title: '今天有一隻從法國旅行來的土撥鼠，探出頭來經過您家。',
+      greeting: '我從法國的山坡和花田一路旅行過來，看到這裡很溫暖，就想停下來向您打個招呼。今天會很美好，旅途中的片段都是很好的回憶。',
+      invitation: '今天可以找一個舒服的位置坐一下，看看窗外，讓心情像遠方的風一樣輕輕放鬆。',
+      tag: '慢慢旅行'
+    },
+    {
+      id: 'egypt_camel',
+      name: '埃及駱駝',
+      image: 'images/visitors/egypt_camel.jpg',
+      imageBase: 'images/visitors/egypt_camel',
+      fallbackEmoji: '🐪',
+      title: '今天有一隻從埃及旅行來的駱駝，正在旅途中經過您家。',
+      greeting: '我從遙遠的沙漠一路慢慢走來，途中看見很多風景。經過這裡時，也想停下來向您說一聲平安。慢慢走，沿途欣賞，也是一種很好的旅行方式。',
+      invitation: '今天可以慢慢喝幾口水，坐一下，讓自己像沙漠旅人一樣，穩穩地照顧自己。',
+      tag: '穩穩前行'
+    },
+    {
+      id: 'red_fox_london',
+      name: '倫敦紅狐狸',
+      image: 'images/visitors/red_fox_london.jpg',
+      imageBase: 'images/visitors/red_fox_london',
+      fallbackEmoji: '🦊',
+      title: '今天有一隻來自英國倫敦的紅狐狸，正在旅行途中經過您家。',
+      greeting: '我從倫敦的街角與公園一路旅行過來，途中看見很多有趣的風景。經過這裡時，也想停下來向您問好。今天慢慢過，也會有屬於自己的小小風景。',
+      invitation: '今天可以慢慢看看窗外，或散幾步，留意一下身邊的小景色，讓心情也跟著輕鬆一點。',
+      tag: '街角旅行'
     }
   ];
 
