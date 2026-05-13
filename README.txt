@@ -1,68 +1,76 @@
-《日日安心》訪客圖片放這裡
+《日日安心》安靜日靜物圖放這裡
 
-規格：
+═══════════════════════════════════════════════════════
+什麼時候會用到這些圖？
+═══════════════════════════════════════════════════════
+
+每天有 10% 機率「沒有訪客來訪」，這時 App 會在訪客卡的位置
+顯示一張靜物風景圖 + 溫柔的句子。
+共 5 種場景，每天隨機挑一張（會避開昨天那張）。
+
+═══════════════════════════════════════════════════════
+規格
+═══════════════════════════════════════════════════════
+
 - 尺寸：1200 × 900 像素（4:3 橫式）
 - 格式：JPG
 - 品質：建議 80%（檔案約 80–180 KB）
-- 風格：水彩繪本感，主體居中
+- 風格：水彩繪本感、米白底，跟訪客圖風格一致
 
 ═══════════════════════════════════════════════════════
-白天 / 晚上版本
+檔名清單（小寫、底線分隔、副檔名 .jpg）
 ═══════════════════════════════════════════════════════
 
-App 會依照「使用者今天第一次打開的時段」自動選圖：
-- 早上 5:00 – 晚上 6:00（18:00）→ 顯示 _day 版
-- 晚上 6:00 – 隔天早上 5:00 → 顯示 _night 版
+白天版（明亮、暖陽、自然光）：
+- quiet_tea_day.jpg       一杯熱茶（白天）
+- quiet_window_day.jpg    窗邊光景（白天）
+- quiet_chair_day.jpg     舒服的椅子（白天）
+- quiet_plant_day.jpg     窗邊小植物（白天）
+- quiet_letter_day.jpg    信紙與筆（白天）
 
-檔名規則（小寫、底線分隔、副檔名 .jpg）：
-
-白天版（背景明亮、暖陽、藍天等）：
-- kiwi_day.jpg              奇異鳥（白天）
-- turtle_day.jpg            海龜（白天）
-- sparrow_day.jpg           麻雀（白天）
-- butterfly_day.jpg         蝴蝶（白天）
-- owl_nordic_day.jpg        貓頭鷹（白天）
-- cat_traveler_day.jpg      貓咪旅人（白天）
-- penguin_day.jpg           企鵝（白天）
-- deer_day.jpg              小鹿（白天）
-- duck_day.jpg              鴨子（白天）
-- panda_day.jpg             熊貓（白天）
-- pigeon_postman_day.jpg        鴿子郵差（白天）
-- tuxedo_cat_ny_day.jpg         紐約賓士貓（白天）
-- shiba_brothers_kyoto_day.jpg  柴犬兄弟（白天）
-- french_marmot_day.jpg         法國土撥鼠（白天）
-- egypt_camel_day.jpg           埃及駱駝（白天）
-- red_fox_london_day.jpg        倫敦紅狐狸（白天）
-
-晚上版（夜空、月亮、星星、暖燈等）：
-- kiwi_night.jpg            奇異鳥（晚上）
-- turtle_night.jpg          海龜（晚上）
-- sparrow_night.jpg         麻雀（晚上）
-- butterfly_night.jpg       蝴蝶（晚上）
-- owl_nordic_night.jpg      貓頭鷹（晚上）
-- cat_traveler_night.jpg    貓咪旅人（晚上）
-- penguin_night.jpg         企鵝（晚上）
-- deer_night.jpg            小鹿（晚上）
-- duck_night.jpg            鴨子（晚上）
-- panda_night.jpg           熊貓（晚上）
-- pigeon_postman_night.jpg        鴿子郵差（晚上）
-- tuxedo_cat_ny_night.jpg         紐約賓士貓（晚上）
-- shiba_brothers_kyoto_night.jpg  柴犬兄弟（晚上）
-- french_marmot_night.jpg         法國土撥鼠（晚上）
-- egypt_camel_night.jpg           埃及駱駝（晚上）
-- red_fox_london_night.jpg        倫敦紅狐狸（晚上）
+晚上版（夜空、暖燈、月光）：
+- quiet_tea_night.jpg       一杯熱茶（晚上、暖燈）
+- quiet_window_night.jpg    窗邊夜景（晚上）
+- quiet_chair_night.jpg     舒服的椅子（晚上、暖燈）
+- quiet_plant_night.jpg     窗邊小植物（晚上）
+- quiet_letter_night.jpg    信紙與筆（晚上、暖燈）
 
 ═══════════════════════════════════════════════════════
 圖片載入順序（fallback chain）
 ═══════════════════════════════════════════════════════
 
-App 載入訪客圖時會依序嘗試：
+App 載入安靜日靜物圖時會依序嘗試：
 
-1. 「動物名_day.jpg」或「動物名_night.jpg」← 優先
-2. 「動物名.jpg」← 通用版（單一圖片）
-3. 對應的 emoji（🐢 🦋 🦉 …）← 最後 fallback
+1. 「quiet_xxx_day.jpg」或「quiet_xxx_night.jpg」← 優先
+2. 「quiet_xxx.jpg」← 通用版（單一圖片）
+3. 對應的 emoji（☕ 🪟 🪑 🪴 ✉️）← 最後 fallback
 
 所以你可以分階段準備：
-- 完全沒做：顯示 emoji
-- 只放單張通用版（例如 kiwi.jpg）：所有時段都用它
+- 完全沒做：顯示 emoji（也很好看，跟整體文字風格搭）
+- 只放單張通用版：所有時段都用它
 - 完整準備白天/晚上兩版：依時段自動切換
+
+═══════════════════════════════════════════════════════
+場景說明（給插畫師的方向參考）
+═══════════════════════════════════════════════════════
+
+quiet_tea     一杯熱茶冒著煙
+              「安靜的日子也很好，慢慢喝、慢慢過」
+
+quiet_window  一扇窗、光從窗外輕輕走進來
+              「光從窗邊輕輕走進來，照在這裡，也照在您身上」
+
+quiet_chair   一張舒服的木椅、一條毛毯
+              「坐下來休息一會兒，今天的事不急」
+
+quiet_plant   一盆綠植靠窗
+              「植物不急著開花，只是慢慢地長」
+
+quiet_letter  一張信紙、一支筆、一個信封
+              「一個人的時候，也可以跟自己說說話」
+
+風格統一原則：
+- 物件居中，背景留白多
+- 暖色調為主、柔和光線
+- 不要太精緻寫實
+- 「沒有人也很好」的氛圍，不要孤單感

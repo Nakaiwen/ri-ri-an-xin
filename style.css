@@ -1900,6 +1900,18 @@ button {
   border: 1px solid rgba(245, 201, 136, 0.5);
   box-shadow: var(--shadow-warm);
   overflow: hidden;
+  transition: background 0.6s ease, border-color 0.6s ease;
+}
+
+/* V1.7: 安靜日—背景更柔和、米白偏鼠尾草綠 */
+.visitor-card.quiet-day {
+  background:
+    linear-gradient(180deg, #FBF7F0 0%, #F1EDE3 100%);
+  border-color: rgba(180, 192, 168, 0.4);
+}
+
+.visitor-card.quiet-day::before {
+  background: radial-gradient(circle at top right, rgba(180, 192, 168, 0.22), transparent 70%);
 }
 
 /* 明信片角落小裝飾 */

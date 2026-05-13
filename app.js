@@ -381,6 +381,61 @@
 
   const VISITOR_BY_ID = VISITORS.reduce(function (a, v) { a[v.id] = v; return a; }, {});
 
+  // V1.7: 「今天沒有訪客」的機率（10%）
+  const QUIET_DAY_PROBABILITY = 0.10;
+
+  // V1.7: 安靜日的靜物風景（每天從中挑一張）
+  // 結構：title / greeting / invitation / image / imageBase / fallbackEmoji
+  const QUIET_SCENES = [
+    {
+      id: 'quiet_tea',
+      image: 'images/quiet/quiet_tea.jpg',
+      imageBase: 'images/quiet/quiet_tea',
+      fallbackEmoji: '☕',
+      title: '今天很安靜',
+      greeting: '喝口茶，慢慢也很好。',
+      invitation: '今天可以替自己泡一杯熱熱的飲料，喝幾口，讓身體暖起來。'
+    },
+    {
+      id: 'quiet_window',
+      image: 'images/quiet/quiet_window.jpg',
+      imageBase: 'images/quiet/quiet_window',
+      fallbackEmoji: '🪟',
+      title: '今天很安靜',
+      greeting: '窗外有光，世界也在陪你。',
+      invitation: '今天可以走到窗邊看一下，看看天空、看看光。'
+    },
+    {
+      id: 'quiet_chair',
+      image: 'images/quiet/quiet_chair.jpg',
+      imageBase: 'images/quiet/quiet_chair',
+      fallbackEmoji: '🪑',
+      title: '今天很安靜',
+      greeting: '坐下來休息一下，也很好。',
+      invitation: '今天可以找一張喜歡的椅子坐一下，什麼都不做也很好。'
+    },
+    {
+      id: 'quiet_plant',
+      image: 'images/quiet/quiet_plant.jpg',
+      imageBase: 'images/quiet/quiet_plant',
+      fallbackEmoji: '🪴',
+      title: '今天很安靜',
+      greeting: '靜靜生長，也是一種美好。',
+      invitation: '今天可以看看身邊的植物，或想起家裡哪盆花最近過得怎麼樣。'
+    },
+    {
+      id: 'quiet_letter',
+      image: 'images/quiet/quiet_letter.jpg',
+      imageBase: 'images/quiet/quiet_letter',
+      fallbackEmoji: '✉️',
+      title: '今天很安靜',
+      greeting: '沒有訪客的日子，也有一份安靜問候。',
+      invitation: '今天可以寫一句話給自己，或在心裡跟自己說一聲：「您今天也辛苦了。」'
+    }
+  ];
+
+  const QUIET_SCENE_BY_ID = QUIET_SCENES.reduce(function (a, s) { a[s.id] = s; return a; }, {});
+
 
   // --- 家人訊息 ---
   const FAMILY_MESSAGES = [
@@ -552,17 +607,52 @@
       if (raw) stored = JSON.parse(raw);
     } catch (e) {}
 
-    // 若有今日的訪客紀錄，且訪客 id 仍然存在於 VISITORS 中，直接使用
-    if (stored && stored.date === today && VISITOR_BY_ID[stored.visitorId]) {
-      return {
-        visitor: VISITOR_BY_ID[stored.visitorId],
-        isReturn: !!stored.isReturn,
-        lastSeenISO: stored.lastSeenISO || null,
-        // V1.6: 沿用「第一次抽到時的時段」，整天不換
-        daypart: stored.daypart || currentDaypart()
-      };
+    // 若有今日紀錄，直接使用（含「安靜日」狀態）
+    if (stored && stored.date === today) {
+      // V1.7: 安靜日狀態
+      if (stored.isQuiet && stored.sceneId && QUIET_SCENE_BY_ID[stored.sceneId]) {
+        return {
+          isQuiet: true,
+          scene: QUIET_SCENE_BY_ID[stored.sceneId],
+          daypart: stored.daypart || currentDaypart()
+        };
+      }
+      // 正常訪客
+      if (VISITOR_BY_ID[stored.visitorId]) {
+        return {
+          isQuiet: false,
+          visitor: VISITOR_BY_ID[stored.visitorId],
+          isReturn: !!stored.isReturn,
+          lastSeenISO: stored.lastSeenISO || null,
+          daypart: stored.daypart || currentDaypart()
+        };
+      }
     }
 
+    const daypart = currentDaypart();
+
+    // V1.7: 擲骰決定今天是不是安靜日
+    if (Math.random() < QUIET_DAY_PROBABILITY) {
+      // 避開昨天的場景，連兩天看到同一張會破壞驚喜感
+      let pool = QUIET_SCENES;
+      if (stored && stored.sceneId && QUIET_SCENES.length > 1) {
+        pool = QUIET_SCENES.filter(function (s) { return s.id !== stored.sceneId; });
+      }
+      const scene = pool[Math.floor(Math.random() * pool.length)];
+
+      try {
+        localStorage.setItem(KEYS.todayVisitor, JSON.stringify({
+          date: today,
+          isQuiet: true,
+          sceneId: scene.id,
+          daypart: daypart
+        }));
+      } catch (e) {}
+
+      return { isQuiet: true, scene: scene, daypart: daypart };
+    }
+
+    // ↓↓↓ 以下為原本的「有訪客」流程 ↓↓↓
     // V1.3: 25% 機率挑「以前收藏過、超過 14 天沒見」的舊訪客回訪
     let picked = null;
     let isReturn = false;
@@ -570,18 +660,15 @@
 
     const collection = loadList(KEYS.visitorCollection);
     if (collection.length > 0 && Math.random() < 0.25) {
-      // 每位訪客取最近一次的收藏日期
       const lastSeenMap = {};
       collection.forEach(function (c) {
         if (!lastSeenMap[c.visitorId] || c.createdAt > lastSeenMap[c.visitorId]) {
           lastSeenMap[c.visitorId] = c.createdAt;
         }
       });
-      // 篩出「超過 14 天沒見」且訪客仍存在
       const eligibleIds = Object.keys(lastSeenMap).filter(function (vid) {
         return VISITOR_BY_ID[vid] && daysSince(lastSeenMap[vid]) >= 14;
       });
-      // 排除昨天那位（避免疊加）
       const filtered = stored && stored.visitorId
         ? eligibleIds.filter(function (vid) { return vid !== stored.visitorId; })
         : eligibleIds;
@@ -593,7 +680,7 @@
       }
     }
 
-    // 一般流程：從 10 隻裡隨機挑（避開昨天那位）
+    // 一般流程：從訪客陣列隨機挑（避開昨天那位）
     if (!picked) {
       let pool = VISITORS;
       if (stored && stored.visitorId && VISITORS.length > 1) {
@@ -602,20 +689,18 @@
       picked = pool[Math.floor(Math.random() * pool.length)];
     }
 
-    // V1.6: 紀錄第一次抽到的時段
-    const daypart = currentDaypart();
-
     try {
       localStorage.setItem(KEYS.todayVisitor, JSON.stringify({
         date: today,
         visitorId: picked.id,
         isReturn: isReturn,
         lastSeenISO: lastSeenISO,
-        daypart: daypart
+        daypart: daypart,
+        isQuiet: false
       }));
     } catch (e) {}
 
-    return { visitor: picked, isReturn: isReturn, lastSeenISO: lastSeenISO, daypart: daypart };
+    return { isQuiet: false, visitor: picked, isReturn: isReturn, lastSeenISO: lastSeenISO, daypart: daypart };
   }
 
   // 今天是否已收藏此訪客？
@@ -1129,20 +1214,52 @@
 
   function renderTodayVisitor() {
     const info = getTodayVisitor();
+    currentVisitorDaypart = info.daypart;
+
+    const card = document.getElementById('visitorCard');
+    const returnMeta = document.getElementById('visitorReturnMeta');
+    const btn = document.getElementById('visitorCollectBtn');
+    const albumLink = document.getElementById('visitorAlbumLink');
+
+    if (info.isQuiet) {
+      // V1.7: 安靜日狀態
+      currentVisitor = null;
+
+      const scene = info.scene;
+      document.getElementById('visitorTitle').textContent = scene.title;
+      document.getElementById('visitorGreeting').textContent = scene.greeting;
+      document.getElementById('visitorInvitation').textContent = scene.invitation;
+
+      returnMeta.hidden = true;
+      returnMeta.textContent = '';
+
+      // 套用安靜日樣式（背景偏柔和）
+      card.classList.add('quiet-day');
+      card.classList.remove('collected');
+
+      // 收藏按鈕隱藏（沒有訪客可收藏）
+      btn.hidden = true;
+
+      // 圖片用三段式回退（跟訪客一樣，沒準備圖也可以走 emoji）
+      loadVisitorImage(scene, info.daypart, '安靜的院子');
+      return;
+    }
+
+    // ↓↓↓ 正常訪客流程 ↓↓↓
     const visitor = info.visitor;
     currentVisitor = visitor;
-    currentVisitorDaypart = info.daypart;
+
+    card.classList.remove('quiet-day');
+    btn.hidden = false;
 
     document.getElementById('visitorTitle').textContent = visitor.title;
     document.getElementById('visitorInvitation').textContent = visitor.invitation;
 
     // V1.3: 回訪標記
-    const returnMeta = document.getElementById('visitorReturnMeta');
     if (info.isReturn && info.lastSeenISO) {
       const ago = timeAgoLabel(info.lastSeenISO);
       returnMeta.textContent = '— ' + ago + '見過一面，今天又經過了';
       returnMeta.hidden = false;
-      // greeting 前加一句 prefix
       document.getElementById('visitorGreeting').textContent =
         '我又經過這裡了。' + visitor.greeting;
     } else {
@@ -1151,42 +1268,9 @@
       document.getElementById('visitorGreeting').textContent = visitor.greeting;
     }
 
-    // V1.6: 圖片載入採三段式回退
-    //   1. 嘗試 day/night 版本（例如 kiwi_day.jpg）
-    //   2. 失敗 → 嘗試通用版本（kiwi.jpg）
-    //   3. 都失敗 → 顯示 emoji
-    const img = document.getElementById('visitorImage');
-    const fallback = document.getElementById('visitorEmojiFallback');
-    fallback.textContent = visitor.fallbackEmoji || '🐾';
-    img.alt = visitor.name;
-
-    // 把先前可能掛載的事件先清掉，避免上一位訪客的 handler 殘留
-    img.onerror = null;
-    img.onload = null;
-    img.style.display = '';
-    fallback.style.display = 'none';
-
-    const daypartImage = (visitor.imageBase || '') + '_' + info.daypart + '.jpg';
-    const genericImage = visitor.image;
-
-    let stage = 'daypart';
-    img.onerror = function () {
-      if (stage === 'daypart' && genericImage && genericImage !== daypartImage) {
-        // 第一階段失敗 → 試通用版
-        stage = 'generic';
-        img.src = genericImage;
-      } else {
-        // 都失敗 → 顯示 emoji
-        img.style.display = 'none';
-        fallback.style.display = 'flex';
-      }
-    };
-
-    img.src = daypartImage;
+    loadVisitorImage(visitor, info.daypart, visitor.name);
 
     // 收藏狀態
-    const card = document.getElementById('visitorCard');
-    const btn = document.getElementById('visitorCollectBtn');
     const btnText = btn.querySelector('.visitor-collect-text');
     if (isTodayVisitorCollected(visitor.id)) {
       card.classList.add('collected');
@@ -1195,6 +1279,38 @@
       card.classList.remove('collected');
       btnText.textContent = '收藏今天的來訪';
     }
+  }
+
+  // V1.6: 圖片載入三段式回退（訪客與安靜日場景共用）
+  //   1. <imageBase>_<daypart>.jpg
+  //   2. <image>（通用版）
+  //   3. emoji fallback
+  function loadVisitorImage(subject, daypart, altText) {
+    const img = document.getElementById('visitorImage');
+    const fallback = document.getElementById('visitorEmojiFallback');
+    fallback.textContent = subject.fallbackEmoji || '🐾';
+    img.alt = altText || '';
+
+    img.onerror = null;
+    img.onload = null;
+    img.style.display = '';
+    fallback.style.display = 'none';
+
+    const daypartImage = (subject.imageBase || '') + '_' + daypart + '.jpg';
+    const genericImage = subject.image;
+
+    let stage = 'daypart';
+    img.onerror = function () {
+      if (stage === 'daypart' && genericImage && genericImage !== daypartImage) {
+        stage = 'generic';
+        img.src = genericImage;
+      } else {
+        img.style.display = 'none';
+        fallback.style.display = 'flex';
+      }
+    };
+
+    img.src = daypartImage;
   }
 
   function onVisitorCollect() {
