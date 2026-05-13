@@ -1798,30 +1798,87 @@
     }).catch(function () { /* 使用者取消分享，不打擾 */ });
   }
 
+  // V1.7: 下載備份檔
+  function downloadBackup() {
+    const code = exportData();
+    if (!code) {
+      showToast('產生備份時遇到問題，請再試一次。', 2400);
+      return;
+    }
+
+    // 檔名：日日安心-備份-2026-05-13.txt
+    const d = new Date();
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const filename = '日日安心-備份-' + yyyy + '-' + mm + '-' + dd + '.txt';
+
+    try {
+      const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      // iOS Safari 需要把 anchor 加到 DOM 才會觸發下載
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      // 延遲一下再釋放 URL，避免 iOS Safari 下載被中斷
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+
+      showToast('備份檔已下載。\n你可以在「檔案」App 找到它。', 2800);
+    } catch (e) {
+      showToast('下載備份時遇到問題。\n你可以改用「進階」裡的文字代碼。', 3200);
+    }
+  }
+
   function openImportModal() {
     document.getElementById('importCode').value = '';
+    document.getElementById('importFileInput').value = '';
+    document.getElementById('importFileStatus').hidden = true;
+    document.getElementById('importFileStatus').textContent = '';
     document.getElementById('importMask').hidden = false;
-    // 自動 focus 輸入框，方便長按貼上
-    setTimeout(function () {
-      document.getElementById('importCode').focus();
-    }, 200);
   }
 
   function closeImportModal() {
     document.getElementById('importMask').hidden = true;
   }
 
-  function confirmImport() {
-    const code = document.getElementById('importCode').value;
-    if (!code.trim()) {
-      showToast('請先貼上設定碼。', 1800);
-      return;
-    }
+  // V1.7: 觸發 file picker
+  function triggerImportFilePicker() {
+    document.getElementById('importFileInput').click();
+  }
 
-    // 先解析驗證（不會寫入）
+  // V1.7: file picker 選好檔案後
+  function onImportFileChosen(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+
+    const statusEl = document.getElementById('importFileStatus');
+    statusEl.hidden = false;
+    statusEl.classList.remove('error');
+    statusEl.innerHTML = '正在讀取 <span class="filename">' + escapeHtml(file.name) + '</span>...';
+
+    const reader = new FileReader();
+    reader.onload = function () {
+      const code = String(reader.result || '');
+      processImport(code, file.name);
+    };
+    reader.onerror = function () {
+      statusEl.classList.add('error');
+      statusEl.textContent = '檔案讀取失敗，請再試一次。';
+    };
+    reader.readAsText(file, 'utf-8');
+  }
+
+  // V1.7: 統一的匯入處理（從檔案或從進階代碼都會走這裡）
+  function processImport(code, sourceLabel) {
     const peek = parseImportCode(code);
     if (!peek.ok) {
-      showToast(peek.message, 3000);
+      const statusEl = document.getElementById('importFileStatus');
+      statusEl.hidden = false;
+      statusEl.classList.add('error');
+      statusEl.textContent = peek.message;
       return;
     }
 
@@ -1836,19 +1893,26 @@
     summaryText += '\n這台手機現在的設定會被覆蓋掉。';
 
     showConfirm(
-      '要載入這份設定嗎',
+      '要載入這份備份嗎',
       summaryText.trim(),
       function () {
-        // 確認後才真正寫入 localStorage
         applyImportPayload(peek.payload);
         closeImportModal();
         showToast('設定已經載入了。', 2400);
-        // 重新套用字體大小（要讓畫面立刻反映）
         loadFontSize();
-        // 回首頁重新渲染所有內容
         goTo('home');
       }
     );
+  }
+
+  // 從「進階：手動貼上代碼」載入
+  function confirmImportFromText() {
+    const code = document.getElementById('importCode').value;
+    if (!code.trim()) {
+      showToast('請先貼上代碼。', 1800);
+      return;
+    }
+    processImport(code, '代碼');
   }
 
 
@@ -2631,14 +2695,20 @@
       }
     });
 
-    // V1.5: 匯出 / 匯入設定
+    // V1.5/V1.7: 匯出 / 匯入設定
     document.getElementById('backupExportBtn').addEventListener('click', openExportModal);
     document.getElementById('backupImportBtn').addEventListener('click', openImportModal);
+    // V1.7: 新主流程 — 下載備份檔 / 選擇備份檔
+    document.getElementById('exportDownloadBtn').addEventListener('click', downloadBackup);
+    document.getElementById('importChooseFileBtn').addEventListener('click', triggerImportFilePicker);
+    document.getElementById('importFileInput').addEventListener('change', onImportFileChosen);
+    // 進階：複製代碼 / 用代碼載入
     document.getElementById('exportCopyBtn').addEventListener('click', copyExportCode);
+    document.getElementById('importLoadBtn').addEventListener('click', confirmImportFromText);
+    // 其他控制
     document.getElementById('exportShareBtn').addEventListener('click', shareExportCode);
     document.getElementById('exportCloseBtn').addEventListener('click', closeExportModal);
     document.getElementById('importCancelBtn').addEventListener('click', closeImportModal);
-    document.getElementById('importLoadBtn').addEventListener('click', confirmImport);
     document.getElementById('exportMask').addEventListener('click', function (e) {
       if (e.target === e.currentTarget) closeExportModal();
     });

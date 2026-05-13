@@ -457,13 +457,13 @@
           <div class="settings-card">
             <div class="settings-section-title">換手機 · 備份設定</div>
             <p class="settings-desc">
-              把現在的設定變成一段「設定碼」，存起來、傳給自己。<br>
-              之後換手機，或從別的瀏覽器打開，貼上代碼就能還原。
+              把現在的設定存成一個檔案，保留下來。<br>
+              之後換手機，或從別的瀏覽器打開，選這個檔案就能還原。
             </p>
 
             <div class="backup-actions">
-              <button class="btn-secondary" id="backupExportBtn">產生設定碼</button>
-              <button class="btn-secondary" id="backupImportBtn">輸入設定碼</button>
+              <button class="btn-secondary" id="backupExportBtn">備份設定</button>
+              <button class="btn-secondary" id="backupImportBtn">還原設定</button>
             </div>
           </div>
 
@@ -548,34 +548,60 @@
       <!-- ============ V1.5: Export Modal ============ -->
       <div class="modal-mask" id="exportMask" hidden>
         <div class="modal modal-wide">
-          <div class="modal-title">設定碼</div>
+          <div class="modal-title">備份設定</div>
           <div class="modal-text">
-            這是你的設定碼。<br>
-            按「複製」儲存起來，未來換手機時貼上就能還原。
+            把目前的設定存成一個檔案。<br>
+            未來換手機，或要還原時，選這個檔案就行。
           </div>
-          <textarea class="backup-code" id="exportCode" readonly rows="5"></textarea>
+
           <div class="backup-summary" id="exportSummary"></div>
+
           <div class="modal-actions modal-actions-stack">
-            <button class="btn-primary" id="exportCopyBtn">複製設定碼</button>
+            <button class="btn-primary" id="exportDownloadBtn">下載備份檔</button>
             <button class="btn-secondary" id="exportShareBtn" hidden>用其他 App 傳出去</button>
             <button class="btn-secondary" id="exportCloseBtn">關閉</button>
           </div>
+
+          <!-- 進階：顯示文字代碼（折疊，預設不展開） -->
+          <details class="backup-advanced">
+            <summary>進階：顯示文字代碼</summary>
+            <p class="backup-advanced-hint">
+              如果有特殊需求，也可以用這串文字代碼自行儲存或傳送。
+            </p>
+            <textarea class="backup-code" id="exportCode" readonly rows="5"></textarea>
+            <button class="btn-secondary backup-advanced-copy" id="exportCopyBtn">複製文字代碼</button>
+          </details>
         </div>
       </div>
 
       <!-- ============ V1.5: Import Modal ============ -->
       <div class="modal-mask" id="importMask" hidden>
         <div class="modal modal-wide">
-          <div class="modal-title">貼上設定碼</div>
+          <div class="modal-title">還原設定</div>
           <div class="modal-text">
-            貼上你之前產生的設定碼，按「載入」會把這台手機的設定<br>
-            <strong>覆蓋成設定碼裡的內容</strong>。
+            選一個之前下載的備份檔，按「載入」會把這台手機的設定<br>
+            <strong>覆蓋成備份檔裡的內容</strong>。
           </div>
-          <textarea class="backup-code" id="importCode" rows="5" placeholder="把設定碼貼在這裡..."></textarea>
-          <div class="modal-actions">
+
+          <!-- 隱形 file input，由按鈕觸發 -->
+          <input type="file" id="importFileInput" accept=".txt,.json,text/plain,application/json" hidden>
+
+          <div class="backup-file-status" id="importFileStatus" hidden></div>
+
+          <div class="modal-actions modal-actions-stack">
+            <button class="btn-primary" id="importChooseFileBtn">選擇備份檔</button>
             <button class="btn-secondary" id="importCancelBtn">不要了</button>
-            <button class="btn-primary" id="importLoadBtn">載入</button>
           </div>
+
+          <!-- 進階：手動貼上代碼（折疊） -->
+          <details class="backup-advanced">
+            <summary>進階：手動貼上代碼</summary>
+            <p class="backup-advanced-hint">
+              如果手上是別人傳給你的文字代碼，可以貼在這裡。
+            </p>
+            <textarea class="backup-code" id="importCode" rows="5" placeholder="把代碼貼在這裡..."></textarea>
+            <button class="btn-secondary backup-advanced-copy" id="importLoadBtn">用代碼載入</button>
+          </details>
         </div>
       </div>
 
