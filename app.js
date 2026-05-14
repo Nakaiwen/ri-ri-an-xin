@@ -441,14 +441,31 @@
       greeting: '我剛剛在陽光下瞇了一下眼睛。想提醒您，舒服地休息一下也很好。',
       invitation: '今天要不要找個舒服的位置坐一會兒，讓身體放鬆一下？',
       tag: '放鬆',
+      isTraveler: true,
       scenes: [
         {
-          id: 'cafe',
-          imageBase: 'images/visitors/cat_traveler_cafe',
-          title: '今天有一隻在街角咖啡廳歇腳的貓咪旅人經過您家。',
-          greeting: '我剛剛在咖啡廳的窗邊坐了一會兒，看著外面的人來人往。想跟您說，慢慢享受一杯熱熱的飲料，也是一件好事。',
-          invitation: '今天要不要替自己泡一杯喜歡的飲料，慢慢喝？',
-          tag: '街角時光'
+          id: 'sea',
+          imageBase: 'images/visitors/cat_traveler_sea',
+          title: '今天有一隻在海邊看潮水的貓咪旅人經過您家。',
+          greeting: '我剛剛在沙灘上坐了好一會兒，看浪一波一波打過來。想跟您說，日子也可以像海浪這樣，一波接著一波，慢慢來。',
+          invitation: '今天可以喝口水，深呼吸一下，想像自己也在海邊。',
+          tag: '海邊歇腳'
+        },
+        {
+          id: 'bookstore',
+          imageBase: 'images/visitors/cat_traveler_bookstore',
+          title: '今天有一隻在書店翻書的貓咪旅人經過您家。',
+          greeting: '我剛剛在書店裡找了一本喜歡的書，安安靜靜翻了幾頁。想跟您說，靜下心來讀一點點東西，心也會跟著安穩。',
+          invitation: '今天可以看看手邊的書、報紙，或翻翻一張老照片。',
+          tag: '書店午後'
+        },
+        {
+          id: 'tea',
+          imageBase: 'images/visitors/cat_traveler_tea',
+          title: '今天有一隻在茶屋歇腳的貓咪旅人經過您家。',
+          greeting: '我剛剛在茶屋喝了一杯熱熱的茶，茶香慢慢散開來。想跟您說，泡一杯茶、給自己一點點時間，是很好的事。',
+          invitation: '今天可以泡一杯喜歡的茶，慢慢喝，不用急。',
+          tag: '茶屋時光'
         }
       ]
     },
@@ -505,7 +522,8 @@
       title: '今天有一隻裝扮成郵差的鴿子，在送信途中經過您家。',
       greeting: '我今天一路飛呀飛、送了好多封信，經過這裡時，也想順便送您一份問候。願您今天平平安安，心裡暖暖的。',
       invitation: '今天可以看看窗外，或留一句話給想念的人，讓心情像收到信一樣輕輕亮起來。',
-      tag: '捎來問候'
+      tag: '捎來問候',
+      isTraveler: true
     },
     {
       id: 'tuxedo_cat_ny',
@@ -516,7 +534,34 @@
       title: '今天有一隻從紐約旅行來的賓士貓，背著背包，俏皮地經過您家。',
       greeting: '我從熱鬧的城市一路旅行過來，想在這裡停一下，向您打個招呼。今天就算只是一點點好心情，也很值得珍惜。',
       invitation: '今天可以做一件讓自己開心的小事，像喝口茶、看看窗外，或想一個讓你微笑的人。',
-      tag: '俏皮問好'
+      tag: '俏皮問好',
+      isTraveler: true,
+      scenes: [
+        {
+          id: 'paris',
+          imageBase: 'images/visitors/tuxedo_cat_ny_paris',
+          title: '今天有一隻從紐約跑到巴黎玩的賓士貓，背著小背包經過您家。',
+          greeting: '我從紐約一路走到了巴黎的街角，看見櫥窗裡有花，也聞到麵包香。想跟您說，多走幾個地方，心也會慢慢變大。',
+          invitation: '今天可以想一個你還沒去過、但有點好奇的地方。',
+          tag: '巴黎街角'
+        },
+        {
+          id: 'greece',
+          imageBase: 'images/visitors/tuxedo_cat_ny_greece',
+          title: '今天有一隻跑到希臘小島的賓士貓，在白色房子前經過您家。',
+          greeting: '我從紐約跑到了希臘，這裡的天空和海都是藍藍的。想跟您說，世界真的很大，您也很值得這份遼闊。',
+          invitation: '今天可以看一張藍藍的照片，讓眼睛也休息一下。',
+          tag: '希臘小島'
+        },
+        {
+          id: 'station',
+          imageBase: 'images/visitors/tuxedo_cat_ny_station',
+          title: '今天有一隻在車站等車的賓士貓，俏皮地經過您家。',
+          greeting: '我剛剛在車站等了一班車，看著來來往往的人，發現每個人都有自己的故事。想跟您說，每一段旅程，都會慢慢到達目的地。',
+          invitation: '今天可以慢慢做手邊的事，不用急。',
+          tag: '車站等車'
+        }
+      ]
     },
     {
       id: 'shiba_brothers_kyoto',
@@ -527,7 +572,8 @@
       title: '今天有一對從日本京都旅行來的柴犬兄弟，經過您家來向您問好。',
       greeting: '我們從京都的街道一路散步過來，經過這裡時，想一起向您說一聲平安。今天慢慢地過，也是一種很好的旅行節奏。',
       invitation: '今天可以慢慢走幾步，看看身邊的小風景，或想想一件讓你覺得安心的小事。',
-      tag: '一起來問好'
+      tag: '一起來問好',
+      isTraveler: true
     },
     {
       id: 'french_marmot',
@@ -538,7 +584,8 @@
       title: '今天有一隻從法國旅行來的土撥鼠，探出頭來經過您家。',
       greeting: '我從法國的山坡和花田一路旅行過來，看到這裡很溫暖，就想停下來向您打個招呼。今天會很美好，旅途中的片段都是很好的回憶。',
       invitation: '今天可以找一個舒服的位置坐一下，看看窗外，讓心情像遠方的風一樣輕輕放鬆。',
-      tag: '慢慢旅行'
+      tag: '慢慢旅行',
+      isTraveler: true
     },
     {
       id: 'egypt_camel',
@@ -560,7 +607,8 @@
       title: '今天有一隻來自英國倫敦的紅狐狸，正在旅行途中經過您家。',
       greeting: '我從倫敦的街角與公園一路旅行過來，途中看見很多有趣的風景。經過這裡時，也想停下來向您問好。今天慢慢過，也會有屬於自己的小小風景。',
       invitation: '今天可以慢慢看看窗外，或散幾步，留意一下身邊的小景色，讓心情也跟著輕鬆一點。',
-      tag: '街角旅行'
+      tag: '街角旅行',
+      isTraveler: true
     }
   ];
 
@@ -617,6 +665,55 @@
       imageBase: (scene && scene.imageBase) || visitor.imageBase,
       image:     (scene && scene.image)     || visitor.image
     };
+  }
+
+  // V1.9: 訪客拜訪計數系統（旅人類型用）
+  //
+  // 在 localStorage 存一個 { kiwi: 3, cat_traveler: 5, ... } 物件
+  // 每次抽到某動物（不論場景）就 +1
+  // 旅人類型的動物會根據這個計數決定要演哪個場景
+
+  function getVisitorEncounters() {
+    try {
+      const raw = localStorage.getItem(KEYS.visitorEncounters);
+      if (!raw) return {};
+      const obj = JSON.parse(raw);
+      return (obj && typeof obj === 'object') ? obj : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function incrementVisitorEncounter(visitorId) {
+    const map = getVisitorEncounters();
+    map[visitorId] = (map[visitorId] || 0) + 1;
+    try {
+      localStorage.setItem(KEYS.visitorEncounters, JSON.stringify(map));
+    } catch (e) {}
+    return map[visitorId];
+  }
+
+  // V1.9: 旅人類型的場景挑選
+  //
+  // 規則：
+  //   - 第 1 次見面 → 主場景（main）「初次相遇的代表照」
+  //   - 第 2 次以後 → 場景循環（sea → bookstore → tea → sea → ...）
+  //     主場景只在第一次出現，之後純粹輪場景
+  //
+  // 計數從「該動物已經被抽到 N 次」算（包含這次）
+  // 場景循環索引：encounter=2 → scenes[0], encounter=3 → scenes[1] ...
+  // 沒有場景的旅人 → 都用主場景
+  function pickTravelerScene(visitor, encounterCount) {
+    // 第一次見面：用主場景
+    if (encounterCount <= 1) return 'main';
+
+    // 沒有額外場景：永遠用主場景
+    if (!visitor.scenes || visitor.scenes.length === 0) return 'main';
+
+    // 第 2 次以後：直接走場景循環
+    // encounterCount - 2 為「這是第幾次走場景循環」（0-indexed）
+    const idx = (encounterCount - 2) % visitor.scenes.length;
+    return visitor.scenes[idx].id;
   }
 
   // V1.7: 「今天沒有訪客」的機率（10%）
@@ -758,7 +855,9 @@
     // V1.4 照顧自己項目選擇
     careSelection: 'ri_ri_an_xin_care_selection',
     // V1.6 自訂照顧項目
-    customCare: 'ri_ri_an_xin_custom_care'
+    customCare: 'ri_ri_an_xin_custom_care',
+    // V1.9 訪客拜訪計數（用於旅人類型的場景循環）
+    visitorEncounters: 'ri_ri_an_xin_visitor_encounters'
   };
 
   function loadList(key) {
@@ -931,12 +1030,6 @@
         picked = VISITOR_BY_ID[chosenId];
         isReturn = true;
         lastSeenISO = lastSeenMap[chosenId];
-
-        // V1.8: 回訪時若該動物有額外場景，從所有場景中隨機挑一個（包含主場景）
-        const sceneIds = getVisitorSceneIds(picked);
-        if (sceneIds.length > 1) {
-          visitorSceneId = sceneIds[Math.floor(Math.random() * sceneIds.length)];
-        }
       }
     }
 
@@ -947,7 +1040,15 @@
         pool = VISITORS.filter(function (v) { return v.id !== stored.visitorId; });
       }
       picked = pool[Math.floor(Math.random() * pool.length)];
-      // 第一次見面用主場景（visitorSceneId 已預設為 'main'）
+    }
+
+    // V1.9: picked 確定後 → 遞增該動物的拜訪計數 → 用計數決定場景
+    const encounterCount = incrementVisitorEncounter(picked.id);
+    if (picked.isTraveler) {
+      visitorSceneId = pickTravelerScene(picked, encounterCount);
+    } else {
+      // 非旅人類型：永遠用主場景
+      visitorSceneId = 'main';
     }
 
     try {
@@ -1167,6 +1268,7 @@
     'careSelection',   // 照顧自己項目選擇
     'customCare',      // V1.6: 自訂照顧項目
     'visitorCollection', // 來訪收藏冊
+    'visitorEncounters', // V1.9: 訪客拜訪計數
     'stories'          // 想一想回憶
   ];
 
@@ -1564,7 +1666,9 @@
     }
 
     // V1.8: 圖片用解析後的 imageBase（場景變體會指到對應的 _cafe / _park 路徑）
-    loadVisitorImage(resolved, info.daypart, visitor.name);
+    // V1.9.1: 場景變體找不到圖時，回退到主場景的圖（避免顯示 emoji）
+    const isSceneVariant = currentVisitorSceneId && currentVisitorSceneId !== 'main';
+    loadVisitorImage(resolved, info.daypart, visitor.name, isSceneVariant ? visitor : null);
 
     // 收藏狀態（依「動物 + 場景」判斷）
     const btnText = btn.querySelector('.visitor-collect-text');
@@ -1577,14 +1681,17 @@
     }
   }
 
-  // V1.6: 圖片載入三段式回退（訪客與安靜日場景共用）
-  //   1. <imageBase>_<daypart>.jpg
-  //   2. <image>（通用版）
-  //   3. emoji fallback
-  function loadVisitorImage(subject, daypart, altText) {
+  // V1.9.1: 圖片載入多段式回退（永不顯示 emoji，除非完全沒準備任何圖）
+  //
+  // 接收一組 candidates 路徑陣列，依序嘗試直到成功；都失敗才走 emoji
+  //
+  // subject 是訪客或安靜日場景物件
+  // fallbackVisitor 是「主場景訪客物件」（場景變體找不到圖時，回退到主場景的圖）
+  //   傳 null 表示沒有主場景可回退（例如 subject 本身就是主場景 / 安靜日）
+  function loadVisitorImage(subject, daypart, altText, fallbackVisitor) {
     const img = document.getElementById('visitorImage');
     const fallback = document.getElementById('visitorEmojiFallback');
-    fallback.textContent = subject.fallbackEmoji || '🐾';
+    fallback.textContent = subject.fallbackEmoji || (fallbackVisitor && fallbackVisitor.fallbackEmoji) || '🐾';
     img.alt = altText || '';
 
     img.onerror = null;
@@ -1592,21 +1699,50 @@
     img.style.display = '';
     fallback.style.display = 'none';
 
-    const daypartImage = (subject.imageBase || '') + '_' + daypart + '.jpg';
-    const genericImage = subject.image;
+    // 組合候選路徑：
+    //   1. <imageBase>_<daypart>.jpg  ← 場景的指定時段版
+    //   2. <imageBase>.jpg            ← 場景的通用版
+    //   3. 若有 fallbackVisitor：<fallbackVisitor.imageBase>_<daypart>.jpg
+    //   4. 若有 fallbackVisitor：<fallbackVisitor.image>
+    const candidates = [];
+    if (subject.imageBase) {
+      candidates.push(subject.imageBase + '_' + daypart + '.jpg');
+      candidates.push(subject.imageBase + '.jpg');
+    }
+    if (subject.image && candidates.indexOf(subject.image) === -1) {
+      candidates.push(subject.image);
+    }
+    // 場景變體找不到 → 回退到主場景圖
+    if (fallbackVisitor) {
+      if (fallbackVisitor.imageBase) {
+        const fbDaypart = fallbackVisitor.imageBase + '_' + daypart + '.jpg';
+        const fbGeneric = fallbackVisitor.imageBase + '.jpg';
+        if (candidates.indexOf(fbDaypart) === -1) candidates.push(fbDaypart);
+        if (candidates.indexOf(fbGeneric) === -1) candidates.push(fbGeneric);
+      }
+      if (fallbackVisitor.image && candidates.indexOf(fallbackVisitor.image) === -1) {
+        candidates.push(fallbackVisitor.image);
+      }
+    }
 
-    let stage = 'daypart';
+    let idx = 0;
     img.onerror = function () {
-      if (stage === 'daypart' && genericImage && genericImage !== daypartImage) {
-        stage = 'generic';
-        img.src = genericImage;
+      idx++;
+      if (idx < candidates.length) {
+        img.src = candidates[idx];
       } else {
+        // 全部都失敗 → 走 emoji（最末手段）
         img.style.display = 'none';
         fallback.style.display = 'flex';
       }
     };
 
-    img.src = daypartImage;
+    if (candidates.length === 0) {
+      img.style.display = 'none';
+      fallback.style.display = 'flex';
+    } else {
+      img.src = candidates[0];
+    }
   }
 
   function onVisitorCollect() {
@@ -1644,17 +1780,45 @@
       const emoji = c.fallbackEmoji || '🐾';
 
       // V1.6: 優先用 daypart 圖（如果當時有記錄），失敗就回退
+      // V1.9.1: 收藏的若為場景變體（有 sceneId 且非 main），
+      //         加入「主場景的圖」作為回退選項，避免顯示 emoji
       const daypart = c.daypart || 'day';
       const base = c.imageBase ||
         (c.image ? c.image.replace(/\.jpg$/i, '').replace(/\.png$/i, '') : '');
-      const primary = base ? base + '_' + daypart + '.jpg' : (c.image || '');
-      const generic = c.image || '';
+
+      // 組合候選路徑陣列（依序嘗試）
+      const candidates = [];
+      if (base) {
+        candidates.push(base + '_' + daypart + '.jpg');
+        candidates.push(base + '.jpg');
+      }
+      if (c.image && candidates.indexOf(c.image) === -1) {
+        candidates.push(c.image);
+      }
+      // 場景變體 → 加上主場景圖作回退
+      const isSceneVariant = c.sceneId && c.sceneId !== 'main';
+      if (isSceneVariant) {
+        const mainVisitor = VISITOR_BY_ID[c.visitorId];
+        if (mainVisitor) {
+          if (mainVisitor.imageBase) {
+            const mainDay = mainVisitor.imageBase + '_' + daypart + '.jpg';
+            const mainGen = mainVisitor.imageBase + '.jpg';
+            if (candidates.indexOf(mainDay) === -1) candidates.push(mainDay);
+            if (candidates.indexOf(mainGen) === -1) candidates.push(mainGen);
+          }
+          if (mainVisitor.image && candidates.indexOf(mainVisitor.image) === -1) {
+            candidates.push(mainVisitor.image);
+          }
+        }
+      }
+
+      const primary = candidates[0] || '';
 
       return '<div class="album-card">' +
         '<div class="album-card-image-wrap">' +
           '<img class="album-card-image" ' +
-               'data-primary="' + escapeAttr(primary) + '" ' +
-               'data-generic="' + escapeAttr(generic) + '" ' +
+               'data-candidates="' + escapeAttr(JSON.stringify(candidates)) + '" ' +
+               'data-idx="0" ' +
                'src="' + escapeAttr(primary) + '" ' +
                'alt="' + escapeAttr(c.visitorName) + '">' +
           '<div class="album-card-emoji-fallback" style="display:none">' + escapeHtml(emoji) + '</div>' +
@@ -1676,16 +1840,18 @@
       '</div>';
     }).join('');
 
-    // 綁定圖片 fallback：daypart 版失敗 → 通用版 → emoji
+    // V1.9.1: 綁定圖片 fallback（多段式回退）
     el.querySelectorAll('.album-card-image').forEach(function (img) {
       img.onerror = function () {
-        const generic = img.dataset.generic;
-        const current = img.getAttribute('src');
-        if (generic && current !== generic) {
-          // 階段二：試通用版
-          img.src = generic;
+        let list = [];
+        try { list = JSON.parse(img.dataset.candidates || '[]'); } catch (e) {}
+        let idx = parseInt(img.dataset.idx || '0', 10);
+        idx++;
+        if (idx < list.length) {
+          img.dataset.idx = String(idx);
+          img.src = list[idx];
         } else {
-          // 都失敗 → emoji
+          // 全部都失敗 → emoji
           img.style.display = 'none';
           const sibling = img.nextElementSibling;
           if (sibling) sibling.style.display = 'flex';
