@@ -16,7 +16,7 @@
       from: 5, to: 11,
       time: '今 · 日 · 早 · 安',
       hello: '{name}，早安',
-      words: '今天也平平安安。\n先喝一點水，慢慢開始今天就好。'
+      words: '今天也平平安安。\n先喝一點水，慢慢開始美好的一天。'
     },
     {
       from: 11, to: 17,
@@ -32,15 +32,15 @@
     },
     {
       from: 22, to: 29, // 22-24
-      time: '夜 · 已 · 深',
-      hello: '夜深了',
-      words: '如果還沒睡，也不用急。\n願你心裡安安穩穩，慢慢休息。'
+      time: '該 · 休 · 息 · 囉',
+      hello: '夜晚到了',
+      words: '今天就快圓滿結束了。\n可以慢慢準備休息，深呼吸放鬆自己。'
     },
     {
       from: 0, to: 5,
       time: '夜 · 已 · 深',
       hello: '夜深了',
-      words: '如果還沒睡，也不用急。\n願你心裡安安穩穩，慢慢休息。'
+      words: '如果還沒睡，也不用急。\n深呼吸放鬆自己，慢慢入睡。'
     }
   ];
 
@@ -56,7 +56,7 @@
     '今天這樣，就很好。'
   ];
 
-  // --- 成語補字題庫 ---
+  // --- 成語補字題庫（V1.8.4: 擴充到 20 題）---
   const IDIOM_QUESTIONS = [
     { question: '家和萬事＿', options: ['興', '平', '安'], answer: '興', blessing: '願今天家裡也平平安安。' },
     { question: '知足常＿', options: ['樂', '走', '忙'], answer: '樂', blessing: '知足常樂，簡單的日子也有福氣。' },
@@ -65,10 +65,22 @@
     { question: '日日是＿日', options: ['好', '忙', '難'], answer: '好', blessing: '日日是好日，慢慢過也很好。' },
     { question: '老當益＿', options: ['壯', '小', '靜'], answer: '壯', blessing: '老當益壯，今天也是好好的一天。' },
     { question: '兒孫自有兒孫＿', options: ['福', '事', '苦'], answer: '福', blessing: '不用太擔心，兒孫自有兒孫福。' },
-    { question: '萬事如＿', options: ['意', '舊', '常'], answer: '意', blessing: '願你萬事如意。' }
+    { question: '萬事如＿', options: ['意', '舊', '常'], answer: '意', blessing: '願你萬事如意。' },
+    { question: '福如東＿', options: ['海', '山', '風'], answer: '海', blessing: '福如東海，願福氣天天來。' },
+    { question: '壽比南＿', options: ['山', '水', '花'], answer: '山', blessing: '壽比南山，祝你身體健康。' },
+    { question: '步步高＿', options: ['升', '跑', '忙'], answer: '升', blessing: '步步高升，日子一天比一天好。' },
+    { question: '心想事＿', options: ['成', '多', '遠'], answer: '成', blessing: '心想事成，願你的願望慢慢實現。' },
+    { question: '吉祥如＿', options: ['意', '雲', '春'], answer: '意', blessing: '吉祥如意，願今天有好心情。' },
+    { question: '一帆風＿', options: ['順', '雨', '亮'], answer: '順', blessing: '一帆風順，做什麼都順順利利。' },
+    { question: '花開富＿', options: ['貴', '忙', '久'], answer: '貴', blessing: '花開富貴，願生活越來越美。' },
+    { question: '身體健＿', options: ['康', '忙', '寒'], answer: '康', blessing: '身體健康，就是最大的福氣。' },
+    { question: '出入平＿', options: ['安', '快', '多'], answer: '安', blessing: '出入平安，願你每天都安心。' },
+    { question: '笑口常＿', options: ['開', '跑', '等'], answer: '開', blessing: '笑口常開，好運自然來。' },
+    { question: '年年有＿', options: ['餘', '雨', '事'], answer: '餘', blessing: '年年有餘，願生活豐足又安心。' },
+    { question: '和氣生＿', options: ['財', '風', '火'], answer: '財', blessing: '和氣生財，願人和事順、福氣滿滿。' }
   ];
 
-  // --- 謎語題庫 ---
+  // --- 謎語題庫（V1.8.5: 擴充到 20 題）---
   const RIDDLE_QUESTIONS = [
     {
       question: '身穿綠衣裳，肚裡水汪汪，\n生的子兒多，個個黑臉膛。',
@@ -99,6 +111,96 @@
       options: ['時鐘', '電燈', '電視'],
       answer: '時鐘',
       blessing: '時間慢慢走，今天也慢慢過就好。'
+    },
+    {
+      question: '圓圓一張臉，掛在牆上看，\n白天晚上都陪伴，提醒時間不偷懶。',
+      options: ['時鐘', '鏡子', '盤子'],
+      answer: '時鐘',
+      blessing: '看看時間，也別忘了讓自己休息一下。'
+    },
+    {
+      question: '身體方方正正，肚裡裝故事，\n翻開一頁頁，越看越有味。',
+      options: ['書本', '枕頭', '鞋子'],
+      answer: '書本',
+      blessing: '讀一點書，心也會慢慢安靜下來。'
+    },
+    {
+      question: '一把小傘花，雨天才開花，\n遮住頭和肩，陪你平安回家。',
+      options: ['雨傘', '扇子', '竹籃'],
+      answer: '雨傘',
+      blessing: '下雨天有傘，心裡也多一份安心。'
+    },
+    {
+      question: '圓圓小臉紅又甜，\n咬一口，香滿嘴邊。',
+      options: ['蘋果', '洋蔥', '石頭'],
+      answer: '蘋果',
+      blessing: '吃點水果，願你今天精神好。'
+    },
+    {
+      question: '身穿黃衣裳，彎彎像月亮，\n剝開吃一口，香甜又軟香。',
+      options: ['香蕉', '黃瓜', '毛巾'],
+      answer: '香蕉',
+      blessing: '甜甜香蕉，願今天也有甜甜心情。'
+    },
+    {
+      question: '一根小木棒，頭上火光亮，\n點亮黑夜裡，暖暖一小方。',
+      options: ['火柴', '鉛筆', '湯匙'],
+      answer: '火柴',
+      blessing: '小小光亮，也能帶來溫暖。'
+    },
+    {
+      question: '肚子胖胖會裝水，嘴巴小小倒出來，\n泡茶煮水少不了。',
+      options: ['茶壺', '皮包', '帽子'],
+      answer: '茶壺',
+      blessing: '喝杯熱茶，願你身心都暖暖的。'
+    },
+    {
+      question: '兩片小船腳下穿，\n走路出門它在前。',
+      options: ['鞋子', '手套', '碗筷'],
+      answer: '鞋子',
+      blessing: '穿好鞋慢慢走，平安最重要。'
+    },
+    {
+      question: '一面亮晶晶，照出你的臉，\n早晚看一看，笑容在眼前。',
+      options: ['鏡子', '碗', '棉被'],
+      answer: '鏡子',
+      blessing: '照照鏡子，也送自己一個微笑。'
+    },
+    {
+      question: '身體軟綿綿，晚上抱著眠，\n天冷蓋身上，暖到心裡邊。',
+      options: ['棉被', '扇子', '桌子'],
+      answer: '棉被',
+      blessing: '睡得暖、睡得好，明天精神更好。'
+    },
+    {
+      question: '小小白衣人，刷牙時來幫忙，\n擠一點入口中，清清爽爽香。',
+      options: ['牙膏', '米飯', '膠水'],
+      answer: '牙膏',
+      blessing: '牙齒清爽，笑起來也更自在。'
+    },
+    {
+      question: '圓圓一個口，天天裝飯菜，\n吃飽有精神，身體更自在。',
+      options: ['碗', '帽子', '鐘'],
+      answer: '碗',
+      blessing: '好好吃飯，就是照顧自己的福氣。'
+    },
+    {
+      question: '長長一條線，會把衣服串，\n風吹太陽曬，衣服慢慢乾。',
+      options: ['曬衣繩', '筷子', '雨鞋'],
+      answer: '曬衣繩',
+      blessing: '曬乾衣服，也曬一曬好心情。'
+    },
+    {
+      question: '小小一張紙，寫滿好消息，\n貼在冰箱上，提醒別忘記。',
+      options: ['便條紙', '手帕', '牙刷'],
+      answer: '便條紙',
+      blessing: '記下小事，生活也會更從容。'
+    },
+    {
+      question: '冷冷一個大箱子，水果飯菜住裡頭，\n打開門兒看一看，新鮮味道都保留。',
+      options: ['冰箱', '電扇', '書櫃'],
+      answer: '冰箱',
+      blessing: '飯菜新鮮，日子也踏實安心。'
     }
   ];
 
@@ -127,6 +229,55 @@
       question: '剛剛看到哪一個？',
       options: ['茶壺', '電話', '蘋果'],
       answer: '茶壺'
+    },
+    // V1.8.6: 擴充記憶遊戲
+    {
+      items: ['牙刷', '毛巾', '肥皂'],
+      question: '剛剛看到哪一個？',
+      options: ['毛巾', '湯匙', '雨傘'],
+      answer: '毛巾'
+    },
+    {
+      items: ['鑰匙', '錢包', '口罩'],
+      question: '剛剛看到哪一個？',
+      options: ['鑰匙', '報紙', '碗'],
+      answer: '鑰匙'
+    },
+    {
+      items: ['湯匙', '碗', '電鍋'],
+      question: '剛剛看到哪一個？',
+      options: ['電鍋', '時鐘', '抱枕'],
+      answer: '電鍋'
+    },
+    {
+      items: ['遙控器', '抱枕', '茶杯'],
+      question: '剛剛看到哪一個？',
+      options: ['抱枕', '剪刀', '電鍋'],
+      answer: '抱枕'
+    },
+    {
+      items: ['鉛筆', '便條紙', '眼鏡'],
+      question: '剛剛看到哪一個？',
+      options: ['便條紙', '茶葉', '拖鞋'],
+      answer: '便條紙'
+    },
+    {
+      items: ['梨子', '橘子', '葡萄'],
+      question: '剛剛看到哪一個？',
+      options: ['橘子', '麵包', '茶杯'],
+      answer: '橘子'
+    },
+    {
+      items: ['手帕', '小扇子', '茶杯'],
+      question: '剛剛看到哪一個？',
+      options: ['手帕', '電鍋', '雨鞋'],
+      answer: '手帕'
+    },
+    {
+      items: ['毛線', '針線', '剪刀'],
+      question: '剛剛看到哪一個？',
+      options: ['剪刀', '時鐘', '蘋果'],
+      answer: '剪刀'
     }
   ];
 
@@ -157,7 +308,31 @@
     { text: '記憶裡，哪一個季節最讓你想念？', defaultCategory: '年輕時' },
     { text: '小時候，家門口外面是什麼樣子？', defaultCategory: '小時候' },
     { text: '有沒有一首歌、一句經文，會讓你心裡安定？', defaultCategory: '信仰平安' },
-    { text: '長輩有沒有教過你什麼，到現在你還記得？', defaultCategory: '人生智慧' }
+    { text: '長輩有沒有教過你什麼，到現在你還記得？', defaultCategory: '人生智慧' },
+    // V1.8.6: 擴充想一想題目
+    // 家常菜
+    { text: '哪一道家常菜，是聞到味道就會想起家裡的？', defaultCategory: '家常菜' },
+    { text: '家裡誰最會煮飯？他最拿手的是什麼？', defaultCategory: '家常菜' },
+    // 年輕時
+    { text: '年輕時，有沒有一段很特別的旅程？', defaultCategory: '年輕時' },
+    { text: '年輕時是什麼樣子的個性？跟現在一樣嗎？', defaultCategory: '年輕時' },
+    // 過年過節
+    { text: '小時候過年，最期待的是什麼？', defaultCategory: '過年過節' },
+    { text: '中秋節在你的記憶裡，是什麼樣子？', defaultCategory: '過年過節' },
+    { text: '以前過節時，家裡會做什麼特別的事？', defaultCategory: '過年過節' },
+    // 小時候
+    { text: '小時候最常和誰一起玩？玩些什麼？', defaultCategory: '小時候' },
+    { text: '小時候上學的路上，有什麼印象深的事？', defaultCategory: '小時候' },
+    // 家人故事
+    { text: '家裡的爺爺奶奶或外公外婆，你還記得他們的樣子嗎？', defaultCategory: '家人故事' },
+    // 人生智慧
+    { text: '經歷過這麼多事，你覺得最珍貴的是什麼？', defaultCategory: '人生智慧' },
+    { text: '想對年輕時候的自己說什麼？', defaultCategory: '人生智慧' },
+    // 老朋友
+    { text: '有沒有一個朋友，是你想再見到一次的？', defaultCategory: '老朋友' },
+    { text: '年輕時，最常跟朋友一起做什麼？', defaultCategory: '老朋友' },
+    // 信仰平安
+    { text: '心裡不平靜的時候，你會怎麼讓自己安定下來？', defaultCategory: '信仰平安' }
   ];
 
   // --- 故事主題 ---
@@ -265,7 +440,17 @@
       title: '今天有一隻曬過太陽的貓咪旅人經過您家。',
       greeting: '我剛剛在陽光下瞇了一下眼睛。想提醒您，舒服地休息一下也很好。',
       invitation: '今天要不要找個舒服的位置坐一會兒，讓身體放鬆一下？',
-      tag: '放鬆'
+      tag: '放鬆',
+      scenes: [
+        {
+          id: 'cafe',
+          imageBase: 'images/visitors/cat_traveler_cafe',
+          title: '今天有一隻在街角咖啡廳歇腳的貓咪旅人經過您家。',
+          greeting: '我剛剛在咖啡廳的窗邊坐了一會兒，看著外面的人來人往。想跟您說，慢慢享受一杯熱熱的飲料，也是一件好事。',
+          invitation: '今天要不要替自己泡一杯喜歡的飲料，慢慢喝？',
+          tag: '街角時光'
+        }
+      ]
     },
     {
       id: 'penguin',
@@ -381,6 +566,59 @@
 
   const VISITOR_BY_ID = VISITORS.reduce(function (a, v) { a[v.id] = v; return a; }, {});
 
+  // V1.8: 場景變體系統
+  //
+  // 每隻訪客的「主場景」=訪客物件本身（id 為 'main'）
+  // 額外場景放在 visitor.scenes 陣列，每個場景可以覆寫 title/greeting/invitation/tag
+  //
+  // sceneId 'main' = 主場景；其他 = 額外場景
+
+  // 取得某動物的所有場景 ID（包含 'main'）
+  function getVisitorSceneIds(visitor) {
+    const ids = ['main'];
+    if (visitor.scenes && Array.isArray(visitor.scenes)) {
+      visitor.scenes.forEach(function (s) {
+        if (s.id && s.id !== 'main') ids.push(s.id);
+      });
+    }
+    return ids;
+  }
+
+  // 從 visitor + sceneId 解析出實際要顯示的內容
+  // 回傳：{ visitor, sceneId, title, greeting, invitation, tag, fallbackEmoji, imageBase, image }
+  function resolveVisitorScene(visitor, sceneId) {
+    if (!visitor) return null;
+    sceneId = sceneId || 'main';
+
+    // 找場景物件
+    let scene = null;
+    if (sceneId !== 'main' && visitor.scenes) {
+      scene = visitor.scenes.find(function (s) { return s.id === sceneId; });
+    }
+
+    // 場景找不到 → fallback 回主場景
+    if (sceneId !== 'main' && !scene) {
+      sceneId = 'main';
+    }
+
+    // 組合最終內容：場景覆寫主場景的對應欄位
+    return {
+      visitor: visitor,
+      sceneId: sceneId,
+      // 文案：場景有就用場景的、沒有就用主場景的
+      title:       (scene && scene.title)       || visitor.title,
+      greeting:    (scene && scene.greeting)    || visitor.greeting,
+      invitation:  (scene && scene.invitation)  || visitor.invitation,
+      tag:         (scene && scene.tag)         || visitor.tag,
+      fallbackEmoji: visitor.fallbackEmoji,
+      // 圖檔路徑
+      // 主場景：imageBase = 'images/visitors/cat_traveler'
+      // 其他場景：imageBase = 'images/visitors/cat_traveler_cafe'
+      imageBase: (scene && scene.imageBase) || visitor.imageBase,
+      image:     (scene && scene.image)     || visitor.image
+    };
+  }
+
   // V1.7: 「今天沒有訪客」的機率（10%）
   const QUIET_DAY_PROBABILITY = 0.10;
 
@@ -439,12 +677,25 @@
 
   // --- 家人訊息 ---
   const FAMILY_MESSAGES = [
+    // 情緒類（原本就有）
     { emoji: '😊', label: '我今天很好', text: '我今天很好，請你放心。願你今天也平安。' },
     { emoji: '😌', label: '我有點累', text: '我今天有點累，不用擔心。有空時可以跟我說說話。' },
     { emoji: '📞', label: '有空打給我', text: '你有空的時候，可以打給我一下嗎？我想跟你說說話。' },
     { emoji: '💗', label: '我想你了', text: '我今天有點想你。看到訊息不用急，有空再回我就好。' },
     { emoji: '💊', label: '我已經吃藥了', text: '我剛剛已經吃藥了，請放心。' },
-    { emoji: '✨', label: '我今天想分享一件事', text: '我今天想起一件小事，想找時間跟你說。' }
+    { emoji: '✨', label: '我今天想分享一件事', text: '我今天想起一件小事，想找時間跟你說。' },
+    // V1.8.6 新增：生活報告
+    { emoji: '🚶', label: '我有出門走走', text: '我今天有出門走走，動一動身體，覺得心情也好一些。' },
+    { emoji: '🌤️', label: '今天天氣不錯', text: '今天天氣不錯，看著外面覺得很舒服。希望你那邊也是好天氣。' },
+    { emoji: '🏥', label: '我去看醫生了', text: '我今天去看醫生了，一切都好，不用擔心。' },
+    { emoji: '🍱', label: '我有好好吃飯', text: '今天三餐都有好好吃，請你放心。' },
+    // 感恩
+    { emoji: '🌷', label: '謝謝你上次來看我', text: '謝謝你上次來看我，跟你聊天的時間我都記得，很開心。' },
+    { emoji: '☎️', label: '謝謝你打電話來', text: '謝謝你前幾天打電話來，聽到你的聲音覺得很安心。' },
+    // 問候
+    { emoji: '🤲', label: '你最近還好嗎', text: '最近工作累不累？記得也要照顧好自己，不用太擔心我。' },
+    { emoji: '👶', label: '孩子們最近好嗎', text: '孩子們最近好嗎？想念他們了，有空帶他們回來坐坐。' },
+    { emoji: '🍵', label: '記得喝水休息', text: '不管多忙，記得多喝水、好好休息。我這邊一切都好。' }
   ];
 
   // --- 照顧項目 ---
@@ -624,7 +875,8 @@
           visitor: VISITOR_BY_ID[stored.visitorId],
           isReturn: !!stored.isReturn,
           lastSeenISO: stored.lastSeenISO || null,
-          daypart: stored.daypart || currentDaypart()
+          daypart: stored.daypart || currentDaypart(),
+          sceneId: stored.visitorSceneId || 'main'  // V1.8
         };
       }
     }
@@ -657,9 +909,11 @@
     let picked = null;
     let isReturn = false;
     let lastSeenISO = null;
+    let visitorSceneId = 'main';  // V1.8
 
     const collection = loadList(KEYS.visitorCollection);
     if (collection.length > 0 && Math.random() < 0.25) {
+      // 取每位訪客（不分場景）的最近收藏日期
       const lastSeenMap = {};
       collection.forEach(function (c) {
         if (!lastSeenMap[c.visitorId] || c.createdAt > lastSeenMap[c.visitorId]) {
@@ -677,6 +931,12 @@
         picked = VISITOR_BY_ID[chosenId];
         isReturn = true;
         lastSeenISO = lastSeenMap[chosenId];
+
+        // V1.8: 回訪時若該動物有額外場景，從所有場景中隨機挑一個（包含主場景）
+        const sceneIds = getVisitorSceneIds(picked);
+        if (sceneIds.length > 1) {
+          visitorSceneId = sceneIds[Math.floor(Math.random() * sceneIds.length)];
+        }
       }
     }
 
@@ -687,12 +947,14 @@
         pool = VISITORS.filter(function (v) { return v.id !== stored.visitorId; });
       }
       picked = pool[Math.floor(Math.random() * pool.length)];
+      // 第一次見面用主場景（visitorSceneId 已預設為 'main'）
     }
 
     try {
       localStorage.setItem(KEYS.todayVisitor, JSON.stringify({
         date: today,
         visitorId: picked.id,
+        visitorSceneId: visitorSceneId,  // V1.8
         isReturn: isReturn,
         lastSeenISO: lastSeenISO,
         daypart: daypart,
@@ -700,35 +962,53 @@
       }));
     } catch (e) {}
 
-    return { isQuiet: false, visitor: picked, isReturn: isReturn, lastSeenISO: lastSeenISO, daypart: daypart };
+    return {
+      isQuiet: false,
+      visitor: picked,
+      isReturn: isReturn,
+      lastSeenISO: lastSeenISO,
+      daypart: daypart,
+      sceneId: visitorSceneId  // V1.8
+    };
   }
 
-  // 今天是否已收藏此訪客？
-  function isTodayVisitorCollected(visitorId) {
+  // 今天是否已收藏此訪客的這個場景？
+  // V1.8: sceneId 加入比對，不同場景算不同收藏
+  function isTodayVisitorCollected(visitorId, sceneId) {
+    sceneId = sceneId || 'main';
     const today = todayKey();
     const list = loadList(KEYS.visitorCollection);
     return list.some(function (c) {
-      return c.collectedDate === today && c.visitorId === visitorId;
+      const cSceneId = c.sceneId || 'main';  // 舊資料相容
+      return c.collectedDate === today && c.visitorId === visitorId && cSceneId === sceneId;
     });
   }
 
   // 收藏訪客
-  function collectVisitor(visitor, daypart) {
-    if (isTodayVisitorCollected(visitor.id)) return false;
+  // V1.8: 接受 sceneId，並將解析後的場景內容（含 title/greeting...）一起存進收藏紀錄
+  function collectVisitor(visitor, daypart, sceneId) {
+    sceneId = sceneId || 'main';
+    if (isTodayVisitorCollected(visitor.id, sceneId)) return false;
+
+    // 解析該場景的實際顯示內容
+    const resolved = resolveVisitorScene(visitor, sceneId);
+
     const list = loadList(KEYS.visitorCollection);
     const now = new Date();
     list.push({
       id: 'collection_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
       visitorId: visitor.id,
       visitorName: visitor.name,
-      image: visitor.image,
-      imageBase: visitor.imageBase,
-      fallbackEmoji: visitor.fallbackEmoji,
-      title: visitor.title,
-      greeting: visitor.greeting,
-      invitation: visitor.invitation,
-      tag: visitor.tag,
-      daypart: daypart || currentDaypart(),  // V1.6
+      sceneId: sceneId,  // V1.8
+      // 存當下實際顯示的內容（場景覆寫過的版本）
+      image: resolved.image,
+      imageBase: resolved.imageBase,
+      fallbackEmoji: resolved.fallbackEmoji,
+      title: resolved.title,
+      greeting: resolved.greeting,
+      invitation: resolved.invitation,
+      tag: resolved.tag,
+      daypart: daypart || currentDaypart(),
       collectedDate: todayKey(),
       createdAt: now.toISOString()
     });
@@ -1197,13 +1477,22 @@
   }
 
   // V1.1: 首頁家人留言
+  // V1.8.3: 沒寫任何留言時的預設輪播池
+  const DEFAULT_FAMILY_NOTES = [
+    '今天也照顧自己一下。',
+    '每天都是新的一天。',
+    '日常的小事，也是好事。'
+  ];
+
   function renderFamilyNoteOnHome() {
     const el = document.getElementById('familyNoteText');
     const notes = loadList(KEYS.familyNotes);
     if (notes.length === 0) {
-      el.textContent = '今天也照顧自己一下。';
+      // 沒有自訂留言 → 用系統預設三句輪播（按日期）
+      el.textContent = DEFAULT_FAMILY_NOTES[dailySeedIndex(DEFAULT_FAMILY_NOTES.length, 3)];
       return;
     }
+    // 有自訂留言 → 從使用者的留言中按日期挑一句
     const note = notes[dailySeedIndex(notes.length, 3)];
     el.textContent = note.content;
   }
@@ -1211,6 +1500,7 @@
   // V1.2: 今天的訪客
   let currentVisitor = null;
   let currentVisitorDaypart = null;
+  let currentVisitorSceneId = 'main';  // V1.8
 
   function renderTodayVisitor() {
     const info = getTodayVisitor();
@@ -1224,6 +1514,7 @@
     if (info.isQuiet) {
       // V1.7: 安靜日狀態
       currentVisitor = null;
+      currentVisitorSceneId = 'main';
 
       const scene = info.scene;
       document.getElementById('visitorTitle').textContent = scene.title;
@@ -1248,12 +1539,16 @@
     // ↓↓↓ 正常訪客流程 ↓↓↓
     const visitor = info.visitor;
     currentVisitor = visitor;
+    currentVisitorSceneId = info.sceneId || 'main';
+
+    // V1.8: 解析該場景的實際顯示內容（文案可能被場景覆寫）
+    const resolved = resolveVisitorScene(visitor, currentVisitorSceneId);
 
     card.classList.remove('quiet-day');
     btn.hidden = false;
 
-    document.getElementById('visitorTitle').textContent = visitor.title;
-    document.getElementById('visitorInvitation').textContent = visitor.invitation;
+    document.getElementById('visitorTitle').textContent = resolved.title;
+    document.getElementById('visitorInvitation').textContent = resolved.invitation;
 
     // V1.3: 回訪標記
     if (info.isReturn && info.lastSeenISO) {
@@ -1261,18 +1556,19 @@
       returnMeta.textContent = '— ' + ago + '見過一面，今天又經過了';
       returnMeta.hidden = false;
       document.getElementById('visitorGreeting').textContent =
-        '我又經過這裡了。' + visitor.greeting;
+        '我又經過這裡了。' + resolved.greeting;
     } else {
       returnMeta.hidden = true;
       returnMeta.textContent = '';
-      document.getElementById('visitorGreeting').textContent = visitor.greeting;
+      document.getElementById('visitorGreeting').textContent = resolved.greeting;
     }
 
-    loadVisitorImage(visitor, info.daypart, visitor.name);
+    // V1.8: 圖片用解析後的 imageBase（場景變體會指到對應的 _cafe / _park 路徑）
+    loadVisitorImage(resolved, info.daypart, visitor.name);
 
-    // 收藏狀態
+    // 收藏狀態（依「動物 + 場景」判斷）
     const btnText = btn.querySelector('.visitor-collect-text');
-    if (isTodayVisitorCollected(visitor.id)) {
+    if (isTodayVisitorCollected(visitor.id, currentVisitorSceneId)) {
       card.classList.add('collected');
       btnText.textContent = '已收藏今天的來訪';
     } else {
@@ -1315,11 +1611,11 @@
 
   function onVisitorCollect() {
     if (!currentVisitor) return;
-    if (isTodayVisitorCollected(currentVisitor.id)) {
+    if (isTodayVisitorCollected(currentVisitor.id, currentVisitorSceneId)) {
       showToast('今天的來訪已經收藏過囉。', 2200);
       return;
     }
-    const ok = collectVisitor(currentVisitor, currentVisitorDaypart);
+    const ok = collectVisitor(currentVisitor, currentVisitorDaypart, currentVisitorSceneId);
     if (!ok) return;
 
     // 寫入 activity record（type: visitor）
