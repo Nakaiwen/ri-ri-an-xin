@@ -2143,6 +2143,16 @@ button {
   white-space: nowrap;
 }
 
+/* V1.9.2: 第 N 次來訪 · 初次相遇 ... */
+.album-card-visit-meta {
+  font-size: calc(12px * var(--fs-scale));
+  color: var(--gold, #b88746);
+  letter-spacing: 0.08em;
+  margin-top: -4px;
+  margin-bottom: 10px;
+  font-family: var(--font-kai);
+}
+
 .album-card-tag {
   display: inline-block;
   background: var(--primary-bg);

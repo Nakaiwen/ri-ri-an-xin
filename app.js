@@ -1586,17 +1586,32 @@
     '日常的小事，也是好事。'
   ];
 
+  // V1.9.3: 上次「給自己的一句話」顯示的內容（用來避免連續兩次同句）
+  let lastFamilyNoteShown = null;
+
   function renderFamilyNoteOnHome() {
     const el = document.getElementById('familyNoteText');
     const notes = loadList(KEYS.familyNotes);
+
+    // 決定用哪個句子池
+    let pool;
     if (notes.length === 0) {
-      // 沒有自訂留言 → 用系統預設三句輪播（按日期）
-      el.textContent = DEFAULT_FAMILY_NOTES[dailySeedIndex(DEFAULT_FAMILY_NOTES.length, 3)];
-      return;
+      pool = DEFAULT_FAMILY_NOTES;
+    } else {
+      pool = notes.map(function (n) { return n.content; });
     }
-    // 有自訂留言 → 從使用者的留言中按日期挑一句
-    const note = notes[dailySeedIndex(notes.length, 3)];
-    el.textContent = note.content;
+
+    // V1.9.3: 每次進首頁都隨機挑一句，但避開上次顯示的同一句
+    // （只有一句時沒得避，直接用那一句）
+    let candidates = pool;
+    if (pool.length > 1 && lastFamilyNoteShown !== null) {
+      candidates = pool.filter(function (s) { return s !== lastFamilyNoteShown; });
+      if (candidates.length === 0) candidates = pool;
+    }
+
+    const picked = candidates[Math.floor(Math.random() * candidates.length)];
+    el.textContent = picked;
+    lastFamilyNoteShown = picked;
   }
 
   // V1.2: 今天的訪客
@@ -1764,9 +1779,9 @@
 
   // V1.2: 收藏冊頁面
   function renderAlbum() {
-    const list = loadList(KEYS.visitorCollection).slice().reverse();
+    const rawList = loadList(KEYS.visitorCollection);
     const el = document.getElementById('albumList');
-    if (list.length === 0) {
+    if (rawList.length === 0) {
       el.innerHTML =
         '<div class="album-empty">' +
           '<div class="album-empty-emoji">🌿</div>' +
@@ -1775,9 +1790,43 @@
         '</div>';
       return;
     }
+
+    // V1.9.2: 計算每筆收藏在「該動物的時間序列上」是第幾次
+    //   按 createdAt 正序排，逐個累計每位 visitorId 的計數
+    //   第 N 張同一動物的收藏 → visitNumber = N
+    //   同時記錄該動物的「初次相遇日期」
+    const sortedAsc = rawList.slice().sort(function (a, b) {
+      return (a.createdAt || '').localeCompare(b.createdAt || '');
+    });
+    const visitNumberByCollectionId = {};
+    const firstSeenByVisitorId = {};
+    const countByVisitorId = {};
+    sortedAsc.forEach(function (c) {
+      countByVisitorId[c.visitorId] = (countByVisitorId[c.visitorId] || 0) + 1;
+      visitNumberByCollectionId[c.id] = countByVisitorId[c.visitorId];
+      if (!firstSeenByVisitorId[c.visitorId]) {
+        firstSeenByVisitorId[c.visitorId] = c.collectedDate || c.createdAt;
+      }
+    });
+
+    // 渲染時用反向排列（最新在最上面）
+    const list = rawList.slice().reverse();
+
     el.innerHTML = list.map(function (c, idx) {
       const dateLabel = formatAlbumDate(c.collectedDate);
       const emoji = c.fallbackEmoji || '🐾';
+
+      // V1.9.2: 第幾次來訪
+      const visitNumber = visitNumberByCollectionId[c.id] || 1;
+      const firstSeenISO = firstSeenByVisitorId[c.visitorId];
+      let visitMeta = '';
+      if (visitNumber >= 2) {
+        const firstSeenLabel = formatVisitFirstSeen(firstSeenISO);
+        visitMeta = '第 ' + visitNumber + ' 次來訪';
+        if (firstSeenLabel) {
+          visitMeta += ' · 初次相遇 ' + firstSeenLabel;
+        }
+      }
 
       // V1.6: 優先用 daypart 圖（如果當時有記錄），失敗就回退
       // V1.9.1: 收藏的若為場景變體（有 sceneId 且非 main），
@@ -1828,6 +1877,7 @@
             '<div class="album-card-name">' + escapeHtml(c.visitorName) + '</div>' +
             '<div class="album-card-date">' + escapeHtml(dateLabel) + '</div>' +
           '</div>' +
+          (visitMeta ? '<div class="album-card-visit-meta">' + escapeHtml(visitMeta) + '</div>' : '') +
           (c.tag ? '<div class="album-card-tag">' + escapeHtml(c.tag) + '</div>' : '') +
           '<div class="album-card-greeting">' + escapeHtml(c.greeting) + '</div>' +
           (c.invitation
@@ -1872,6 +1922,24 @@
     const parts = yyyymmdd.split('-');
     if (parts.length !== 3) return yyyymmdd;
     return parts[0] + '/' + parts[1] + '/' + parts[2];
+  }
+
+  // V1.9.2: 「初次相遇」的短格式日期，例如「5 月 13 日」
+  //   如果是不同年，會加上年份「2025 年 5 月 13 日」
+  function formatVisitFirstSeen(isoOrDate) {
+    if (!isoOrDate) return '';
+    // 接受 "YYYY-MM-DD" 或 ISO 完整字串
+    const datePart = isoOrDate.split('T')[0];
+    const parts = datePart.split('-');
+    if (parts.length !== 3) return '';
+    const year = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10);
+    const day = parseInt(parts[2], 10);
+    const thisYear = new Date().getFullYear();
+    if (year === thisYear) {
+      return month + ' 月 ' + day + ' 日';
+    }
+    return year + ' 年 ' + month + ' 月 ' + day + ' 日';
   }
 
 
