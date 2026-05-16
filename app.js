@@ -1459,6 +1459,16 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
+  // V1.9.4: 把陣列打散（Fisher-Yates 洗牌，不影響原陣列）
+  function shuffleArray(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
   function randomIndex(arr, except) {
     if (arr.length <= 1) return 0;
     let i;
@@ -2648,7 +2658,9 @@
   function renderOptions(options, answer, blessing) {
     const optsEl = document.getElementById('gameOptions');
     optsEl.innerHTML = '';
-    options.forEach(function (opt) {
+    // V1.9.4: 打散選項順序，避免答案永遠在第一個
+    const shuffled = shuffleArray(options);
+    shuffled.forEach(function (opt) {
       const btn = document.createElement('button');
       btn.className = 'option-btn';
       btn.textContent = opt;
