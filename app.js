@@ -2011,21 +2011,41 @@
   }
 
   // 計算今日「平安花」朵數：所有今日的活動 + 照顧 + 故事 + 心情(V1.1) + 訪客(V1.2)
-  // 規則：心情、訪客 都是「一天最多算 1 朵」（避免重複按造成花園爆滿）
+  // 規則：
+  //   一天最多算 1 朵的類別：
+  //     - 心情打卡（mood）
+  //     - 收藏訪客（visitor）
+  //     - 玩小遊戲（game）           V1.9.6
+  //     - 說一句傳訊息（familyMessage） V1.9.6
+  //   每次都算 1 朵的類別：
+  //     - 照顧自己（care）：每項照顧獨立
+  //     - 想一想（stories）：每段回憶獨立
+  //     - 動一動（lifeAction）：每個生活小行動獨立
+  //
+  // 立意：避免反覆按同一個按鈕造成花園「灌水」，
+  //       讓滿開的成就感來自於「做了多種不同的小事」
   function countTodayFlowers() {
     const acts = loadList(KEYS.activity).filter(function (a) { return isToday(a.createdAt); });
     const cares = loadList(KEYS.care).filter(function (a) { return isToday(a.createdAt); });
     const stories = loadList(KEYS.stories).filter(function (a) { return isToday(a.createdAt); });
     const moods = loadList(KEYS.mood).filter(function (a) { return isToday(a.createdAt); });
 
-    // 把 visitor 活動拆出來：一天最多算 1 朵
+    // 拆出「限制 1 朵」的活動類別
     const visitorActs = acts.filter(function (a) { return a.type === 'visitor'; });
-    const otherActs = acts.filter(function (a) { return a.type !== 'visitor'; });
+    const gameActs = acts.filter(function (a) { return a.type === 'game'; });
+    const msgActs = acts.filter(function (a) { return a.type === 'familyMessage'; });
+    // 其他活動類別（lifeAction 等）每次都算
+    const otherActs = acts.filter(function (a) {
+      return a.type !== 'visitor' && a.type !== 'game' && a.type !== 'familyMessage';
+    });
 
     const moodFlower = moods.length > 0 ? 1 : 0;
     const visitorFlower = visitorActs.length > 0 ? 1 : 0;
+    const gameFlower = gameActs.length > 0 ? 1 : 0;        // V1.9.6
+    const msgFlower = msgActs.length > 0 ? 1 : 0;          // V1.9.6
 
-    return otherActs.length + cares.length + stories.length + moodFlower + visitorFlower;
+    return otherActs.length + cares.length + stories.length +
+      moodFlower + visitorFlower + gameFlower + msgFlower;
   }
 
   function renderHomeCareStatus() {
@@ -3428,16 +3448,42 @@
       goTo('home');
     }
 
-    // 每分鐘檢查一次問候是否該換（跨時段）
+    // V1.9.5: 每分鐘檢查
+    //   1. 問候時段是否改變（跨時段）→ 重渲染
+    //   2. 日期是否改變（過午夜）→ 重渲染（讓平安花園、心情、訪客等歸零）
+    //
+    // 用 todayKey() 偵測比用 hello 字串可靠——
+    // 因為 hello 字串相同的情境也可能跨日（同一個時段、不同天）
+    let lastSeenTodayKey = todayKey();
     setInterval(function () {
-      if (currentView === 'home') {
-        const g = getGreeting();
-        const helloEl = document.getElementById('greetingHello');
-        if (helloEl && helloEl.textContent !== g.hello) {
-          renderHome();
-        }
+      if (currentView !== 'home') return;
+
+      const currentTodayKey = todayKey();
+      if (currentTodayKey !== lastSeenTodayKey) {
+        // 過了午夜：重渲染整個首頁（花園歸零、訪客重抽、心情清空等)
+        lastSeenTodayKey = currentTodayKey;
+        renderHome();
+        return;
+      }
+
+      // 同一天：檢查時段是否變了
+      const g = getGreeting();
+      const helloEl = document.getElementById('greetingHello');
+      if (helloEl && helloEl.textContent !== g.hello.replace('{name}', getPersonName())) {
+        renderHome();
       }
     }, 60 * 1000);
+
+    // V1.9.5: App 從背景回到前景時也檢查日期變化
+    // （iOS PWA 在背景時 setInterval 會暫停，靠這個補上）
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState !== 'visible') return;
+      const currentTodayKey = todayKey();
+      if (currentTodayKey !== lastSeenTodayKey) {
+        lastSeenTodayKey = currentTodayKey;
+        if (currentView === 'home') renderHome();
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
