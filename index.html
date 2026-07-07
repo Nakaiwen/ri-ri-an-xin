@@ -198,13 +198,43 @@
             </div>
           </div>
 
-          <div class="summary-card">
-            <div class="card-title">今天的小小紀錄</div>
-            <div class="summary-content" id="summaryContent"></div>
+          <!-- V2.1: 值得倒數期待的日子 — 日曆圖即整個卡片 -->
+          <div class="countdown-card" id="countdownCard">
+            <button class="countdown-edit-float" id="countdownEditBtn" aria-label="設定日子" hidden>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"/>
+                <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+              </svg>
+              <span>設定</span>
+            </button>
+            <div class="countdown-body" id="countdownBody">
+              <!-- 由 JS 依狀態渲染 -->
+            </div>
           </div>
 
-          <div class="bottom-spacer"></div>
+          <div class="bottom-spacer bottom-spacer-home"></div>
         </section>
+
+        <!-- ============ V2.1: 倒數日設定對話框 ============ -->
+        <div class="modal-mask" id="countdownMask" hidden>
+          <div class="modal">
+            <div class="modal-title">值得期待的日子</div>
+            <div class="modal-text">寫下一件你正在期待的事，<br>還有它是哪一天。</div>
+
+            <label class="countdown-field-label" for="countdownReason">是什麼日子呢？</label>
+            <input type="text" id="countdownReason" class="countdown-input"
+                   placeholder="例如：孫子回來、父親節、回診" maxlength="20">
+
+            <label class="countdown-field-label" for="countdownDate">在哪一天？</label>
+            <input type="date" id="countdownDate" class="countdown-input">
+
+            <div class="modal-actions modal-actions-stack">
+              <button class="btn-primary" id="countdownSaveBtn">記下來</button>
+              <button class="btn-secondary" id="countdownClearBtn" hidden>清除這個日子</button>
+              <button class="btn-secondary" id="countdownCancelBtn">取消</button>
+            </div>
+          </div>
+        </div>
 
         <!-- ============ View: Play ============ -->
         <section class="view view-play" id="view-play" data-view="play">

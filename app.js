@@ -918,7 +918,9 @@
     // V2.0 今日安心籤
     qianDrawn: 'ri_ri_an_xin_qian_drawn',
     // V2.0.4 裝置匿名 ID（讓每台裝置的安心籤各自不同）
-    deviceId: 'ri_ri_an_xin_device_id'
+    deviceId: 'ri_ri_an_xin_device_id',
+    // V2.1 值得倒數期待的日子
+    countdown: 'ri_ri_an_xin_countdown'
   };
 
   // V2.0.4: 取得（或初次生成）此裝置的匿名 ID
@@ -1350,6 +1352,7 @@
     'visitorCollection', // 來訪收藏冊
     'visitorEncounters', // V1.9: 訪客拜訪計數
     'deviceId',        // V2.0.4: 裝置匿名 ID（讓籤運跨手機連貫）
+    'countdown',       // V2.1: 值得倒數期待的日子
     'stories'          // 想一想回憶
   ];
 
@@ -1668,8 +1671,8 @@
     // 照顧卡狀態（首頁版）
     renderHomeCareStatus();
 
-    // 今日摘要
-    renderSummary();
+    // V2.1: 值得倒數期待的日子（取代原本的今日摘要）
+    renderCountdown();
   }
 
   // V1.1: 首頁家人留言
@@ -2562,6 +2565,9 @@
 
 
   function renderSummary() {
+    // V2.1: 此卡已由「值得倒數期待的日子」取代，DOM 可能不存在
+    const elCheck = document.getElementById('summaryContent');
+    if (!elCheck) return;
     const today = todayKey();
     const acts = loadList(KEYS.activity).filter(function (a) { return dateKeyOf(a.createdAt) === today; });
     const cares = loadList(KEYS.care).filter(function (a) { return dateKeyOf(a.createdAt) === today; });
@@ -2598,6 +2604,164 @@
     } else {
       el.innerHTML = lines.map(function (s) { return '<div class="summary-item">' + s + '</div>'; }).join('');
     }
+  }
+
+  // ============================================================
+  // V2.1: 值得倒數期待的日子
+  // ============================================================
+
+  // 讀取倒數日設定 → { reason, date } 或 null
+  function loadCountdown() {
+    try {
+      const raw = localStorage.getItem(KEYS.countdown);
+      if (!raw) return null;
+      const obj = JSON.parse(raw);
+      if (obj && obj.reason && obj.date) return obj;
+      return null;
+    } catch (e) { return null; }
+  }
+
+  function saveCountdown(reason, date) {
+    try {
+      localStorage.setItem(KEYS.countdown, JSON.stringify({ reason: reason, date: date }));
+    } catch (e) {}
+  }
+
+  function clearCountdown() {
+    try { localStorage.removeItem(KEYS.countdown); } catch (e) {}
+  }
+
+  // 計算距離目標日還有幾天（用本地日期，避免時區誤差）
+  //   >0 未到、=0 就是今天、<0 已過
+  function daysUntil(dateStr) {
+    const parts = dateStr.split('-');
+    if (parts.length !== 3) return null;
+    const target = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+    const now = new Date();
+    const todayMid = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const diffMs = target - todayMid;
+    return Math.round(diffMs / (1000 * 60 * 60 * 24));
+  }
+
+  // 把 YYYY-MM-DD 格式化成「5 月 20 日」或跨年「2027 年 1 月 1 日」
+  function formatCountdownDate(dateStr) {
+    const parts = dateStr.split('-');
+    if (parts.length !== 3) return dateStr;
+    const y = parseInt(parts[0], 10), m = parseInt(parts[1], 10), d = parseInt(parts[2], 10);
+    const thisYear = new Date().getFullYear();
+    return (y === thisYear ? '' : y + ' 年 ') + m + ' 月 ' + d + ' 日';
+  }
+
+  function renderCountdown() {
+    const body = document.getElementById('countdownBody');
+    const editBtn = document.getElementById('countdownEditBtn');
+    const cd = loadCountdown();
+
+    // 沒設定，或已過期 → 回到空狀態邀請語（過期等於自動清掉）
+    if (cd) {
+      const days = daysUntil(cd.date);
+      if (days === null || days < 0) {
+        clearCountdown();
+      }
+    }
+    const current = loadCountdown();
+
+    const titleLine = '<div class="countdown-title">值得倒數期待的日子</div>';
+
+    if (!current) {
+      // 空狀態：日曆圖上顯示標題 + 邀請語，整塊可點
+      editBtn.hidden = true;
+      body.innerHTML =
+        '<button class="countdown-inner countdown-inner-empty" id="countdownEmptyBtn">' +
+          titleLine +
+          '<div class="countdown-empty-text">要不要輸入一個<br>值得期待的日子？</div>' +
+        '</button>';
+      const emptyBtn = document.getElementById('countdownEmptyBtn');
+      if (emptyBtn) emptyBtn.addEventListener('click', openCountdownModal);
+      return;
+    }
+
+    // 有設定 → 顯示倒數
+    editBtn.hidden = false;
+    const days = daysUntil(current.date);
+    const dateLabel = formatCountdownDate(current.date);
+
+    let bigText, subText;
+    if (days === 0) {
+      bigText = '<span class="countdown-today-word">就是今天</span>';
+      subText = '期待的「' + escapeHtml(current.reason) + '」，就是今天了！';
+    } else {
+      bigText = '還有 <span class="countdown-number">' + days + '</span> 天';
+      subText = '期待的「' + escapeHtml(current.reason) + '」　·　' + dateLabel;
+    }
+
+    body.innerHTML =
+      '<div class="countdown-inner">' +
+        titleLine +
+        '<div class="countdown-big">' + bigText + '</div>' +
+        '<div class="countdown-reason">' + subText + '</div>' +
+      '</div>';
+  }
+
+  // --- 倒數日設定對話框 ---
+  function openCountdownModal() {
+    const cd = loadCountdown();
+    const reasonEl = document.getElementById('countdownReason');
+    const dateEl = document.getElementById('countdownDate');
+    const clearBtn = document.getElementById('countdownClearBtn');
+
+    if (cd) {
+      reasonEl.value = cd.reason;
+      dateEl.value = cd.date;
+      clearBtn.hidden = false;
+    } else {
+      reasonEl.value = '';
+      dateEl.value = '';
+      clearBtn.hidden = true;
+    }
+    document.getElementById('countdownMask').hidden = false;
+  }
+
+  function closeCountdownModal() {
+    document.getElementById('countdownMask').hidden = true;
+  }
+
+  function saveCountdownFromModal() {
+    const reason = document.getElementById('countdownReason').value.trim();
+    const date = document.getElementById('countdownDate').value;
+
+    if (!reason) {
+      showToast('請先寫下是什麼日子。', 1800);
+      return;
+    }
+    if (!date) {
+      showToast('請選一個日期。', 1800);
+      return;
+    }
+    // 檢查日期不是過去
+    const days = daysUntil(date);
+    if (days !== null && days < 0) {
+      showToast('這一天已經過去了，\n選一個之後的日子吧。', 2400);
+      return;
+    }
+
+    saveCountdown(reason, date);
+    closeCountdownModal();
+    renderCountdown();
+    showToast('記下來了，慢慢期待這一天。', 2200);
+  }
+
+  function clearCountdownFromModal() {
+    showConfirm(
+      '要清除這個日子嗎',
+      '清除後，可以再放一個新的期待。',
+      function () {
+        clearCountdown();
+        closeCountdownModal();
+        renderCountdown();
+        showToast('清除了，隨時可以放一個新的期待。', 2200);
+      }
+    );
   }
 
   // ============================================================
@@ -3325,6 +3489,15 @@
     document.getElementById('careEditSave').addEventListener('click', saveCareEdit);
     document.getElementById('careEditMask').addEventListener('click', function (e) {
       if (e.target === e.currentTarget) closeCareEdit();
+    });
+
+    // V2.1: 值得倒數期待的日子
+    document.getElementById('countdownEditBtn').addEventListener('click', openCountdownModal);
+    document.getElementById('countdownSaveBtn').addEventListener('click', saveCountdownFromModal);
+    document.getElementById('countdownClearBtn').addEventListener('click', clearCountdownFromModal);
+    document.getElementById('countdownCancelBtn').addEventListener('click', closeCountdownModal);
+    document.getElementById('countdownMask').addEventListener('click', function (e) {
+      if (e.target === e.currentTarget) closeCountdownModal();
     });
 
     // V1.6: 自訂項目表單

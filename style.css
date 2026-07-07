@@ -629,6 +629,164 @@ button {
 }
 
 /* =========================================================
+   V2.1 值得倒數期待的日子 — 日曆圖即整個卡片
+   ========================================================= */
+.countdown-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 8px;
+  box-shadow: var(--shadow-sm);
+  aspect-ratio: 4 / 3;
+  background-image: url('images/ui/countdown_calendar.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.countdown-body {
+  position: absolute;
+  inset: 0;
+}
+
+/* 圖上的置中內容層（標題 + 倒數 / 標題 + 邀請）*/
+.countdown-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+  /* 覆蓋 button 預設樣式（空狀態用 button）*/
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  cursor: default;
+}
+
+.countdown-inner-empty {
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.countdown-inner-empty:active {
+  opacity: 0.7;
+}
+
+/* 標題（第一行，疊在日曆頂部的留白處）*/
+.countdown-title {
+  font-family: var(--font-kai);
+  font-weight: 500;
+  font-size: var(--fs-base);
+  letter-spacing: 0.14em;
+  color: var(--text-soft);
+  margin-bottom: 18px;
+  text-shadow: 0 1px 4px rgba(255, 252, 245, 0.9);
+}
+
+.countdown-empty-text {
+  font-family: var(--font-kai);
+  font-size: calc(18px * var(--fs-scale));
+  color: var(--primary);
+  letter-spacing: 0.05em;
+  line-height: 1.7;
+  text-shadow: 0 1px 4px rgba(255, 252, 245, 0.9);
+}
+
+.countdown-big {
+  font-family: var(--font-kai);
+  font-size: calc(27px * var(--fs-scale));
+  color: var(--text);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  text-shadow: 0 1px 4px rgba(255, 252, 245, 0.85);
+}
+
+.countdown-number {
+  font-size: calc(54px * var(--fs-scale));
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0 5px;
+  line-height: 1;
+}
+
+.countdown-today-word {
+  font-size: calc(38px * var(--fs-scale));
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+}
+
+.countdown-reason {
+  font-size: var(--fs-base);
+  color: var(--text-soft);
+  line-height: 1.6;
+  letter-spacing: 0.03em;
+  text-shadow: 0 1px 4px rgba(255, 252, 245, 0.85);
+  /* V2.1.1: 固定保留兩行空間，事由長也不破版 */
+  min-height: calc(var(--fs-base) * 1.6 * 2);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;   /* 最多兩行，超過用 … 截斷 */
+  line-clamp: 2;
+  overflow: hidden;
+  max-width: 82%;          /* 不貼日曆左右邊緣 */
+}
+
+/* 修改按鈕：浮在日曆右上角 */
+.countdown-edit-float {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255, 252, 245, 0.82);
+  color: var(--primary);
+  border: none;
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: calc(11px * var(--fs-scale));
+  font-family: var(--font-kai);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  cursor: pointer;
+}
+
+.countdown-edit-float:active {
+  transform: scale(0.96);
+}
+
+/* 設定對話框的欄位 */
+.countdown-field-label {
+  display: block;
+  font-family: var(--font-kai);
+  font-size: var(--fs-base);
+  color: var(--text);
+  margin: 14px 0 6px;
+  letter-spacing: 0.05em;
+}
+
+.countdown-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: var(--fs-base);
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg-soft, #faf4ec);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+}
+
+.countdown-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* =========================================================
    Game (Play View)
    ========================================================= */
 .game-select {
@@ -2463,6 +2621,7 @@ button {
 
 .modal-actions-stack {
   flex-direction: column;
+  margin-top: 20px;
 }
 
 .modal-actions-stack button {
@@ -2680,6 +2839,11 @@ button {
 
 .bottom-spacer {
   height: 40px;
+}
+
+/* V2.1.3: 首頁最後一張是滿版日曆卡，下方不需要太多留白 */
+.bottom-spacer-home {
+  height: 12px;
 }
 
 [hidden] {
