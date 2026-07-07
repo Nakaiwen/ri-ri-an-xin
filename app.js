@@ -2710,13 +2710,25 @@
     const dateEl = document.getElementById('countdownDate');
     const clearBtn = document.getElementById('countdownClearBtn');
 
+    // V2.1.4: 日期框最小值設為今天（不能選過去）
+    const now = new Date();
+    const todayStr = now.getFullYear() + '-' +
+      String(now.getMonth() + 1).padStart(2, '0') + '-' +
+      String(now.getDate()).padStart(2, '0');
+    dateEl.min = todayStr;
+
     if (cd) {
       reasonEl.value = cd.reason;
       dateEl.value = cd.date;
       clearBtn.hidden = false;
     } else {
       reasonEl.value = '';
-      dateEl.value = '';
+      // V2.1.4: 沒設定過時，日期預設明天（給個起點，也讓框不會看起來空空的）
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      dateEl.value = tomorrow.getFullYear() + '-' +
+        String(tomorrow.getMonth() + 1).padStart(2, '0') + '-' +
+        String(tomorrow.getDate()).padStart(2, '0');
       clearBtn.hidden = true;
     }
     document.getElementById('countdownMask').hidden = false;

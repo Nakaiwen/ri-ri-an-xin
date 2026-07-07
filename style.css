@@ -781,6 +781,29 @@ button {
   box-sizing: border-box;
 }
 
+/* V2.1.4: 馴服 iOS Safari 的原生日期框
+   （原生 date input 會溢出容器、右邊突出一塊）*/
+.countdown-input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  min-height: 48px;              /* 固定高度，避免內部撐開 */
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+}
+
+/* iOS 會把日期文字塞進一個內部容器，這裡讓它填滿、不溢出 */
+.countdown-input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+  margin: 0;
+}
+
+/* 尚未選日期時，讓佔位文字也對齊、看得出來是可點的欄位 */
+.countdown-input[type="date"]::-webkit-datetime-edit {
+  color: var(--text);
+  padding: 0;
+}
+
 .countdown-input:focus {
   outline: none;
   border-color: var(--primary);
