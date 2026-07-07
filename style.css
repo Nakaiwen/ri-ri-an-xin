@@ -374,7 +374,7 @@ button {
 }
 
 /* =========================================================
-   Main 4 Buttons Grid
+   Main 4 Buttons Grid — 大格子友善版
    ========================================================= */
 .main-grid {
   display: grid;
@@ -385,60 +385,55 @@ button {
 
 .main-btn {
   position: relative;
-  background: var(--card-bg);
-  border-radius: var(--radius-md);
-  padding: 22px 16px 20px;
+  border-radius: 26px;
+  padding: 24px 18px;
   text-align: left;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.25s ease;
-  overflow: hidden;
-  min-height: 140px;
+  min-height: 160px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid var(--border-soft);
+  transition: all 0.25s ease;
+  overflow: hidden;
+  border: 1px solid transparent;
 }
-
-.main-btn::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  border-radius: 0 0 var(--radius-md) var(--radius-md);
-}
-
-.main-btn-play::after { background: linear-gradient(90deg, var(--primary-soft), var(--primary)); }
-.main-btn-think::after { background: linear-gradient(90deg, var(--green-soft), var(--green)); }
-.main-btn-move::after { background: linear-gradient(90deg, var(--gold-soft), var(--gold)); }
-.main-btn-say::after { background: linear-gradient(90deg, var(--pink-soft), var(--pink)); }
 
 .main-btn:active {
   transform: scale(0.97);
-  box-shadow: var(--shadow-md);
 }
 
+/* 每格自己的柔和底色 + 標題色 */
+.main-btn-play  { background: #FFF1E5; border-color: rgba(201, 117, 83, 0.25); box-shadow: 0 4px 16px rgba(201, 117, 83, 0.12); }
+.main-btn-think { background: #EBF2E5; border-color: rgba(122, 156, 112, 0.30); box-shadow: 0 4px 16px rgba(122, 156, 112, 0.12); }
+.main-btn-move  { background: #F8EED4; border-color: rgba(201, 150, 80, 0.30);  box-shadow: 0 4px 16px rgba(201, 150, 80, 0.12); }
+.main-btn-say   { background: #FBEEF0; border-color: rgba(216, 148, 151, 0.35); box-shadow: 0 4px 16px rgba(216, 148, 151, 0.12); }
+
 .main-btn-emoji {
-  font-size: calc(34px * var(--fs-scale));
+  font-size: calc(52px * var(--fs-scale));
   line-height: 1;
-  margin-bottom: 8px;
 }
 
 .main-btn-title {
+  margin-top: auto;          /* 把標題＋說明推到格子下方 */
   font-family: var(--font-kai);
-  font-weight: 500;
-  font-size: var(--fs-lg);
-  letter-spacing: 0.15em;
-  color: var(--text);
+  font-weight: 600;
+  font-size: calc(24px * var(--fs-scale));
+  letter-spacing: 0.1em;
   margin-bottom: 4px;
 }
 
+.main-btn-play  .main-btn-title { color: #A85B3D; }
+.main-btn-think .main-btn-title { color: #5E7E54; }
+.main-btn-move  .main-btn-title { color: #A9772F; }
+.main-btn-say   .main-btn-title { color: #B96A6E; }
+
 .main-btn-sub {
-  font-size: calc(13px * var(--fs-scale));
-  color: var(--text-soft);
+  font-size: calc(14px * var(--fs-scale));
   line-height: 1.4;
 }
+
+.main-btn-play  .main-btn-sub { color: #8A6E56; }
+.main-btn-think .main-btn-sub { color: #6E8062; }
+.main-btn-move  .main-btn-sub { color: #8C734A; }
+.main-btn-say   .main-btn-sub { color: #946266; }
 
 /* =========================================================
    Garden Card
