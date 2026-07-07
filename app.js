@@ -916,8 +916,27 @@
     // V1.9 訪客拜訪計數（用於旅人類型的場景循環）
     visitorEncounters: 'ri_ri_an_xin_visitor_encounters',
     // V2.0 今日安心籤
-    qianDrawn: 'ri_ri_an_xin_qian_drawn'
+    qianDrawn: 'ri_ri_an_xin_qian_drawn',
+    // V2.0.4 裝置匿名 ID（讓每台裝置的安心籤各自不同）
+    deviceId: 'ri_ri_an_xin_device_id'
   };
+
+  // V2.0.4: 取得（或初次生成）此裝置的匿名 ID
+  //   純亂數，不含任何個資，只用來讓每台裝置抽到不同的籤
+  function getDeviceId() {
+    try {
+      let id = localStorage.getItem(KEYS.deviceId);
+      if (!id) {
+        id = 'dev-' + Date.now().toString(36) + '-' +
+             Math.random().toString(36).slice(2, 10);
+        localStorage.setItem(KEYS.deviceId, id);
+      }
+      return id;
+    } catch (e) {
+      // localStorage 不可用時給個當次臨時值（不穩定但不崩潰）
+      return 'dev-fallback';
+    }
+  }
 
   function loadList(key) {
     try {
@@ -1330,6 +1349,7 @@
     'customCare',      // V1.6: 自訂照顧項目
     'visitorCollection', // 來訪收藏冊
     'visitorEncounters', // V1.9: 訪客拜訪計數
+    'deviceId',        // V2.0.4: 裝置匿名 ID（讓籤運跨手機連貫）
     'stories'          // 想一想回憶
   ];
 
@@ -3561,7 +3581,9 @@
   }
 
   function qianOfToday() {
-    const rng = qianSeededRng('qian-' + todayKey());
+    // V2.0.4: 種子 = 日期 + 裝置匿名 ID
+    //   → 同一台裝置同一天穩定同一支；不同裝置抽到不同籤
+    const rng = qianSeededRng('qian-' + todayKey() + '-' + getDeviceId());
     const q = QIAN_QUOTES[Math.floor(rng() * QIAN_QUOTES.length)];
     return { quote: q };
   }
