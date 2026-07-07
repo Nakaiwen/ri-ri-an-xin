@@ -466,6 +466,22 @@
           greeting: '我剛剛在茶屋喝了一杯熱熱的茶，茶香慢慢散開來。想跟您說，泡一杯茶、給自己一點點時間，是很好的事。',
           invitation: '今天可以泡一杯喜歡的茶，慢慢喝，不用急。',
           tag: '茶屋時光'
+        },
+        {
+          id: 'station',
+          imageBase: 'images/visitors/cat_traveler_station',
+          title: '今天有一隻在小車站等車的貓咪旅人經過您家。',
+          greeting: '我剛剛在一個小小的車站，一邊看地圖、一邊等一班慢慢的火車。想跟您說，慢一點的路，也會到想去的地方。',
+          invitation: '今天可以慢慢做手邊的事，不用趕，時間夠用的。',
+          tag: '車站等車'
+        },
+        {
+          id: 'letter',
+          imageBase: 'images/visitors/cat_traveler_letter',
+          title: '今天有一隻在窗邊讀信的貓咪旅人經過您家。',
+          greeting: '我剛剛收到一封遠方的來信，坐在窗邊慢慢地讀。想跟您說，有人惦記著、有人捎來問候，是很溫暖的事。',
+          invitation: '今天可以想一個想念的人，或在心裡跟他說幾句話。',
+          tag: '窗邊讀信'
         }
       ]
     },
@@ -478,7 +494,18 @@
       title: '今天有一隻從遠方冰海來的企鵝經過您身邊。',
       greeting: '我走路有點搖搖晃晃，但有同伴就不孤單。今天也有人惦記著您。',
       invitation: '今天可以傳一句平安給家人，讓彼此都安心一點。',
-      tag: '不孤單'
+      tag: '不孤單',
+      isTraveler: true,
+      scenes: [
+        {
+          id: 'seaside',
+          imageBase: 'images/visitors/penguin_seaside',
+          title: '今天有一隻背著背包、第一次出遠門的企鵝，走在海邊的小鎮上。',
+          greeting: '我第一次自己出來旅行，走在海邊的小街上，有點緊張、又有點開心。想跟您說，願意踏出一小步，就已經很勇敢了。',
+          invitation: '今天可以試著做一件平常不太做的小事，一點點就好。',
+          tag: '第一次出遠門'
+        }
+      ]
     },
     {
       id: 'deer',
@@ -573,7 +600,25 @@
       greeting: '我們從京都的街道一路散步過來，經過這裡時，想一起向您說一聲平安。今天慢慢地過，也是一種很好的旅行節奏。',
       invitation: '今天可以慢慢走幾步，看看身邊的小風景，或想想一件讓你覺得安心的小事。',
       tag: '一起來問好',
-      isTraveler: true
+      isTraveler: true,
+      scenes: [
+        {
+          id: 'sakura',
+          imageBase: 'images/visitors/shiba_brothers_kyoto_sakura',
+          title: '今天有一對柴犬兄弟，在櫻花樹下一起經過您家。',
+          greeting: '我們走到了一片開滿櫻花的地方，花瓣輕輕落下來，好美。想一起跟您說，美好的景色，值得停下來多看幾眼。',
+          invitation: '今天可以看看窗外，或想起一個曾經讓你覺得很美的畫面。',
+          tag: '櫻花樹下'
+        },
+        {
+          id: 'river',
+          imageBase: 'images/visitors/shiba_brothers_kyoto_river',
+          title: '今天有一對柴犬兄弟，在小河邊散步經過您家。',
+          greeting: '我們沿著小河邊慢慢走，水聲很輕、很舒服。想一起跟您說，能好好走一段路、看看水，就是很幸福的事。',
+          invitation: '今天可以慢慢走幾步，或聽一段讓你覺得放鬆的聲音。',
+          tag: '河邊散步'
+        }
+      ]
     },
     {
       id: 'french_marmot',
@@ -608,6 +653,18 @@
       greeting: '我從倫敦的街角與公園一路旅行過來，途中看見很多有趣的風景。經過這裡時，也想停下來向您問好。今天慢慢過，也會有屬於自己的小小風景。',
       invitation: '今天可以慢慢看看窗外，或散幾步，留意一下身邊的小景色，讓心情也跟著輕鬆一點。',
       tag: '街角旅行',
+      isTraveler: true
+    },
+    {
+      id: 'hedgehog',
+      name: '小刺蝟',
+      image: 'images/visitors/hedgehog.jpg',
+      imageBase: 'images/visitors/hedgehog',
+      fallbackEmoji: '🦔',
+      title: '今天有一隻背著背包、坐上小火車的刺蝟，探出頭來跟您問好。',
+      greeting: '我正坐著慢慢的火車去旅行，經過這裡時，看到窗外的秋葉好美，就想跟您揮揮手。今天也祝您有好風景。',
+      invitation: '今天可以看看窗外，找一個讓你覺得舒服的小風景。',
+      tag: '出發旅行',
       isTraveler: true
     }
   ];
