@@ -14,35 +14,79 @@
   const GREETINGS = [
     {
       from: 5, to: 11,
+      period: 'morning',   // 晨光柔黃 · 金黃太陽雲
       time: '今 · 日 · 早 · 安',
       hello: '{name}，早安',
       words: '今天也平平安安。\n先喝一點水，慢慢開始美好的一天。'
     },
     {
       from: 11, to: 17,
+      period: 'noon',      // 暮色柔橘 · 暖橘太陽雲
       time: '今 · 日 · 午 · 安',
       hello: '{name}，午安',
       words: '今天過得還好嗎？\n記得吃飯，也記得讓自己休息一下。'
     },
     {
       from: 17, to: 22,
+      period: 'evening',   // 淺藍摻暖 · 月亮2星
       time: '今 · 日 · 晚 · 安',
       hello: '{name}，晚上好',
       words: '今天辛苦了。\n可以慢慢放鬆，讓身體安穩下來。'
     },
     {
       from: 22, to: 29, // 22-24
+      period: 'night',     // 夜幕藍紫 · 月亮4星
       time: '該 · 休 · 息 · 囉',
       hello: '夜晚到了',
       words: '今天就快圓滿結束了。\n可以慢慢準備休息，深呼吸放鬆自己。'
     },
     {
       from: 0, to: 5,
+      period: 'midnight',  // 藏青 · 月亮7星
       time: '夜 · 已 · 深',
       hello: '夜深了',
       words: '如果還沒睡，也不用急。\n深呼吸放鬆自己，慢慢入睡。'
     }
   ];
+
+  // 五時段的裝飾 SVG（太陽雲 / 月亮星）
+  const GREETING_DECOS = {
+    // 早安：金黃太陽 12 道光芒 + 白雲
+    morning: '<svg viewBox="0 0 80 56" width="72" height="50">' +
+      '<g stroke="#E0BE6A" stroke-width="1.6" stroke-linecap="round">' +
+      '<line x1="54" y1="5" x2="54" y2="13"/><line x1="66" y1="9" x2="62" y2="16"/><line x1="74" y1="17" x2="67" y2="21"/><line x1="78" y1="29" x2="70" y2="29"/><line x1="74" y1="41" x2="67" y2="37"/><line x1="66" y1="49" x2="62" y2="42"/><line x1="54" y1="53" x2="54" y2="45"/><line x1="42" y1="49" x2="46" y2="42"/><line x1="34" y1="41" x2="41" y2="37"/><line x1="30" y1="29" x2="38" y2="29"/><line x1="34" y1="17" x2="41" y2="21"/><line x1="42" y1="9" x2="46" y2="16"/>' +
+      '</g><circle cx="54" cy="29" r="11.5" fill="#F3D98A"/>' +
+      '<path d="M10 52 A6.5 6.5 0 0 1 9 40 A8 8 0 0 1 23 37 A6.5 6.5 0 0 1 35 41.5 A5.5 5.5 0 0 1 33.5 52 A9 4 0 0 1 21.5 52 A9 4 0 0 1 10 52 Z" fill="#FFFFFF"/></svg>',
+    // 午安：暖橘太陽 + 白雲
+    noon: '<svg viewBox="0 0 80 56" width="72" height="50">' +
+      '<g stroke="#D19A5A" stroke-width="1.6" stroke-linecap="round">' +
+      '<line x1="54" y1="5" x2="54" y2="13"/><line x1="66" y1="9" x2="62" y2="16"/><line x1="74" y1="17" x2="67" y2="21"/><line x1="78" y1="29" x2="70" y2="29"/><line x1="74" y1="41" x2="67" y2="37"/><line x1="66" y1="49" x2="62" y2="42"/><line x1="54" y1="53" x2="54" y2="45"/><line x1="42" y1="49" x2="46" y2="42"/><line x1="34" y1="41" x2="41" y2="37"/><line x1="30" y1="29" x2="38" y2="29"/><line x1="34" y1="17" x2="41" y2="21"/><line x1="42" y1="9" x2="46" y2="16"/>' +
+      '</g><circle cx="54" cy="29" r="11.5" fill="#EDB877"/>' +
+      '<path d="M10 52 A6.5 6.5 0 0 1 9 40 A8 8 0 0 1 23 37 A6.5 6.5 0 0 1 35 41.5 A5.5 5.5 0 0 1 33.5 52 A9 4 0 0 1 21.5 52 A9 4 0 0 1 10 52 Z" fill="#FFFFFF"/></svg>',
+    // 晚上好：白月亮 + 2 白星
+    evening: '<svg viewBox="0 0 72 60" width="60" height="50">' +
+      '<path d="M54 22 A16 16 0 1 0 54 52 A12.5 12.5 0 1 1 54 22 Z" fill="#FFFFFF"/>' +
+      '<path d="M14 16 L15 19.5 L18.5 20.5 L15 21.5 L14 25 L13 21.5 L9.5 20.5 L13 19.5 Z" fill="#FFFFFF"/>' +
+      '<path d="M66 22 L66.7 24.3 L69 25 L66.7 25.7 L66 28 L65.3 25.7 L63 25 L65.3 24.3 Z" fill="#FFFFFF"/></svg>',
+    // 夜晚到了：白月亮 + 4 白星
+    night: '<svg viewBox="0 0 72 60" width="60" height="50">' +
+      '<path d="M54 22 A16 16 0 1 0 54 52 A12.5 12.5 0 1 1 54 22 Z" fill="#FFFFFF"/>' +
+      '<path d="M13 12 L14 15.5 L17.5 16.5 L14 17.5 L13 21 L12 17.5 L8.5 16.5 L12 15.5 Z" fill="#FFFFFF"/>' +
+      '<path d="M28 44 L28.7 46.3 L31 47 L28.7 47.7 L28 50 L27.3 47.7 L25 47 L27.3 46.3 Z" fill="#FFFFFF"/>' +
+      '<path d="M66 20 L66.7 22.3 L69 23 L66.7 23.7 L66 26 L65.3 23.7 L63 23 L65.3 22.3 Z" fill="#FFFFFF"/>' +
+      '<path d="M10 34 L10.6 36 L12.5 36.5 L10.6 37 L10 39 L9.4 37 L7.5 36.5 L9.4 36 Z" fill="#FFFFFF"/></svg>',
+    // 深夜：白月亮 + 7 白星
+    midnight: '<svg viewBox="0 0 72 64" width="60" height="53">' +
+      '<path d="M54 24 A15 15 0 1 0 54 52 A12 12 0 1 1 54 24 Z" fill="#FFFFFF"/>' +
+      '<path d="M12 10 L12.8 12.5 L15.3 13.3 L12.8 14.1 L12 16.6 L11.2 14.1 L8.7 13.3 L11.2 12.5 Z" fill="#FFFFFF"/>' +
+      '<path d="M26 8 L26.6 10 L28.5 10.5 L26.6 11 L26 13 L25.4 11 L23.5 10.5 L25.4 10 Z" fill="#FFFFFF"/>' +
+      '<path d="M66 18 L66.7 20.3 L69 21 L66.7 21.7 L66 24 L65.3 21.7 L63 21 L65.3 20.3 Z" fill="#FFFFFF"/>' +
+      '<path d="M8 28 L8.7 30 L10.6 30.5 L8.7 31 L8 33 L7.3 31 L5.4 30.5 L7.3 30 Z" fill="#FFFFFF"/>' +
+      '<path d="M24 46 L24.7 48.3 L27 49 L24.7 49.7 L24 52 L23.3 49.7 L21 49 L23.3 48.3 Z" fill="#FFFFFF"/>' +
+      '<path d="M40 54 L40.6 56 L42.5 56.5 L40.6 57 L40 59 L39.4 57 L37.5 56.5 L39.4 56 Z" fill="#FFFFFF"/>' +
+      '<path d="M68 40 L68.6 42 L70.5 42.5 L68.6 43 L68 45 L67.4 43 L65.5 42.5 L67.4 42 Z" fill="#FFFFFF"/></svg>'
+  };
+
 
   // --- 今日祝福 ---
   const BLESSINGS = [
@@ -1639,10 +1683,11 @@
 
   function getGreeting() {
     const h = new Date().getHours();
-    if (h >= 5 && h < 11) return GREETINGS[0];   // 早安
-    if (h >= 11 && h < 17) return GREETINGS[1];  // 午安
-    if (h >= 17 && h < 22) return GREETINGS[2];  // 晚安
-    return GREETINGS[3];                          // 22-23 與 0-4 夜深
+    if (h >= 5 && h < 11) return GREETINGS[0];   // 早安 morning
+    if (h >= 11 && h < 17) return GREETINGS[1];  // 午安 noon
+    if (h >= 17 && h < 22) return GREETINGS[2];  // 晚上好 evening
+    if (h >= 22) return GREETINGS[3];            // 22-23 夜晚到了 night
+    return GREETINGS[4];                          // 0-4 深夜 midnight
   }
 
   function renderHome() {
@@ -1652,6 +1697,17 @@
     document.getElementById('greetingTime').textContent = g.time;
     document.getElementById('greetingHello').textContent = g.hello.replace('{name}', name);
     document.getElementById('greetingWords').textContent = g.words;
+
+    // V2.2: 依時段套用底色漸層 class + 裝飾（太陽雲 / 月亮星）
+    const card = document.getElementById('greetingCard');
+    if (card) {
+      card.classList.remove('gt-morning', 'gt-noon', 'gt-evening', 'gt-night', 'gt-midnight');
+      if (g.period) card.classList.add('gt-' + g.period);
+    }
+    const deco = document.getElementById('greetingDeco');
+    if (deco) {
+      deco.innerHTML = (g.period && GREETING_DECOS[g.period]) ? GREETING_DECOS[g.period] : '';
+    }
 
     // V1.1: 家人留言（每日穩定挑一則）
     renderFamilyNoteOnHome();

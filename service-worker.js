@@ -6,7 +6,7 @@
    - 改版時更新 CACHE_VERSION 即可讓舊快取自動淘汰
    ========================================================= */
 
-const CACHE_VERSION = 'v2.1.4';
+const CACHE_VERSION = 'v2.2.0';
 const APP_CACHE = 'ri-ri-an-xin-app-' + CACHE_VERSION;
 const FONT_CACHE = 'ri-ri-an-xin-fonts-' + CACHE_VERSION;
 
