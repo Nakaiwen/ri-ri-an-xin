@@ -673,7 +673,7 @@ button {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 24px;
+  padding: 44px 24px 12px;
   box-sizing: border-box;
   /* 覆蓋 button 預設樣式（空狀態用 button）*/
   background: transparent;
@@ -691,14 +691,17 @@ button {
   opacity: 0.7;
 }
 
-/* 標題（第一行，疊在日曆頂部的留白處）*/
+/* 標題（絕對定位在日曆線圈下方的紙面留白；線圈約佔底圖高度 13–20%）*/
 .countdown-title {
+  position: absolute;
+  top: 21%;
+  left: 0;
+  right: 0;
   font-family: var(--font-kai);
   font-weight: 500;
   font-size: var(--fs-base);
   letter-spacing: 0.14em;
   color: var(--text-soft);
-  margin-bottom: 18px;
   text-shadow: 0 1px 4px rgba(255, 252, 245, 0.9);
 }
 
