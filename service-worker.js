@@ -6,7 +6,7 @@
    - 改版時更新 CACHE_VERSION 即可讓舊快取自動淘汰
    ========================================================= */
 
-const CACHE_VERSION = 'v2.2.0';
+const CACHE_VERSION = 'v2.2.3';
 const APP_CACHE = 'ri-ri-an-xin-app-' + CACHE_VERSION;
 const FONT_CACHE = 'ri-ri-an-xin-fonts-' + CACHE_VERSION;
 
@@ -24,7 +24,9 @@ const APP_SHELL = [
   './icons/icon-512-maskable.png?v=2',
   './icons/apple-touch-icon.png?v=2',
   './icons/favicon.png?v=2',
-  './images/ui/countdown_calendar.jpg'
+  './images/ui/countdown_calendar.jpg',
+  './images/ui/qian_tube.png',
+  './images/ui/qian_result.jpg'
 ];
 
 // ------------------ install: 預先快取 ------------------

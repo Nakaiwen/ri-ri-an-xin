@@ -2891,22 +2891,55 @@ button {
 
 /* =========================================================
    V2.0: 今日安心籤
+   v2.2.1: 圖片底圖版——抽籤前為籤桶圖（方形），
+   抽完後為籤詩底圖（橫式），圖片即卡片框，狀態切換換底圖與比例。
    ========================================================= */
 
 .qian-card {
-  background: var(--card-bg-tinted);
+  position: relative;
   border-radius: var(--radius-md);
+  overflow: hidden;
   padding: 20px 22px;
   margin-bottom: 18px;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-soft);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  /* 圖片載入前／失敗時的底色，文字仍可讀 */
+  background-color: var(--card-bg-tinted);
+  background-size: cover;
+  background-position: center;
 }
 
-.qian-head { margin-bottom: 14px; }
+/* 抽籤前後共用籤詩底圖（橫式原比例），高度一致不跳動；
+   籤筒為去背 PNG 疊在底圖上（v2.2.2）。
+   v2.2.3: 加 max-height，桌面寬螢幕時卡片不至於過高、按鈕不掉出視窗 */
+.qian-card.qian-waiting,
+.qian-card.qian-drawn {
+  background-image: url('images/ui/qian_result.jpg');
+  aspect-ratio: 900 / 643;
+  max-height: 460px;
+}
 
-.qian-tube-zone { text-align: center; padding: 6px 0 4px; }
+.qian-head { text-align: center; margin-top: 10px; }
+
+/* 抽籤前：整張卡都是可點的抽籤區，籤桶由底圖呈現，文字沉到底部 */
+.qian-tube-zone {
+  flex: 1;
+  display: flex;
+}
+.qian-tube-zone[hidden] { display: none; }
 
 .qian-tube {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0 2px;
   background: none;
   border: none;
   cursor: pointer;
@@ -2914,68 +2947,28 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-.qian-cup {
-  position: relative;
-  display: block;
-  width: 96px;
-  height: 108px;
-  margin: 26px auto 0;
-  background: linear-gradient(180deg, var(--gold-soft), var(--gold));
-  border-radius: 10px 10px 26px 26px;
-  border: 2px solid var(--gold);
-  box-shadow: inset 0 8px 14px rgba(120, 85, 30, 0.22), var(--shadow-sm);
+.qian-tube-img {
+  flex: 1;
+  min-height: 0;
+  max-height: 170px;
+  object-fit: contain;
+  transform-origin: 50% 85%;
+  filter: drop-shadow(0 4px 8px rgba(120, 85, 30, 0.18));
 }
-
-.qian-cup-word {
-  position: absolute;
-  left: 50%;
-  top: 54%;
-  transform: translate(-50%, -50%);
-  width: 42px;
-  height: 42px;
-  line-height: 38px;
-  border: 2px solid #FFF7E6;
-  border-radius: 50%;
-  color: #FFF7E6;
-  font-size: 1.35rem;
-  font-weight: 700;
-}
-
-.qian-sticks {
-  position: absolute;
-  left: 50%;
-  top: -26px;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 5px;
-}
-
-.qian-sticks i {
-  display: block;
-  width: 7px;
-  height: 42px;
-  border-radius: 3px 3px 0 0;
-  background: linear-gradient(180deg, #E4C48A, #B98F4E);
-}
-.qian-sticks i:nth-child(2) { height: 52px; }
-.qian-sticks i:nth-child(3) { height: 36px; }
-.qian-sticks i:nth-child(4) { height: 48px; }
-.qian-sticks i:nth-child(5) { height: 40px; }
 
 .qian-tube-label {
-  display: block;
-  margin-top: 12px;
   color: var(--primary-dark);
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   letter-spacing: 0.25em;
   text-indent: 0.25em;
+  text-shadow: 0 1px 4px rgba(255, 250, 238, 0.9);
 }
 
-.qian-tube:active .qian-cup { transform: scale(0.97); }
+.qian-tube:active .qian-tube-img { transform: scale(0.97); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .qian-tube.shaking .qian-cup { animation: qianShake 0.6s ease; }
+  .qian-card.shaking .qian-tube-img { animation: qianShake 0.6s ease; }
   @keyframes qianShake {
     0%, 100% { transform: rotate(0); }
     20% { transform: rotate(-7deg); }
@@ -2990,23 +2983,30 @@ button {
   }
 }
 
+/* 抽完後：籤詩直接落在底圖的留白處（不再另畫金色籤紙盒） */
+.qian-result {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.qian-result[hidden] { display: none; }
+
 .qian-calendar {
   text-align: center;
   color: var(--text-faint);
   font-size: 0.92rem;
   letter-spacing: 0.08em;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .qian-paper {
-  background: var(--gold-bg);
-  border: 1px solid var(--gold-soft);
-  border-radius: var(--radius-sm);
-  padding: 18px 16px 14px;
+  padding: 0 12px;
   text-align: center;
 }
 
 .qian-quote {
+  font-family: var(--font-kai);
   color: var(--text);
   font-size: 1.28rem;
   font-weight: 700;

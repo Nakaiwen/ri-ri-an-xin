@@ -3911,6 +3911,9 @@
     document.getElementById('qianSource').textContent = '—— ' + r.quote[1];
     document.getElementById('qianGloss').textContent = r.quote[2];
     document.getElementById('qianTubeZone').hidden = true;
+    const card = document.getElementById('qianCard');
+    card.classList.remove('qian-waiting');
+    card.classList.add('qian-drawn');
     const res = document.getElementById('qianResult');
     res.hidden = false;
     res.classList.toggle('qian-revealed', !!animate);
@@ -3921,6 +3924,9 @@
     if (qianDrawnToday()) {
       showQianResult(false);
     } else {
+      const card = document.getElementById('qianCard');
+      card.classList.remove('qian-drawn');
+      card.classList.add('qian-waiting');
       document.getElementById('qianTubeZone').hidden = false;
       document.getElementById('qianResult').hidden = true;
       document.getElementById('qianSub').textContent = '搖一支籤，讓今天有一句好話陪著。';
@@ -3930,12 +3936,13 @@
   function wireQian() {
     const btn = document.getElementById('qianDrawBtn');
     if (!btn) return;
+    const card = document.getElementById('qianCard');
     btn.addEventListener('click', function () {
-      btn.classList.remove('shaking');
-      void btn.offsetWidth;
-      btn.classList.add('shaking');
+      card.classList.remove('shaking');
+      void card.offsetWidth;
+      card.classList.add('shaking');
       setTimeout(function () {
-        btn.classList.remove('shaking');
+        card.classList.remove('shaking');
         const first = !qianDrawnToday();
         try { localStorage.setItem(KEYS.qianDrawn, todayKey()); } catch (e) {}
         showQianResult(true);
