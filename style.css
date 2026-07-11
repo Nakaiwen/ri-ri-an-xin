@@ -2902,7 +2902,7 @@ button {
   position: relative;
   border-radius: var(--radius-md);
   overflow: hidden;
-  padding: 20px 22px;
+  padding: 16px 22px;
   margin-bottom: 18px;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-soft);
@@ -2925,6 +2925,17 @@ button {
   max-height: 460px;
 }
 
+/* 桌面：改用固定高度並關閉 aspect-ratio。
+   Safari 會把 min-height 透過 aspect-ratio 反推成寬度導致卡片橫向爆版，
+   固定高度讓寬度乖乖跟隨容器（v2.2.8） */
+@media (min-width: 600px) {
+  .qian-card.qian-waiting,
+  .qian-card.qian-drawn {
+    aspect-ratio: auto;
+    height: 380px;
+  }
+}
+
 .qian-head { text-align: center; margin-top: 10px; }
 
 /* 抽籤前：整張卡都是可點的抽籤區，籤桶由底圖呈現，文字沉到底部 */
@@ -2941,7 +2952,7 @@ button {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   padding: 4px 0 2px;
   background: none;
   border: none;
@@ -2950,10 +2961,11 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* 明確高度（隨螢幕寬度縮放、設上下限）：
+   iOS Safari 對直向 flex 裡的 img 不肯收縮，flex:1 會撐爆卡片被裁切 */
 .qian-tube-img {
-  flex: 1;
-  min-height: 0;
-  max-height: 170px;
+  height: clamp(80px, 23vw, 190px);
+  width: auto;
   object-fit: contain;
   transform-origin: 50% 85%;
   filter: drop-shadow(0 4px 8px rgba(120, 85, 30, 0.18));
