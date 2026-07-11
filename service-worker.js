@@ -6,7 +6,7 @@
    - 改版時更新 CACHE_VERSION 即可讓舊快取自動淘汰
    ========================================================= */
 
-const CACHE_VERSION = 'v2.3.6';
+const CACHE_VERSION = 'v2.4.1';
 const APP_CACHE = 'ri-ri-an-xin-app-' + CACHE_VERSION;
 const FONT_CACHE = 'ri-ri-an-xin-fonts-' + CACHE_VERSION;
 
@@ -30,7 +30,13 @@ const APP_SHELL = [
   './images/ui/btn_play.png',
   './images/ui/btn_think.png',
   './images/ui/btn_move.png',
-  './images/ui/btn_say.png'
+  './images/ui/btn_say.png',
+  './images/ui/mood_good.png',
+  './images/ui/mood_okay.png',
+  './images/ui/mood_tired.png',
+  './images/ui/mood_down.png',
+  './images/ui/mood_sleepless.png',
+  './images/ui/mood_lonely.png'
 ];
 
 // ------------------ install: 預先快取 ------------------

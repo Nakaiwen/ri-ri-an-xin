@@ -1792,16 +1792,19 @@ button {
   border-color: var(--primary-soft);
 }
 
-.mood-emoji {
-  font-size: calc(28px * var(--fs-scale));
-  line-height: 1;
+.mood-img {
+  height: clamp(40px, 13vw, 52px);
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(120, 85, 30, 0.12));
 }
 
 .mood-label {
   font-family: var(--font-kai);
   font-weight: 500;
-  font-size: calc(15px * var(--fs-scale));
+  font-size: calc(18px * var(--fs-scale));
   letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 
 .mood-response {
