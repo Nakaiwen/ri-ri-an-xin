@@ -402,37 +402,39 @@ button {
 .main-btn {
   position: relative;
   border-radius: 26px;
-  padding: 24px 18px;
+  padding: 20px 20px;
   text-align: left;
   min-height: 160px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
   transition: all 0.25s ease;
   overflow: hidden;
   border: 1px solid transparent;
+  /* 去背插畫疊在柔和底色上，靠左置中、四周留白；文字從水平中線起往右 */
+  background-size: auto 66%;
+  background-position: left 6% center;
+  background-repeat: no-repeat;
+  padding-left: 50%;
 }
 
 .main-btn:active {
   transform: scale(0.97);
 }
 
-/* 每格自己的柔和底色 + 標題色 */
-.main-btn-play  { background: #FFF1E5; border-color: rgba(201, 117, 83, 0.25); box-shadow: 0 4px 16px rgba(201, 117, 83, 0.12); }
-.main-btn-think { background: #EBF2E5; border-color: rgba(122, 156, 112, 0.30); box-shadow: 0 4px 16px rgba(122, 156, 112, 0.12); }
-.main-btn-move  { background: #F8EED4; border-color: rgba(201, 150, 80, 0.30);  box-shadow: 0 4px 16px rgba(201, 150, 80, 0.12); }
-.main-btn-say   { background: #FBEEF0; border-color: rgba(216, 148, 151, 0.35); box-shadow: 0 4px 16px rgba(216, 148, 151, 0.12); }
-
-.main-btn-emoji {
-  font-size: calc(52px * var(--fs-scale));
-  line-height: 1;
-}
+/* 每格：去背插畫 + 柔和底色 + 邊框光暈 */
+.main-btn-play  { background-color: #FFF3E8; background-image: url('images/ui/btn_play.png');  border-color: rgba(201, 117, 83, 0.22); box-shadow: 0 4px 16px rgba(201, 117, 83, 0.12); }
+.main-btn-think { background-color: #EDF3E7; background-image: url('images/ui/btn_think.png'); border-color: rgba(122, 156, 112, 0.26); box-shadow: 0 4px 16px rgba(122, 156, 112, 0.12); }
+.main-btn-move  { background-color: #FBF2DC; background-image: url('images/ui/btn_move.png');  border-color: rgba(201, 150, 80, 0.26);  box-shadow: 0 4px 16px rgba(201, 150, 80, 0.12); }
+.main-btn-say   { background-color: #FCF0F2; background-image: url('images/ui/btn_say.png');   border-color: rgba(216, 148, 151, 0.30); box-shadow: 0 4px 16px rgba(216, 148, 151, 0.12); background-size: 40% auto; }
 
 .main-btn-title {
-  margin-top: auto;          /* 把標題＋說明推到格子下方 */
   font-family: var(--font-kai);
   font-weight: 600;
-  font-size: calc(24px * var(--fs-scale));
-  letter-spacing: 0.1em;
+  font-size: calc(19px * var(--fs-scale));
+  letter-spacing: 0.08em;
+  white-space: nowrap;
   margin-bottom: 4px;
 }
 
