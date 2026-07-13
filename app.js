@@ -3907,7 +3907,7 @@
   function showQianResult(animate) {
     const r = qianOfToday();
     document.getElementById('qianCalendar').textContent = qianCalendarLine();
-    document.getElementById('qianQuote').textContent = '「' + r.quote[0] + '」';
+    document.getElementById('qianQuote').textContent = r.quote[0];
     document.getElementById('qianSource').textContent = '—— ' + r.quote[1];
     document.getElementById('qianGloss').textContent = r.quote[2];
     document.getElementById('qianTubeZone').hidden = true;
