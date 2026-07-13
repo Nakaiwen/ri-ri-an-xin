@@ -3917,7 +3917,7 @@
     const res = document.getElementById('qianResult');
     res.hidden = false;
     res.classList.toggle('qian-revealed', !!animate);
-    document.getElementById('qianSub').textContent = '今天的籤在這裡了，明天可以再搖一支新的。';
+    document.getElementById('qianSub').textContent = '今日的籤已抽，明天可以再搖一支新的。';
   }
 
   function renderQianCard() {

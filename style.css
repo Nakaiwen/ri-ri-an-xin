@@ -2941,18 +2941,34 @@ button {
 .qian-card.qian-waiting,
 .qian-card.qian-drawn {
   background-image: url('images/ui/qian_result.jpg');
+}
+
+.qian-card.qian-waiting {
   aspect-ratio: 900 / 643;
   max-height: 460px;
+}
+
+/* v2.7.1: 抽後高度跟著內容走，長籤詩的白話解不被 overflow:hidden 裁掉。
+   注意 aspect-ratio 與 min-height 不可並存（Safari 會反推成寬度爆版），
+   所以這裡先關掉比例再給保底高度 */
+.qian-card.qian-drawn {
+  aspect-ratio: auto;
+  min-height: 300px;
+  max-height: none;
 }
 
 /* 桌面：改用固定高度並關閉 aspect-ratio。
    Safari 會把 min-height 透過 aspect-ratio 反推成寬度導致卡片橫向爆版，
    固定高度讓寬度乖乖跟隨容器（v2.2.8） */
 @media (min-width: 600px) {
-  .qian-card.qian-waiting,
-  .qian-card.qian-drawn {
+  .qian-card.qian-waiting {
     aspect-ratio: auto;
     height: 380px;
+  }
+
+  /* v2.7.1: 抽後桌面同樣只給保底，內容多就長高 */
+  .qian-card.qian-drawn {
+    min-height: 380px;
   }
 }
 
