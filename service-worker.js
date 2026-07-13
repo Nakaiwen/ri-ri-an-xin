@@ -6,7 +6,7 @@
    - 改版時更新 CACHE_VERSION 即可讓舊快取自動淘汰
    ========================================================= */
 
-const CACHE_VERSION = 'v2.5.1';
+const CACHE_VERSION = 'v2.7.0';
 const APP_CACHE = 'ri-ri-an-xin-app-' + CACHE_VERSION;
 const FONT_CACHE = 'ri-ri-an-xin-fonts-' + CACHE_VERSION;
 
@@ -26,6 +26,16 @@ const APP_SHELL = [
   './icons/favicon.png?v=2',
   './images/ui/countdown_calendar.jpg',
   './images/ui/qian_tube.png',
+  './images/ui/nav_home.png',
+  './images/ui/nav_home_on.png',
+  './images/ui/nav_travel.png',
+  './images/ui/nav_travel_on.png',
+  './images/ui/nav_say.png',
+  './images/ui/nav_say_on.png',
+  './images/ui/nav_play.png',
+  './images/ui/nav_play_on.png',
+  './images/ui/nav_mine.png',
+  './images/ui/nav_mine_on.png',
   './images/ui/qian_result.jpg',
   './images/ui/btn_play.png',
   './images/ui/btn_think.png',

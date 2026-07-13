@@ -1596,7 +1596,7 @@ button {
   gap: 2px;
   padding: 8px 4px;
   border-radius: 12px;
-  color: var(--text-faint);
+  color: var(--text-soft);
   transition: all 0.2s;
 }
 
@@ -1607,6 +1607,21 @@ button {
 .nav-icon {
   font-size: calc(22px * var(--fs-scale));
   line-height: 1;
+}
+
+.nav-icon-img {
+  height: calc(24px * var(--fs-scale));
+  width: auto;
+  display: block;
+}
+
+.nav-icon-on,
+.nav-btn.active .nav-icon-off {
+  display: none;
+}
+
+.nav-btn.active .nav-icon-on {
+  display: block;
 }
 
 .nav-label {
