@@ -891,22 +891,22 @@
     { emoji: '🌷', label: '謝謝你上次來看我', text: '謝謝你上次來看我，跟你聊天的時間我都記得，很開心。' },
     { emoji: '☎️', label: '謝謝你打電話來', text: '謝謝你前幾天打電話來，聽到你的聲音覺得很安心。' },
     // 問候
-    { emoji: '🤲', label: '你最近還好嗎', text: '最近工作累不累？記得也要照顧好自己，不用太擔心我。' },
+    { emoji: '☕', label: '你最近還好嗎', text: '最近工作累不累？記得也要照顧好自己，不用太擔心我。' },
     { emoji: '👶', label: '孩子們最近好嗎', text: '孩子們最近好嗎？想念他們了，有空帶他們回來坐坐。' },
-    { emoji: '🍵', label: '記得喝水休息', text: '不管多忙，記得多喝水、好好休息。我這邊一切都好。' }
+    { emoji: '💧', label: '記得喝水休息', text: '不管多忙，記得多喝水、好好休息。我這邊一切都好。' }
   ];
 
   // --- 照顧項目 ---
   const CARE_ITEMS = [
     { type: 'water', label: '喝水', icon: '💧', desc: '現在可以喝幾口水，讓身體舒服一點。', btn: '我喝了' },
     { type: 'medicine', label: '吃藥', icon: '💊', desc: '如果到了吃藥時間，記得配溫開水。\n如果已經吃了，可以按一下記錄。', btn: '我吃好了' },
-    { type: 'bloodPressure', label: '量血壓', icon: '❤️', desc: '如果今天方便，可以量一下血壓，知道身體的狀態。', btn: '我量了' },
-    { type: 'walk', label: '散步', icon: '🚶', desc: '如果天氣和身體都可以，慢慢走幾步也很好。', btn: '我走了' },
+    { type: 'bloodPressure', label: '量血壓', icon: '🩺', desc: '如果今天方便，可以量一下血壓，知道身體的狀態。', btn: '我量了' },
+    { type: 'walk', label: '散步', icon: '👣', desc: '如果天氣和身體都可以，慢慢走幾步也很好。', btn: '我走了' },
     { type: 'rest', label: '休息', icon: '🛌', desc: '身體有點累的時候，休息也是很重要的事。', btn: '我休息了' },
     // V1.4 新增四項可選
     { type: 'reading', label: '輕量閱讀', icon: '📖', desc: '看幾頁書、翻一翻報紙，讓心思緩一緩。', btn: '我看了' },
-    { type: 'breathing', label: '呼吸練習', icon: '🌬️', desc: '慢慢吸氣、慢慢吐氣，幾次就好。\n讓身體跟著放鬆下來。', btn: '我做了' },
-    { type: 'supplement', label: '營養品補充', icon: '🧴', desc: '如果有在吃營養品，記得照平常的份量。', btn: '我吃了' },
+    { type: 'breathing', label: '呼吸練習', icon: '🙏', desc: '慢慢吸氣、慢慢吐氣，幾次就好。\n讓身體跟著放鬆下來。', btn: '我做了' },
+    { type: 'supplement', label: '營養品補充', icon: '💪', desc: '如果有在吃營養品，記得照平常的份量。', btn: '我吃了' },
     { type: 'nutrition', label: '營養進食', icon: '🍱', desc: '好好吃一頓飯，是對身體最溫柔的事。', btn: '我吃了' }
   ];
 
